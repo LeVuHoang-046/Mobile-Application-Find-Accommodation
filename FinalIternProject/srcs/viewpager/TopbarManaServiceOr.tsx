@@ -21,11 +21,21 @@ function TopbarManaServiceOr(){
             component={WaitConfirm} 
             options={{tabBarLabel:() => 
             <Text style={{ color:'blue',fontSize:14}}>Confirming</Text>}} />
+            
+            <Tab.Screen name='Deliverin' 
+            component={Delivering} 
+            options={{tabBarLabel:() => 
+            <Text style={{ color:'blue',fontSize:14}}>Delivering</Text>}} />
 
             <Tab.Screen name='Delivered' 
             component={Delivered} 
             options={{tabBarLabel:() => 
             <Text style={{ color:'green',fontSize:14}}>Delivered</Text>}} />
+
+            <Tab.Screen name='Cancelled' 
+            component={Cancelled} 
+            options={{tabBarLabel:() => 
+            <Text style={{ color:'red',fontSize:14}}>Cancelled</Text>}} />
 
         </Tab.Navigator>
     );

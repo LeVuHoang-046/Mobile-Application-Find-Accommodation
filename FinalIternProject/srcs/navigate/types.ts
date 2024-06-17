@@ -17,16 +17,18 @@ export type NavigateParamList = {
     NavigatetoReportProblem: undefined
 }
 
-export type NavigateHomeScreenParamList = {
+export type NavigateHomeScreenParamList = NavigateServiceScreenParamList& {
     NavigateNotification: undefined,
     NavigateFindPostScreen: undefined
 }
 
-export type NavigateServiceScreenParamList = {
+export  type NavigateServiceScreenParamList = {
     NavigateDesignRoomService: undefined,
     NavigateRepairService: undefined,
     NavigateLaudryService: undefined,
     NavigateWaterService: undefined,
     NavigateGasService: undefined,
     NavigateTransportService: undefined,
+    NavigatetoManaServiceOr: undefined,
+    NavigateShoppingCart: undefined,
 }

@@ -18,12 +18,13 @@ import NavigateLaudryService from '../navigate/Main/NavigateService/NavigateLaud
 import NavigateWaterService from '../navigate/Main/NavigateService/NavigateWaterService';
 import NavigateGasService from '../navigate/Main/NavigateService/NavigateGasService';
 import NavigateTransportService from '../navigate/Main/NavigateService/NavigateTransportService';
+import NavigateShoppingCart from '../navigate/Main/NavigateService/NavigateShoppingCart';
 const Stack = createNativeStackNavigator();
 
 const RootStack = ()=>{
   return (
    
-      <Stack.Navigator screenOptions={{headerShown:false}}>
+      <Stack.Navigator screenOptions={{headerShown:false, gestureDirection:'horizontal'}}>
         <Stack.Screen name='HomeViewpager' component={HomeViewpager}/>
         <Stack.Screen name='NavigateNotification' component={NavigateNotification}/>
         <Stack.Screen name='NavigateToManaPostScreen' component={NavigateToManaPostScreen} />
@@ -41,6 +42,7 @@ const RootStack = ()=>{
         <Stack.Screen name='NavigateWaterService' component={NavigateWaterService}/>
         <Stack.Screen name='NavigateGasService' component={NavigateGasService}/>
         <Stack.Screen name='NavigateTransportService' component={NavigateTransportService}/>
+        <Stack.Screen name='NavigateShoppingCart' component={NavigateShoppingCart}/>
 
       </Stack.Navigator>
  
