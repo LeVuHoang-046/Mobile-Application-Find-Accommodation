@@ -1,9 +1,9 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { ShadowStyle1 } from "../../../constants/ShadowStyle";
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import { screenWidth } from "../../../constants/WindowWidth";
+import { screenWidth, ShadowStyle1 } from "@constants";
+
 
 export const TermPolicies = () => {
     const navigation = useNavigation();

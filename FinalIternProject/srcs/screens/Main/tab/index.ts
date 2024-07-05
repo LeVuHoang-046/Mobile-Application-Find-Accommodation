@@ -1,5 +1,5 @@
-export * from './Home/HomeScreen';
-export * from './Account/AccountScreen';
-export * from './Message/MessageScreen';
-export * from './Service/ServiceScreen';
+export * from './HomeTab/HomeScreen';
+export * from './AccountTab/AccountScreen';
+export * from './MessageTab/MessageScreen';
+export * from './ServiceTab/ServiceScreen';
 

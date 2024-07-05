@@ -17,7 +17,7 @@ interface Props {
     navigation: StackNavigationProp<NavigateServiceScreenParamList>;
   }
 
- export const ServiceScreen = ({navigation}: Props) => {
+ export const ServiceScreen = () => {
     // ================HEADER NAVIGATE===============
     const NavigatetoManaServiceOr = ()=>{
         navigation.navigate("NavigatetoManaServiceOr")

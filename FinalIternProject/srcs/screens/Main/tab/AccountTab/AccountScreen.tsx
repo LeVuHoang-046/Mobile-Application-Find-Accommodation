@@ -21,7 +21,7 @@ interface SettingItem {
   subicon: string;
 }
 
- export const AccountScreen = ({ navigation }: Props)=> {
+ export const AccountScreen = ()=> {
   const NavigateToManaPost1 = ()=>{
     navigation.navigate("NavigateToManaPostScreen")
   }

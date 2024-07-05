@@ -29,21 +29,14 @@ interface Props {
     navigation: StackNavigationProp<NavigateHomeScreenParamList>;
 }
 
- export const HomeScreen = ({ navigation }: Props) => {
-    //==============================  START NAVIGATE ===================================================
-    const NavigateNotification = () => {
-        navigation.navigate("NavigateNotification");
-    }
-    const NavigateFindPostScreen = ()=>{
-        navigation.navigate("NavigateFindPostScreen");
-    }
+ export const HomeScreen = () => {
 
     // ===============MODAL SETUP==================================================
     const [modalVisible, setModalVisible] = useState(false)
 
     //==============================  START SLIDER ===================================================
     const scrollY = new Animated.Value(0);
-    const stickyTop = scrollY.interpolate({
+    const stickyTop = scrollY.interpolate({     
         inputRange:[245,265],
         outputRange:[-265,0],
         extrapolate:'clamp'
@@ -117,34 +110,7 @@ interface Props {
 //==============================  END SLIDER ===================================================
 
 //==============================  START LIST OPTION ===================================================
-    const NavigateNearbyRoom = ()=>{
-        navigation.navigate("NavigateFindPostScreen")
-    }
-
-    const NavigateTransportService = ()=> {
-        navigation.navigate('NavigateTransportService')
-    }
-
-    const NavigateGasService = ()=> {
-        navigation.navigate('NavigateGasService')
-    }
-
-    const NavigateWaterService = ()=> {
-        navigation.navigate('NavigateWaterService')
-    }
-
-    const NavigateLaudryService = ()=> {
-        navigation.navigate('NavigateLaudryService')
-    }
-
-    const NavigateRepairService = ()=> {
-        navigation.navigate('NavigateRepairService')
-    }
-
-    const NavigateDesignRoomService = ()=> {
-        navigation.navigate('NavigateDesignRoomService')
-    }
-    
+   
     const OptionItems: OptionItem[] = [
         {icon:'location-sharp', text:'Nearby rooms', action: NavigateNearbyRoom },
         {icon:'location-sharp', text:'Room posts', action: NavigateFindPostScreen }, //change action
