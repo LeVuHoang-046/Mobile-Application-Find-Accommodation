@@ -13,4 +13,4 @@ const ConfirmedSchedule = () => {
     );
 };
 
-export default ConfirmedSchedule;
+export {ConfirmedSchedule};

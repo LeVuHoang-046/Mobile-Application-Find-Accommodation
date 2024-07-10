@@ -13,4 +13,4 @@ const ConfirmingSchedule = () => {
     );
 };
 
-export default ConfirmingSchedule;
+export {ConfirmingSchedule};

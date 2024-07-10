@@ -1,15 +1,15 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { screenWidth } from '../../../constants/WindowWidth';
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { NavigateServiceScreenParamList } from "../../../navigate/types";
+import { screenWidth } from "@constants";
+
 
 
 interface Props {
-    navigation: StackNavigationProp<NavigateServiceScreenParamList>;
+    navigation: StackNavigationProp<any>;
   }
 
 export const WaterService = ({navigation}: Props) => {

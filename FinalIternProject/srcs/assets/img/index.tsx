@@ -6,17 +6,19 @@ const imageHaDong = require('./HaDong.jpg');
 const imageHaiBaTrung = require('./HaiBaTrung.jpg');
 const imageHoangMai = require('./HoangMai.jpg');
 const imageHoanKiem = require('./HoanKiem.jpg');
-const imageLongBien = require('./LongBie.jpg');
+const imageLongBien = require('./LongBien.jpg');
 const imageNamTuLiem = require('./NamTuLiem.jpg');
 const imageTayHo = require('./TayHo.jpg');
 const imageThanhTri = require('./ThanhTri.jpg');
-const imageThanhXuan = require('./ThanhXuan/jpg');
+const imageThanhXuan = require('./ThanhXuan.png');
 const bgImg1 = require('./img1.jpg');
-const bgImg2 = require('./im2.jpg');
+const bgImg2 = require('./img2.jpg');
 const bgImg3 = require('./img3.jpg');
 const bgImg4 = require('./img4.jpg');
+const avatarDefault = require('./avatar-default.png')
 
 const Images = {
+    avatarDefault,
     imageBaDinh,
     imageBacTuLiem,
     imageCauGiay,

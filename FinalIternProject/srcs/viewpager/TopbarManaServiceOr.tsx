@@ -1,11 +1,11 @@
+import Cancelled from '@navigate/TabManaServiceOr/Cancelled';
+import Delivered from '@navigate/TabManaServiceOr/Delivered';
+import Delivering from '@navigate/TabManaServiceOr/Delivering';
+import WaitConfirm from '@navigate/TabManaServiceOr/WaitConfirm';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as React from 'react';
 import { Text } from 'react-native';
-import { View } from 'react-native';
-import WaitConfirm from '../navigate/TabManaServiceOr/WaitConfirm';
-import Delivered from '../navigate/TabManaServiceOr/Delivered';
-import Delivering from '../navigate/TabManaServiceOr/Delivering';
-import Cancelled from '../navigate/TabManaServiceOr/Cancelled';
+
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -41,4 +41,4 @@ function TopbarManaServiceOr(){
     );
 }
 
-export default TopbarManaServiceOr;
+export {TopbarManaServiceOr};

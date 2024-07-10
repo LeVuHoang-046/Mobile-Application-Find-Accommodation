@@ -1,12 +1,11 @@
 import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { screenWidth } from "../../../constants/WindowWidth";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import { ShadowStyle1 } from "../../../constants/ShadowStyle";
 import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { ShadowStyle } from "../../../constants/ShadowStyle";
+import { screenWidth, ShadowStyle1 } from "@constants";
+
 export const ManaPost = () => {
     const navigation = useNavigation();
     return(

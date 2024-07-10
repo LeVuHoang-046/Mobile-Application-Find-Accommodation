@@ -1,9 +1,8 @@
+import { ConfirmedSchedule, ConfirmingSchedule, OutOfDateSchedule } from '@navigate';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as React from 'react';
 import { Text } from 'react-native';
-import ConfirmingSchedule from '../navigate/TabAppointmentSchedule/ConfirmingSchedule';
-import ConfirmedSchedule from '../navigate/TabAppointmentSchedule/ConfirmedSchedule';
-import OutOfDateSchedule from '../navigate/TabAppointmentSchedule/OutOfDateSchedule';
+
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -34,4 +33,4 @@ function TopbarSchedule(){
     );
 }
 
-export default TopbarSchedule;
+export {TopbarSchedule};

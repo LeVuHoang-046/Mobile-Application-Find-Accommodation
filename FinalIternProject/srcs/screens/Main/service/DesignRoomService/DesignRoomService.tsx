@@ -1,15 +1,14 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { screenWidth } from '../../../constants/WindowWidth';
-import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { screenWidth } from "@constants";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { NavigateServiceScreenParamList } from "../../../navigate/types";
+import React from "react";
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
+
 
 
 interface Props {
-    navigation: StackNavigationProp<NavigateServiceScreenParamList>;
+    navigation: StackNavigationProp<any>;
   }
 
 export const DesignRoomService = ({navigation}: Props) => {

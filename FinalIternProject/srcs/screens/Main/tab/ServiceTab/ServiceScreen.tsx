@@ -5,68 +5,68 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import CommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
 import React from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { NavigateServiceScreenParamList } from "../../../../navigate/types";
 import { ShadowStyle } from "../../../../constants/ShadowStyle";
+import { Box, HeaderApp } from "@component";
 
 interface ServiceItem {
     icon: string;
     text: string;
-    action: ()=>void;
+    action: () => void;
 }
 interface Props {
-    navigation: StackNavigationProp<NavigateServiceScreenParamList>;
-  }
+    navigation: StackNavigationProp<any>;
+}
 
- export const ServiceScreen = () => {
+export const ServiceScreen = () => {
     // ================HEADER NAVIGATE===============
-    const NavigatetoManaServiceOr = ()=>{
-        navigation.navigate("NavigatetoManaServiceOr")
-    }
+    // const NavigatetoManaServiceOr = ()=>{
+    //     navigation.navigate("NavigatetoManaServiceOr")
+    // }
 
-    const NavigateShoppingCart = ()=>{
-        navigation.navigate('NavigateShoppingCart')
-    }
+    // const NavigateShoppingCart = ()=>{
+    //     navigation.navigate('NavigateShoppingCart')
+    // }
 
-    // ================SLIDER NAVIGATE================
-    const NavigateDesignRoomService = ()=>{
-        navigation.navigate("NavigateDesignRoomService")
-    }
+    // // ================SLIDER NAVIGATE================
+    // const NavigateDesignRoomService = ()=>{
+    //     navigation.navigate("NavigateDesignRoomService")
+    // }
 
-    const NavigateRepairService = ()=>{
-        navigation.navigate("NavigateRepairService")
-    }
+    // const NavigateRepairService = ()=>{
+    //     navigation.navigate("NavigateRepairService")
+    // }
 
-    const NavigateLaudryService = ()=>{
-        navigation.navigate("NavigateLaudryService")
-    }
+    // const NavigateLaudryService = ()=>{
+    //     navigation.navigate("NavigateLaudryService")
+    // }
 
-    const NavigateWaterService = ()=>{
-        navigation.navigate("NavigateWaterService")
-    }
+    // const NavigateWaterService = ()=>{
+    //     navigation.navigate("NavigateWaterService")
+    // }
 
-    const NavigateGasService = ()=>{
-        navigation.navigate("NavigateGasService")
-    }
+    // const NavigateGasService = ()=>{
+    //     navigation.navigate("NavigateGasService")
+    // }
 
-    const NavigateTransportService = ()=>{
-        navigation.navigate("NavigateTransportService")
-    }
+    // const NavigateTransportService = ()=>{
+    //     navigation.navigate("NavigateTransportService")
+    // }
 
 
 
-    const ServiceItems: ServiceItem[] =[
-        {icon:'message-bookmark-outline', text:'room design consultation', action:NavigateDesignRoomService},
-        {icon:'message-bookmark-outline', text:'"Electrical and plumbing repair', action:NavigateRepairService},
-        {icon:'message-bookmark-outline', text:'Laundry', action:NavigateLaudryService},
-        {icon:'message-bookmark-outline', text:'Water container', action:NavigateWaterService},
-        {icon:'message-bookmark-outline', text:'Gas', action:NavigateGasService},
-        {icon:'message-bookmark-outline', text:'Transport', action:NavigateTransportService},
+    // const ServiceItems: ServiceItem[] =[
+    //     {icon:'message-bookmark-outline', text:'room design consultation', action:NavigateDesignRoomService},
+    //     {icon:'message-bookmark-outline', text:'"Electrical and plumbing repair', action:NavigateRepairService},
+    //     {icon:'message-bookmark-outline', text:'Laundry', action:NavigateLaudryService},
+    //     {icon:'message-bookmark-outline', text:'Water container', action:NavigateWaterService},
+    //     {icon:'message-bookmark-outline', text:'Gas', action:NavigateGasService},
+    //     {icon:'message-bookmark-outline', text:'Transport', action:NavigateTransportService},
 
-    ]
+    // ]
 
-    const RenderServiceItems: React.FC<ServiceItem> = ({icon, text, action})=>{
-        return(
-            <TouchableOpacity onPress={action} style={[styles.serviceItem,ShadowStyle]}>
+    const RenderServiceItems: React.FC<ServiceItem> = ({ icon, text, action }) => {
+        return (
+            <TouchableOpacity onPress={action} style={[styles.serviceItem, ShadowStyle]}>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                     <CommunityIcon name={icon} size={60} color={'#000'} />
                     <Text style={styles.serviceText}>{text}</Text>
@@ -75,11 +75,15 @@ interface Props {
         )
     }
 
-    return(
-        <SafeAreaView style={{flex:1}}>
-        <StatusBar backgroundColor="#ffffff" barStyle='dark-content' translucent={true}/>
-        <View style={{flex:1}}>
-            <View style={styles.headersection}>
+    return (
+        // <SafeAreaView style={{flex:1}}>
+        // <StatusBar backgroundColor="#ffffff" barStyle='dark-content' translucent={true}/>
+        <Box flex={1}>
+            <HeaderApp
+                title="Sales service"
+                isImageBg
+            />
+            {/* <View style={styles.headersection}>
                 <Text style={{fontSize:24,
                     fontWeight:'bold',color:'black',
                     alignSelf:'center',
@@ -94,37 +98,37 @@ interface Props {
                     style={{alignItems:'center',
                         padding:15}}/>
                 </TouchableOpacity>
-            </View>
-            <View style={{top:60, marginHorizontal:15}}>
-                <ScrollView 
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{height:800,backgroundColor:'#EEEEEE'}}>
-                <View style={[styles.serviceItemsContainer]}>
+            </View> */}
+            <View style={{ top: 60, marginHorizontal: 15 }}>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ height: 800, backgroundColor: '#EEEEEE' }}>
+                    {/* <View style={[styles.serviceItemsContainer]}>
                     {ServiceItems.map((item,index)=>(
                         <React.Fragment key={index}>
                         {RenderServiceItems(item)}
                         </React.Fragment>
                     ))}
-                </View>
+                </View> */}
                 </ScrollView>
 
             </View>
 
-        </View>
-        </SafeAreaView>
+        </Box>
+        // </SafeAreaView>
     )
 };
 
 const styles = StyleSheet.create({
-    headersection:{
-        width: screenWidth,
-        backgroundColor:'#ffffff',
-        height:60,
-        position:'absolute',
-        zIndex:1,
-        flexDirection:'row',
-        justifyContent:'space-between'
-    },
+    // headersection: {
+    //     width: screenWidth,
+    //     backgroundColor: '#ffffff',
+    //     height: 60,
+    //     position: 'absolute',
+    //     zIndex: 1,
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-between'
+    // },
     serviceItemsContainer: {
         width: screenWidth - 30,
         backgroundColor: '#EEEEEE',
@@ -133,7 +137,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        
+
     },
     serviceItem: {
         alignItems: 'center',

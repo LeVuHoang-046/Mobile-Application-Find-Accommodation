@@ -20,11 +20,11 @@ import {
     ShoppingCart,
     TransportService,
     WaterService,
-    
+    SearchPosting,
 
 } from './Main';
 
-const screens = {
+const Screens = {
     HomeScreen,
     MessageScreen,
     ServiceScreen,
@@ -45,5 +45,6 @@ const screens = {
     ShoppingCart,
     TransportService,
     WaterService,
+    SearchPosting
 };
-export {screens} 
+export {Screens} 

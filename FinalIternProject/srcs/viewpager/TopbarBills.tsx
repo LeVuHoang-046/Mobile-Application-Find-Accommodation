@@ -1,8 +1,9 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as React from 'react';
 import { Text } from 'react-native';
-import PayingBills from '../navigate/TabBills/PayingBills';
-import PayedBills from '../navigate/TabBills/PayedBills';
+import PayedBills from '@navigate/TabBills/PayedBills';
+import PayingBills from '@navigate/TabBills/PayingBills';
+
 
 
 
@@ -31,4 +32,4 @@ function TopbarBills(){
     );
 }
 
-export default TopbarBills;
+export {TopbarBills};

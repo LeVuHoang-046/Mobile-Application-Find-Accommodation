@@ -1,11 +1,12 @@
 import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { screenWidth } from "../../../constants/WindowWidth";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { ShadowStyle1 } from "../../../constants/ShadowStyle";
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import TopbarManaServiceOr from "../../../viewpager/TopbarManaServiceOr";
+import { screenWidth, ShadowStyle1 } from "@constants";
+import { TopbarManaServiceOr } from "@viewpager";
+
+
 
 export const ManaServiceOrder = () => {
     const navigation = useNavigation();

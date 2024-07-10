@@ -10,7 +10,7 @@ module.exports = {
         alias: {
           '@api': './srcs/api',
           '@assets': './srcs/assets',
-          '@components': './srcs/components',
+          '@component': './srcs/component',
           '@constants': './srcs/constants',
           '@firebase': './srcs/firebase',
           '@hooks': './srcs/hooks',
@@ -23,6 +23,9 @@ module.exports = {
           '@translations': './srcs/translations',
           '@utils': './srcs/utils',
           '@validates': './srcs/validates',
+          '@navigate': './srcs/navigate',
+          '@viewpager': './srcs/viewpager',
+          '@types': './srcs/types',
           // "@i18n": "./src/i18n",
           // "@routes": "./src/routes",
           // "@services": "./src/services",

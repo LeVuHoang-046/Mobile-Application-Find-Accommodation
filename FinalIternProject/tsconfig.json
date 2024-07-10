@@ -28,7 +28,7 @@
       "@*": ["srcs/*"],
       "@api/*": ["srcs/api/*"],
       "@assets/*": ["srcs/assets/*"],
-      "@components/*": ["srcs/components/*"],
+      "@component/*": ["srcs/component/*"],
       "@constants": ["srcs/constants/index"],
       "@firebase/*": ["srcs/firebase/*"],
       "@hooks/*": ["srcs/hooks/*"],

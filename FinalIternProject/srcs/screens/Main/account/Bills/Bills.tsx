@@ -4,7 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import { screenWidth, ShadowStyle1 } from "@constants";
 import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import TopbarBills from "../../../../viewpager/TopbarBills";
+import { TopbarBills } from "@viewpager";
+
  export const Bills = () => {
     const navigation = useNavigation();
     return(

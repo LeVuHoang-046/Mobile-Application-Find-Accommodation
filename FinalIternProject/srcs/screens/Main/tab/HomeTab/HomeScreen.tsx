@@ -5,9 +5,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import LinearGradient from "react-native-linear-gradient";
-import { NavigateHomeScreenParamList } from "../../../../navigate/types";
+
 import { ShadowStyle } from "../../../../constants/ShadowStyle";
 import { Images } from "@assets";
+import { AppStackParamList } from "@types";
 interface ImageItem {
     image: JSX.Element; 
   }
@@ -26,7 +27,7 @@ interface DistrictItem{
 const{width: screenWidth} = Dimensions.get('window')
 // ============NAVIGATE SETUP===============
 interface Props {
-    navigation: StackNavigationProp<NavigateHomeScreenParamList>;
+    navigation: StackNavigationProp<AppStackParamList>;
 }
 
  export const HomeScreen = () => {
@@ -111,18 +112,18 @@ interface Props {
 
 //==============================  START LIST OPTION ===================================================
    
-    const OptionItems: OptionItem[] = [
-        {icon:'location-sharp', text:'Nearby rooms', action: NavigateNearbyRoom },
-        {icon:'location-sharp', text:'Room posts', action: NavigateFindPostScreen }, //change action
-        {icon:'location-sharp', text:'Share room post', action: NavigateNearbyRoom }, // change action
-        {icon:'location-sharp', text:'Transport', action: NavigateTransportService },
-        {icon:'location-sharp', text:'Gas serviece', action: NavigateGasService },
-        {icon:'location-sharp', text:'Water container', action: NavigateWaterService },
-        {icon:'location-sharp', text:'Laudry', action: NavigateLaudryService },
-        {icon:'location-sharp', text:'Repair service', action: NavigateRepairService },
-        {icon:'location-sharp', text:'Design room service', action: NavigateDesignRoomService },
+    // const OptionItems: OptionItem[] = [
+    //     {icon:'location-sharp', text:'Nearby rooms', action: NavigateNearbyRoom },
+    //     {icon:'location-sharp', text:'Room posts', action: NavigateFindPostScreen }, //change action
+    //     {icon:'location-sharp', text:'Share room post', action: NavigateNearbyRoom }, // change action
+    //     {icon:'location-sharp', text:'Transport', action: NavigateTransportService },
+    //     {icon:'location-sharp', text:'Gas serviece', action: NavigateGasService },
+    //     {icon:'location-sharp', text:'Water container', action: NavigateWaterService },
+    //     {icon:'location-sharp', text:'Laudry', action: NavigateLaudryService },
+    //     {icon:'location-sharp', text:'Repair service', action: NavigateRepairService },
+    //     {icon:'location-sharp', text:'Design room service', action: NavigateDesignRoomService },
 
-    ]
+    // ]
 
     const RenderOptionItems: React.FC<OptionItem> = ({icon,text,action})=>{
         return(
@@ -139,34 +140,34 @@ interface Props {
 
 
 //==============================  START DISTRICT BOARD SETUP ===================================================
-    const DistrictItems: DistrictItem[] = [
-        {image: Images.imageBaDinh,
-        text:'Ba Đình',action:NavigateDesignRoomService},
-        {image: Images.imageCauGiay,
-        text:'Cầu Giấy',action:NavigateDesignRoomService},
-        {image: Images.imageDongDa,
-        text:'Đống Đa',action:NavigateDesignRoomService},
-        {image: Images.imageThanhXuan,
-        text:'Thanh Xuân',action:NavigateDesignRoomService},
-        {image: Images.imageHaiBaTrung,
-        text:'Hai Bà Trưng',action:NavigateDesignRoomService},
-        {image: Images.imageHoangMai,
-        text:'Hoàng Mai',action:NavigateDesignRoomService},
-        {image: Images.imageNamTuLiem,
-        text:'Nam Từ Liêm',action:NavigateDesignRoomService},
-        {image: Images.imageTayHo,
-        text:'Tây Hồ',action:NavigateDesignRoomService},
-        {image: Images.imageLongBien,
-        text:'Long Biên',action:NavigateDesignRoomService},
-        {image: Images.imageHoanKiem,
-        text:'Hoàn Kiếm',action:NavigateDesignRoomService},
-        {image: Images.imageThanhTri,
-        text:'Thanh Trì',action:NavigateDesignRoomService},
-        {image: Images.imageBacTuLiem,
-        text:'Bắc Từ Liêm',action:NavigateDesignRoomService},
-        {image: Images.imageHaDong,
-        text:'Hà Đông',action:NavigateDesignRoomService},
-    ]
+    // const DistrictItems: DistrictItem[] = [
+    //     {image: Images.imageBaDinh,
+    //     text:'Ba Đình',action:NavigateDesignRoomService},
+    //     {image: Images.imageCauGiay,
+    //     text:'Cầu Giấy',action:NavigateDesignRoomService},
+    //     {image: Images.imageDongDa,
+    //     text:'Đống Đa',action:NavigateDesignRoomService},
+    //     {image: Images.imageThanhXuan,
+    //     text:'Thanh Xuân',action:NavigateDesignRoomService},
+    //     {image: Images.imageHaiBaTrung,
+    //     text:'Hai Bà Trưng',action:NavigateDesignRoomService},
+    //     {image: Images.imageHoangMai,
+    //     text:'Hoàng Mai',action:NavigateDesignRoomService},
+    //     {image: Images.imageNamTuLiem,
+    //     text:'Nam Từ Liêm',action:NavigateDesignRoomService},
+    //     {image: Images.imageTayHo,
+    //     text:'Tây Hồ',action:NavigateDesignRoomService},
+    //     {image: Images.imageLongBien,
+    //     text:'Long Biên',action:NavigateDesignRoomService},
+    //     {image: Images.imageHoanKiem,
+    //     text:'Hoàn Kiếm',action:NavigateDesignRoomService},
+    //     {image: Images.imageThanhTri,
+    //     text:'Thanh Trì',action:NavigateDesignRoomService},
+    //     {image: Images.imageBacTuLiem,
+    //     text:'Bắc Từ Liêm',action:NavigateDesignRoomService},
+    //     {image: Images.imageHaDong,
+    //     text:'Hà Đông',action:NavigateDesignRoomService},
+    // ]
 
     const RenderDistrictItems: React.FC<DistrictItem> = ({image,text,action})=>{
         return(
@@ -211,7 +212,7 @@ interface Props {
                         <Icon name='location-sharp' size={25} color='#fff' style={{marginTop:10,marginLeft:10}}></Icon>
                         <Text style={{alignSelf:'center',paddingLeft:8, textAlign:'center', fontSize:16}}>Hà Nội</Text>
                     </TouchableOpacity>
-
+{/* 
                     <TouchableOpacity onPress={NavigateFindPostScreen} activeOpacity={1} style={{backgroundColor:'#EEEEEE', borderRadius:15,marginLeft:'20%', width:'70%', height:'100%'}}>
                         <Text style={{fontSize:14, marginLeft:50,textAlign:'left', marginTop:13 }}>Find Postings</Text>
                     </TouchableOpacity>
@@ -219,7 +220,7 @@ interface Props {
                     <TouchableOpacity onPress={NavigateNotification} activeOpacity={1} style={{marginLeft:7,marginTop:3}}>
                         <Icon name="notifications" size={35} color="#ccc" />
                     </TouchableOpacity>
-                                        
+                                         */}
                 </View>
 
             </Animated.View>
@@ -281,9 +282,9 @@ interface Props {
                             )}
 
                         </ScrollView>
-                        <TouchableOpacity onPress={NavigateNotification} activeOpacity={0} style={styles.notiIcon}>
+                        {/* <TouchableOpacity onPress={NavigateNotification} activeOpacity={0} style={styles.notiIcon}>
                                 <Icon name="notifications" size={35} color="#fff" />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
                         {/* ============= END HEADER ================== */}
@@ -297,9 +298,9 @@ interface Props {
                                 <Icon name='location-sharp' size={25} color='#fff' style={{marginTop:10,marginLeft:10}}></Icon>
                                 <Text style={{alignSelf:'center',paddingLeft:8, textAlign:'center', fontSize:16}}>Hà Nội</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={NavigateFindPostScreen} activeOpacity={1} style={{backgroundColor:'#EEEEEE', borderRadius:15,marginLeft:'20%', width:'80%', height:'100%'}}>
+                            {/* <TouchableOpacity onPress={NavigateFindPostScreen} activeOpacity={1} style={{backgroundColor:'#EEEEEE', borderRadius:15,marginLeft:'20%', width:'80%', height:'100%'}}>
                                 <Text style={{fontSize:14, marginLeft:50,textAlign:'left', marginTop:13 }}>Find Postings</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                                     
                         </View>
                         {/* ===================== END SEARCH BOARD ==================== */}
@@ -310,13 +311,13 @@ interface Props {
                             <ScrollView
                             horizontal
                             contentContainerStyle={{backgroundColor:'#ffffff',height:150, width:1000}}>
-                                <View style={[styles.OptionItemsContainer]}>
+                                {/* <View style={[styles.OptionItemsContainer]}>
                                     {OptionItems.map((item,index)=>(
                                     <React.Fragment key={index}>
                                     {RenderOptionItems(item)}
                                     </React.Fragment>
                                     ))}
-                                </View>
+                                </View> */}
                             </ScrollView>
                         </View>
                     </View>
@@ -332,13 +333,13 @@ interface Props {
                             <ScrollView
                             horizontal
                             contentContainerStyle={{backgroundColor:'pink',height:'100%', width:2340}}>
-                                <View style={[styles.DistrictItemsContainer]}>
+                                {/* <View style={[styles.DistrictItemsContainer]}>
                                     {DistrictItems.map((item,index)=>(
                                     <React.Fragment key={index}>
                                     {RenderDistrictItems(item)}
                                     </React.Fragment>
                                     ))}
-                                </View>
+                                </View> */}
                             </ScrollView>
                         </View>
                     </View>
@@ -512,4 +513,3 @@ const styles = StyleSheet.create({
 
 
 
-// export default HomeScreen;

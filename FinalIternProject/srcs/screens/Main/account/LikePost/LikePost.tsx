@@ -1,9 +1,9 @@
+import { screenWidth, ShadowStyle1 } from "@constants";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ShadowStyle1 } from "../../../constants/ShadowStyle";
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import { screenWidth } from "../../../constants/WindowWidth";
+
 
 export const LikedPost = () => {
     const navigation = useNavigation();

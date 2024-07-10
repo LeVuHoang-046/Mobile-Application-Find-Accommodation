@@ -13,4 +13,4 @@ const OutOfDateSchedule = () => {
     );
 };
 
-export default OutOfDateSchedule;
+export {OutOfDateSchedule};

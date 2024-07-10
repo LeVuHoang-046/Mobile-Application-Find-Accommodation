@@ -5,6 +5,7 @@ import { screenWidth } from '../../../../constants/WindowWidth';
 import FeatherIcon from "react-native-vector-icons/Feather";
 import { useIsFocused } from "@react-navigation/native";
 import { ShadowStyle, ShadowStyle1 } from "../../../../constants/ShadowStyle";
+import { Box, HeaderApp } from "@component";
 
 
 
@@ -27,9 +28,10 @@ import { ShadowStyle, ShadowStyle1 } from "../../../../constants/ShadowStyle";
 
 
     return (
-        <SafeAreaView style={{flex: 1}}>
-            <StatusBar backgroundColor="#ffffff" barStyle='dark-content' translucent={true}/>    
-            <View style={{flex: 1}}>
+
+        // <SafeAreaView style={{flex: 1}}>
+            // <StatusBar backgroundColor="#ffffff" barStyle='dark-content' translucent={true}/>    
+            <Box flex={1}>
                 <View style={[styles.headersection,ShadowStyle]}>
                     {showSearchBar ? (
                         <><TextInput
@@ -46,7 +48,11 @@ import { ShadowStyle, ShadowStyle1 } from "../../../../constants/ShadowStyle";
                                     style={{marginBottom:0}} />
                             </TouchableOpacity></>
                     ) : (
-                        <Text style={{fontSize:24, fontWeight:'bold', color:'black', alignSelf:'center', paddingLeft:15}}>Message</Text>
+                        // <Text style={{fontSize:24, fontWeight:'bold', color:'black', alignSelf:'center', paddingLeft:15}}>Message</Text>
+                        <HeaderApp
+                        title="Message"
+                        isImageBg
+                        />
                     )}
                     <TouchableOpacity onPress={showSearchBar? handleCancelPress: toggleSearchBar}>
                         {showSearchBar ? (
@@ -59,9 +65,9 @@ import { ShadowStyle, ShadowStyle1 } from "../../../../constants/ShadowStyle";
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{height:2000, backgroundColor:'#EEEEEE'}}>
                    
                 </ScrollView>
-            </View>
+            </Box>
            
-        </SafeAreaView>
+        // </SafeAreaView>
     );
 };
 
