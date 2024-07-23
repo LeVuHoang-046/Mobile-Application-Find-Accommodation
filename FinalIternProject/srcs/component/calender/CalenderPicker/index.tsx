@@ -8,7 +8,7 @@ import { Icons } from '@assets';
 import { scaler } from '@themes';
 import {Calendar, DateData} from 'react-native-calendars';
 import {MarkedDates} from 'react-native-calendars/src/types';
-import { formatUnixToDateCalender } from '@utils';
+import { formatUnixToDateCalender, formatUnixToDateString } from '@utils';
 
 type CalenderPickerProps = {
   onChange?: ((timestamp: number) => void) | undefined;
