@@ -20,7 +20,7 @@ export const CustomTabBar = ({
   return (
     <Row
       color={theme.colors.white}
-      pb={getBottomSpace() > 0 ? getBottomSpace() + scaler(18) : scaler(55)}>
+      pb={getBottomSpace() > 0 ? getBottomSpace() + scaler(18) : scaler(30)}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const isFocused = state.index === index;
@@ -71,7 +71,7 @@ const TabBarItem = ({Icon, active, onPress, label}: TabBarItemProps) => {
     return active ? colors.tint : colors.gray3;
   }, [label, active]);
   return (
-    <Box flex={1} height={scaler(60)}>
+    <Box flex={1} height={scaler(50)}>
       <ButtonBase
         onPress={onPress}
         stylePressable={styles.stylePressable}

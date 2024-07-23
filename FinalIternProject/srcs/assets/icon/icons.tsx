@@ -5,7 +5,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-
+import Awesome6Icon from 'react-native-vector-icons/FontAwesome6';
 type iconProps = {
   color?: string;
   size?: number;
@@ -27,7 +27,7 @@ const ArrowLeft = ({ size = 30, color = '#ffffff' }: iconProps) => {
   return <AntIcon name='left' size={size} color={color} />
 }
 
-const Calendar = ({ size = 30, color = '#7F8487' }: iconProps) => {
+const Calendar = ({ size = 24, color = '#7F8487' }: iconProps) => {
   return <CommunityIcon name="calendar" size={size} color={color} />
 }
 
@@ -53,7 +53,7 @@ const Location = ({ size = 30, color = 'red' }: iconProps) => {
 const ArrowDown = ({ size = 30, color = '#000' }: iconProps) => {
   return <MaterialIcon name="arrow-drop-down" size={size} color={color} />
 }
-const BackLeft = ({ size = 30, color = '#000' }: iconProps) => {
+const BackLeft = ({ size = 15, color = '#000' }: iconProps) => {
   return <IoniconsIcon name="arrow-back" size={size} color={color} />
 }
 const ShoppingCart = ({ size = 30, color = '#000' }: iconProps) => {
@@ -114,6 +114,25 @@ const AccountCircle = ({ size = 30, color = '#000' }: iconProps) => {
   return <CommunityIcon name='account-circle' size={size} color={color} />
 }
 
+const CircleX = ({ size = 14, color = '#000' }: iconProps) => {
+  return <IoniconsIcon name='close-circle-outline' size={size} color={color} />
+}
+const Eye = ({ size = 14, color = '#000' }: iconProps) => {
+  return <IoniconsIcon name='eye-outline' size={size} color={color} />
+}
+const EyeOff = ({ size = 14, color = '#000' }: iconProps) => {
+  return <IoniconsIcon name='eye-off-outline' size={size} color={color} />
+}
+const X_Mark = ({ size = 14, color = '#000' }: iconProps) => {
+  return <Awesome6Icon name='xmark' size={size} color={color} />
+}
+const Check = ({ size = 14, color = '#000' }: iconProps) => {
+  return <FeatherIcon name='check' size={size} color={color} />
+}
+const Empty = ({ size = 14, color = '#000' }: iconProps) => {
+  return <MaterialIcon name='hourglass-empty' size={size} color={color} />
+}
+
 export const Icons = {
   Home,
   Service,
@@ -147,5 +166,11 @@ export const Icons = {
   BookMark,
   AccountCircle,
   Sync,
+  CircleX,
+  Eye,
+  EyeOff,
+  X_Mark,
+  Check,
+  Empty,
 }
 

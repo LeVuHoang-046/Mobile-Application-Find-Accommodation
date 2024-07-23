@@ -1,8 +1,9 @@
 import {createStyleSheet} from 'react-native-unistyles';
-import {ColorValue} from 'react-native';
+import {ColorValue, KeyboardTypeOptions, NativeSyntheticEvent, StyleProp, TextInputFocusEventData, TextInputProps, ViewStyle} from 'react-native';
 import { scaler } from '@themes';
-import { EVariantButton } from './forms.enum';
+import { EVariantButton, EVariantInput } from './forms.enum';
 import { getVariantButtonBase } from './forms.func';
+import {Control, FieldErrors} from 'react-hook-form';
 
 
 export const stylesheetForms = createStyleSheet(theme => ({
@@ -27,3 +28,23 @@ export const stylesheetForms = createStyleSheet(theme => ({
     borderWidth: scaler(1),
   },
 }));
+
+export type InputAppProps = {
+  max?: number;
+  name: string;
+  control?: Control<any>;
+  errors?: FieldErrors<any>;
+  keyboardType?: KeyboardTypeOptions | undefined;
+  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  IconLeft?: React.FunctionComponent<any>;
+  IconRight?: React.FunctionComponent<any>;
+  variant?: EVariantInput;
+  onChangeText?: (text: string) => void;
+  valueText?: string;
+  customStyle?: StyleProp<ViewStyle>;
+  iconSize?: number;
+} & Omit<
+  TextInputProps,
+  'value' | 'onChangeText' | 'onFocus' | 'onBlur' | 'maxLength'
+>;

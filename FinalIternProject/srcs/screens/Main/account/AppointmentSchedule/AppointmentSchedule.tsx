@@ -1,117 +1,117 @@
-import { Button, Keyboard, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AntIcon from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from "@react-navigation/native";
-import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import React, { useRef, useState } from "react";
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import { screenWidth, ShadowStyle1 } from "@constants";
-import { TopbarSchedule } from "@viewpager";
+import {Icons} from '@assets';
+import {
+  Box,
+  HeaderApp,
+  InputApp,
+  LoadingComponent,
+  PageScreen,
+  performanceNavigation,
+  PerformanceNavigationHOC,
+} from '@component';
+import {
+  ColorsStatic,
+  defaultAppointmentSchedule,
+  EDetailTab,
+  screenWidth,
+} from '@constants';
+import {scaler} from '@themes';
+import {FormsAppointmentSchedule, TabPageType} from '@types';
+import React, {useCallback} from 'react';
+import {FormProvider, useForm} from 'react-hook-form';
+import {StyleSheet} from 'react-native';
+import {Confirmed, Diposited, Overdue, WaitConfirm} from './pages';
+import { TabPages } from '@component/tabs/TabPages';
 
+const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
+  navigateFinish,
+}) => {
+  const forms = useForm<FormsAppointmentSchedule>({
+    defaultValues: defaultAppointmentSchedule,
+    mode: 'onChange',
+  });
 
+  const listTab: TabPageType[] = [
+    {
+      title: 'Wait confirm',
+      keyTab: EDetailTab.First,
+    },
+    {
+      title: 'Confirmed',
+      keyTab: EDetailTab.Second,
+    },
+    {
+      title: 'Diposited',
+      keyTab: EDetailTab.Third,
+    },
+    {
+      title: 'Overdue',
+      keyTab: EDetailTab.Fourth,
+    },
+  ];
 
-export const AppointmentSchedule = () => {
-    const navigation = useNavigation();
-    const textInputRef = useRef<TextInput>(null);
-    
-    const handleSearchIconPress = () => {
-        textInputRef.current?.focus();
-    };
-    const handleUnFocus = ()=>{
-        Keyboard.dismiss();
+  const renderItem = useCallback(({item}: {item: TabPageType}) => {
+    switch (item.keyTab) {
+      case EDetailTab.First:
+        return (
+          <PageScreen>
+            <WaitConfirm />
+          </PageScreen>
+        );
+      case EDetailTab.Second:
+        return (
+          <PageScreen>
+            <Confirmed />
+          </PageScreen>
+        );
+      case EDetailTab.Third:
+        return (
+          <PageScreen>
+            <Diposited />
+          </PageScreen>
+        );
+      case EDetailTab.Fourth:
+        return (
+          <PageScreen>
+            <Overdue />
+          </PageScreen>
+        );
+      default:
+        return <></>;
     }
-    return(
-        <SafeAreaView style={{flex:1}}>
-            <StatusBar backgroundColor={'transparent'} barStyle={"dark-content"}/>
-            <TouchableWithoutFeedback onPress={handleUnFocus}>
-                <View style={{flex:1}}>
-                    {/* ===================HEADER CONTENT================ */}
-                    <View style={[styles.headercontainer, ShadowStyle1]}>
-                        <TouchableOpacity onPress={()=>navigation.goBack()} 
-                        style={{
-                            left:0,
-                            marginLeft:15,
-                            position:'absolute'}}>
-                            <AntIcon name='left' size={30} color={'#000'}/>
-                        </TouchableOpacity>
-                            <Text style={{
-                                fontSize:24,
-                                fontWeight:'bold',
-                                justifyContent:'center',
-                                marginLeft:70,
-                                color:'#000'
-                            }}>Manage schedules</Text>
-                        <TouchableOpacity style={{
-                            position:'absolute',
-                            right:0,
-                            marginRight:15
-                        }}>
-                            <CommunityIcon name="calendar" size={30} color={'#7F8487'}/>
-                        </TouchableOpacity>
+  }, []);
 
-                    </View>
-                    {/* ===================END HEADER CONTENT================ */}
-
-
-                    {/* ===================START SEARCH BAR================ */}
-                    
-                    <View style={styles.viewSearchBar}>
-                        <TextInput
-                        ref={textInputRef}
-                        placeholder="Type here..."
-                        keyboardType='default'
-                        style={styles.searchBar}
-                        />
-                        
-                        <TouchableOpacity style={{position:'absolute',left:25}} onPress={handleSearchIconPress}>
-                            <FeatherIcon name="search" 
-                                size={30} color={'#ccc'} 
-                                style={styles.searchIconContainer} />
-                        </TouchableOpacity>
-                    </View>
-                    {/* ===================END SEARCH BAR================ */}
-
-                    <View style={{backgroundColor:'#EEEEEE',height:1000,marginTop:130}}>                    
-                        <TopbarSchedule/>
-                    </View>
-                </View>
-            </TouchableWithoutFeedback> 
-        </SafeAreaView>
-    )
+  return (
+    <Box flex={1}>
+      <FormProvider {...forms}>
+        <HeaderApp title="Manage schedules" goBack IconRight={Icons.Calendar} />
+        {navigateFinish ? (
+          <Box
+            flex={1}
+            color={ColorsStatic.white}
+            ph={scaler(10)}
+            pt={scaler(16)}
+            pb={scaler(6)}
+            rowGap={scaler(12)}>
+            <InputApp
+              name="Search"
+              control={forms.control}
+              placeholder="Search here..."
+              IconRight={Icons.Search}
+            />
+            <TabPages
+            list={listTab}
+            renderItem={renderItem}
+            loading={!navigateFinish}
+            />
+          </Box>
+        ) : (
+          <LoadingComponent />
+        )}
+      </FormProvider>
+    </Box>
+  );
 };
 
-const styles = StyleSheet.create({
-    headercontainer:{
-        width: screenWidth,
-        backgroundColor:'#ffffff',
-        height:60,
-        position:'absolute',
-        flexDirection:'row',
-        alignItems:'center',
-        
-    },
-    viewSearchBar:{
-        height:80,
-        marginTop:60,
-        width:screenWidth,
-        backgroundColor:'#ffffff',
-        position:'absolute',
-        justifyContent:'center',
-        alignItems:'center',
-        flexDirection:'row'
-    },
-    searchBar:{
-        backgroundColor:'#EEEEEE',
-        height:50,
-        width:screenWidth-30,
-        borderRadius:13,
-        paddingLeft:55,
-        fontSize:16
-
-    
-    },
-    searchIconContainer:{
-       
-    }
-})
-
+export const AppointmentSchedule = performanceNavigation(
+  AppointmentScheduleScreen,
+);

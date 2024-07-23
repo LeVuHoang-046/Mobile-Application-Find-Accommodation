@@ -13,7 +13,7 @@ export const ColorsStatic = {
   gray6: '#F6F7F8',
   gray7: '#CDCDCD',
   gray8: '#ECECEC',
-  gray9: '#EFEFEF',
+  backGrounMain: '#EFEFEF',
   gray10: '#808080',
   red1: '#A0151B',
   red2: '#E60001',

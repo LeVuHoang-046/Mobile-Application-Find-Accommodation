@@ -1,55 +1,88 @@
-import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import AntIcon from 'react-native-vector-icons/AntDesign';
-import { screenWidth, ShadowStyle1 } from "@constants";
-import { TopbarManaServiceOr } from "@viewpager";
+import {
+  Box,
+  HeaderApp,
+  LoadingComponent,
+  PageScreen,
+  performanceNavigation,
+  PerformanceNavigationHOC,
+} from '@component';
+import {TabPages} from '@component/tabs/TabPages';
+import {EDetailTab, EManaServiceOrderTab} from '@constants';
+import {useNavigation} from '@react-navigation/native';
+import {TabPageType} from '@types';
+import React, {useCallback} from 'react';
+import {Cancelled, Delivered, Delivering, WaitConfirm} from './pages';
 
+const ManaServiceOrderScreen: React.FC<PerformanceNavigationHOC> = ({
+  navigateFinish,
+}) => {
+  const navigation = useNavigation();
 
+  const ListTab: TabPageType[] = [
+    {
+      title: EManaServiceOrderTab.WaitConfirm,
+      keyTab: EDetailTab.First,
+    },
+    {
+      title: EManaServiceOrderTab.Delivering,
+      keyTab: EDetailTab.Second,
+    },
+    {
+      title: EManaServiceOrderTab.Delivered,
+      keyTab: EDetailTab.Third,
+    },
+    {
+      title: EManaServiceOrderTab.Cancelled,
+      keyTab: EDetailTab.Fourth,
+    },
+  ];
 
-export const ManaServiceOrder = () => {
-    const navigation = useNavigation();
-    return(
-        <SafeAreaView style={{
-            flex:1,
-            backgroundColor:'#ffffff'
-        }}>
-            <StatusBar backgroundColor={'red'} barStyle={'dark-content'} translucent={true} />
-            <View style={{flex:1}}>
-                <View style={[styles.headercontainer, ShadowStyle1]}>
-                    <TouchableOpacity onPress={()=>navigation.goBack()} 
-                    style={{
-                        left:0,
-                        marginLeft:15,
-                        position:'absolute'}}>
-                        <AntIcon name='left' size={30} color={'#ffffff'}/>
-                    </TouchableOpacity>
-                        <Text style={{
-                            fontSize:24,
-                            fontWeight:'bold',
-                            justifyContent:'center',
-                            marginLeft:70,
-                            color:'#ffffff'
-                        }}>Order List</Text>
-                </View>
-                <View style={{backgroundColor:'#EEEEEE',height:1000,marginTop:60}}>                    
-                    <TopbarManaServiceOr/>
-                </View>
-            </View>
-
-        </SafeAreaView>
-    )
+  const renderItem = useCallback(({item}: {item: TabPageType}) => {
+    switch (item.keyTab) {
+      case EDetailTab.First:
+        return (
+          <PageScreen>
+            <WaitConfirm />
+          </PageScreen>
+        );
+      case EDetailTab.Second:
+        return (
+          <PageScreen>
+            <Delivering />
+          </PageScreen>
+        );
+      case EDetailTab.Third:
+        return (
+          <PageScreen>
+            <Delivered />
+          </PageScreen>
+        );
+      case EDetailTab.Fourth:
+        return (
+          <PageScreen>
+            <Cancelled />
+          </PageScreen>
+        );
+      default:
+        return <></>;
+    }
+  }, []);
+  return (
+    <Box flex={1}>
+      <HeaderApp title="Order List" goBack />
+      {navigateFinish ? (
+        <>
+          <TabPages
+            list={ListTab}
+            renderItem={renderItem}
+            loading={!navigateFinish}
+          />
+        </>
+      ) : (
+        <LoadingComponent />
+      )}
+    </Box>
+  );
 };
 
-const styles = StyleSheet.create({
-    headercontainer:{
-        width: screenWidth,
-        backgroundColor:'red',
-        height:60,
-        position:'absolute',
-        flexDirection:'row',
-        alignItems:'center',
-        
-    },
-})
+export const ManaServiceOrder = performanceNavigation(ManaServiceOrderScreen);

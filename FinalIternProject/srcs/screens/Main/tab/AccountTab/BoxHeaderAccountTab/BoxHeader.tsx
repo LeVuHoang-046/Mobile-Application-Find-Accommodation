@@ -15,31 +15,6 @@ export const BoxHeader: React.NamedExoticComponent = memo(() => {
                         <Icons.Setting />
                     </TouchableHighlight>
                 </Absolute>
-                {/* <Box style={styles.subHeader}> */}
-
-                {/* <View style={styles.subHeaderItem1}>
-                        <TouchableOpacity  style={styles.buttonHead1}>
-                            <TextApp style={styles.buttonHText1}>Active Wallet</TextApp>
-                        </TouchableOpacity>
-                    </View> */}
-
-                {/* <View style={styles.subHeaderItem2}>
-                        <View style={{flex:0.18}}>
-                          <TouchableOpacity>
-                              <View style={{ marginTop: 10, position:'absolute', alignSelf:'flex-start' }}>
-                                  <Icons.HeadSet size={24}/>
-                              </View>
-                          </TouchableOpacity>
-                        </View>
-
-                        <View style={{flex:0.82}}>
-                          <TouchableOpacity  style={styles.buttonHead2}>
-                              <Text style={styles.buttonHText2}>Switch Account</Text>
-                              <Icons.Sync size={22} color="red"/>
-                          </TouchableOpacity>
-                        </View>
-                    </View> */}
-                {/* </Box> */}
             </Box>
             {/* ===================== START ACCOUNT BOARD ==================== */}
             <Absolute top={scaler(145)}>
