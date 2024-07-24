@@ -4,10 +4,11 @@ import {TextInput} from 'react-native';
 import {useStyles} from 'react-native-unistyles';
 import {EVariantInput} from '../forms.enum';
 import {IconButton} from '../IconButton';
-import {Box, BoxAnimatedFade, InputAppProps, Row} from '@component';
 import {scaler} from '@themes';
 import {Icons} from '@assets';
 import {stylesheetInputApp} from './inputApp.style';
+import { InputAppProps } from '../forms.style';
+import { Box, BoxAnimatedFade, Row } from '@component/layout';
 
 export const InputApp: React.FC<InputAppProps> = ({
   name,

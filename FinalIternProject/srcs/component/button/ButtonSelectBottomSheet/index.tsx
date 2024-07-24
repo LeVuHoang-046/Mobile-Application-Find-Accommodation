@@ -1,5 +1,6 @@
 import { Icons } from '@assets';
-import { TextApp, TouchableApp } from '@component';
+import { TouchableApp } from '@component/forms';
+import { TextApp } from '@component/typography';
 import { scaler } from '@themes';
 import React, {useCallback} from 'react';
 import {Keyboard, StyleProp, ViewStyle} from 'react-native';

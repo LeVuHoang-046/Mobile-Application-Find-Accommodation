@@ -1,5 +1,7 @@
 import { Icons } from '@assets';
-import { Box, Row, TextApp, TouchableApp } from '@component';
+import { TouchableApp } from '@component/forms';
+import { Box, Row } from '@component/layout';
+import { TextApp } from '@component/typography';
 import { ColorsStatic } from '@constants';
 import { scaler, shadow } from '@themes';
 import React from 'react';

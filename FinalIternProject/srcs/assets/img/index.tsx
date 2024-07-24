@@ -16,6 +16,7 @@ const bgImg2 = require('./img2.jpg');
 const bgImg3 = require('./img3.jpg');
 const bgImg4 = require('./img4.jpg');
 const avatarDefault = require('./avatar-default.png')
+const nhaTro = require('./nhaTro.jpg');
 
 const Images = {
     avatarDefault,
@@ -36,6 +37,7 @@ const Images = {
     bgImg2,
     bgImg3,
     bgImg4,
+    nhaTro,
 };
 
 export {Images}

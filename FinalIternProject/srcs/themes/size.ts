@@ -1,4 +1,4 @@
-import { DEVICE, dimensions } from '@constants';
+import { DEVICE, dimensions } from '@constants/app';
 import {RFPercentage} from 'react-native-responsive-fontsize';
 
 

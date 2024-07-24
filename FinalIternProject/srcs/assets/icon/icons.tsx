@@ -6,6 +6,8 @@ import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Awesome6Icon from 'react-native-vector-icons/FontAwesome6';
+import FontistoIcon from 'react-native-vector-icons/Fontisto';
+import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 type iconProps = {
   color?: string;
   size?: number;
@@ -132,6 +134,19 @@ const Check = ({ size = 14, color = '#000' }: iconProps) => {
 const Empty = ({ size = 14, color = '#000' }: iconProps) => {
   return <MaterialIcon name='hourglass-empty' size={size} color={color} />
 }
+const District = ({ size = 14, color = '#000' }: iconProps) => {
+  return <CommunityIcon name='home-city' size={size} color={color} />
+}
+const Tower = ({ size = 14, color = '#000' }: iconProps) => {
+  return <CommunityIcon name='city' size={size} color={color} />
+}
+const Area = ({ size = 14, color = '#000' }: iconProps) => {
+  return <FontistoIcon name='arrow-expand' size={size} color={color} />
+}
+const UserGroup = ({ size = 14, color = '#000' }: iconProps) => {
+  return <FontAwesome6Icon name='user-group' size={size} color={color} />
+}
+
 
 export const Icons = {
   Home,
@@ -172,5 +187,9 @@ export const Icons = {
   X_Mark,
   Check,
   Empty,
+  District,
+  Tower,
+  Area,
+  UserGroup,
 }
 

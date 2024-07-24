@@ -1,9 +1,10 @@
 import { Icons } from '@assets';
-import { Row, TextApp } from '@component';
 import { FontSize, scaler } from '@themes';
 import React from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
 import { ButtonBase } from '../ButtonBase';
+import { Row } from '@component/layout';
+import { TextApp } from '@component/typography';
 
 
 export type ButtonArrowProps = {

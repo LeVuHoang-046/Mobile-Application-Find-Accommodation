@@ -1,5 +1,6 @@
 import { Icons } from '@assets';
-import { Center, TextApp } from '@component';
+import { Center } from '@component/layout';
+import { TextApp } from '@component/typography';
 import { FontSize } from '@themes';
 import React from 'react';
 import {ColorValue} from 'react-native';

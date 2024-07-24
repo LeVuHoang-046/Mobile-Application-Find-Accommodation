@@ -1,4 +1,7 @@
-import {Box, Row, TextApp, TouchableApp} from '@component';
+
+import { TouchableApp } from '@component/forms';
+import { Box, Row } from '@component/layout';
+import { TextApp } from '@component/typography';
 import {ColorsStatic} from '@constants';
 import {FontSize, scaler} from '@themes';
 import {StyleSheet} from 'react-native';

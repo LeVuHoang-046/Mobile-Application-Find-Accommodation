@@ -1,5 +1,6 @@
 import {Icons} from '@assets';
 import {
+  BottomSheetModalAppRef,
   Box,
   HeaderApp,
   InputApp,
@@ -8,25 +9,20 @@ import {
   performanceNavigation,
   PerformanceNavigationHOC,
 } from '@component';
-import {
-  ColorsStatic,
-  defaultAppointmentSchedule,
-  EDetailTab,
-  screenWidth,
-} from '@constants';
+import {TabPages} from '@component/tabs/TabPages';
+import {ColorsStatic, defaultAppointmentScheduleValue, EDetailTab} from '@constants';
 import {scaler} from '@themes';
 import {FormsAppointmentSchedule, TabPageType} from '@types';
-import React, {useCallback} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
-import {StyleSheet} from 'react-native';
 import {Confirmed, Diposited, Overdue, WaitConfirm} from './pages';
-import { TabPages } from '@component/tabs/TabPages';
 
 const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
   navigateFinish,
 }) => {
+  const modalSheetBottomApp = useRef<BottomSheetModalAppRef>(null);
   const forms = useForm<FormsAppointmentSchedule>({
-    defaultValues: defaultAppointmentSchedule,
+    defaultValues: defaultAppointmentScheduleValue,
     mode: 'onChange',
   });
 
@@ -83,7 +79,12 @@ const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
   return (
     <Box flex={1}>
       <FormProvider {...forms}>
-        <HeaderApp title="Manage schedules" goBack IconRight={Icons.Calendar} />
+        <HeaderApp
+          title="Manage schedules"
+          goBack
+          IconRight={Icons.Calendar}
+          onPressRight={() => modalSheetBottomApp.current?.open()}
+        />
         {navigateFinish ? (
           <Box
             flex={1}
@@ -99,9 +100,9 @@ const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
               IconRight={Icons.Search}
             />
             <TabPages
-            list={listTab}
-            renderItem={renderItem}
-            loading={!navigateFinish}
+              list={listTab}
+              renderItem={renderItem}
+              loading={!navigateFinish}
             />
           </Box>
         ) : (

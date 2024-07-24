@@ -1,9 +1,12 @@
 import {StyleSheet} from 'react-native';
 import {HeaderSheetPickerProps} from './BottomSheetPickerApp.type';
-import { Box, InputSheetSearchApp, Row, TextApp, TouchableApp } from '@component';
 import { scaler, shadow } from '@themes';
 import { ColorsStatic } from '@constants';
 import { Icons } from '@assets';
+import { Box, Row } from '@component/layout';
+import { TouchableApp } from '@component/forms';
+import { TextApp } from '@component/typography';
+import { InputSheetSearchApp } from '@component/InputSheetSearchApp';
 
 export const HeaderSheetPicker: React.FC<HeaderSheetPickerProps> = ({
   title,

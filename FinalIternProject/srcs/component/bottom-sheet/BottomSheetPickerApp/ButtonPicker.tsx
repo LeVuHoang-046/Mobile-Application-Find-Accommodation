@@ -1,8 +1,9 @@
 import {StyleSheet} from 'react-native';
 import {ButtonPickerProps} from './BottomSheetPickerApp.type';
-import { TextApp, TouchableApp } from '@component';
 import { ColorsStatic, HEIGHT_ITEM_PICKER } from '@constants';
 import { Icons } from '@assets';
+import { TouchableApp } from '@component/forms';
+import { TextApp } from '@component/typography';
 
 export const ButtonPicker: React.FC<ButtonPickerProps> = ({
   item,

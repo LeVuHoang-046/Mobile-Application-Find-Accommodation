@@ -1,4 +1,5 @@
-import { useBottomSheetBackHandler } from '@component';
+
+import { useBottomSheetBackHandler } from '@component/hooks';
 import { ColorsStatic, EKeySheet } from '@constants';
 import {
     BottomSheetBackdrop,

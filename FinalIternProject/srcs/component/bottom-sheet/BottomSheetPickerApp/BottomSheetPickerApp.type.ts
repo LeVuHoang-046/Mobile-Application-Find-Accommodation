@@ -1,4 +1,5 @@
-import {ButtonSelectBottomSheetProps} from '@component';
+
+import { ButtonSelectBottomSheetProps } from '@component/button';
 import {EKeySheet} from '@constants';
 import {
   FetchNextPageOptions,

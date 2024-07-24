@@ -1,57 +1,72 @@
-import { useNavigation } from "@react-navigation/native";
-import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AntIcon from 'react-native-vector-icons/AntDesign';
-import { screenWidth, ShadowStyle1 } from "@constants";
-import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TopbarBills } from "@viewpager";
+import {Icons} from '@assets';
+import {
+  Box,
+  HeaderApp,
+  LoadingComponent,
+  PageScreen,
+  performanceNavigation,
+  PerformanceNavigationHOC,
+} from '@component';
+import {defaultBillsValue, EDetailTab} from '@constants';
+import {FormsBills, TabPageType} from '@types';
+import {useCallback} from 'react';
+import {FormProvider, useForm} from 'react-hook-form';
+import {PaymentAwaited, PaymentCompleted} from './pages';
+import {TabPages} from '@component/tabs/TabPages';
 
- export const Bills = () => {
-    const navigation = useNavigation();
-    return(
-        <SafeAreaView style={{flex:1}}>
-            <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'}/>
-            <View style={{flex:1}}>
-                <View style={[styles.headercontainer, ShadowStyle1]}>
-                    <TouchableOpacity onPress={()=>navigation.goBack()} 
-                    style={{
-                        left:0,
-                        marginLeft:15,
-                        position:'absolute'}}>
-                        <AntIcon name='left' size={30} color={'#000'}/>
-                    </TouchableOpacity>
-                    <Text style={{
-                        fontSize:24,
-                        fontWeight:'bold',
-                        justifyContent:'center',
-                        marginLeft:70,
-                        color:'#000'
-                    }}>Order List</Text>
-                    <TouchableOpacity style={{
-                        position:'absolute',
-                        right:0,
-                        marginRight:15
-                    }}>
-                        <CommunityIcon name="calendar-blank" size={30} color={'#000'}/>
-                    </TouchableOpacity>
-                </View>
-                <View style={{backgroundColor:'#EEEEEE',height:1000,marginTop:60}}>                    
-                    <TopbarBills/>
-                </View>
-            </View>
-        </SafeAreaView>
-    )
-    
-};
+const BillsScreen: React.FC<PerformanceNavigationHOC> = ({navigateFinish}) => {
+  const forms = useForm<FormsBills>({
+    defaultValues: defaultBillsValue,
+    mode: 'onChange',
+  });
 
-const styles = StyleSheet.create({
-    headercontainer:{
-        width: screenWidth,
-        backgroundColor:'#ffffff',
-        height:60,
-        position:'absolute',
-        flexDirection:'row',
-        alignItems:'center',
-        
+  const ListTab: TabPageType[] = [
+    {
+      title: 'Payment awaited',
+      keyTab: EDetailTab.First,
     },
-})
+    {
+      title: 'Payment completed',
+      keyTab: EDetailTab.Second,
+    },
+  ];
+
+  const renderItem = useCallback(({item}: {item: TabPageType}) => {
+    switch (item.keyTab) {
+      case EDetailTab.First:
+        return (
+          <PageScreen>
+            <PaymentAwaited />
+          </PageScreen>
+        );
+      case EDetailTab.Second:
+        return (
+          <PageScreen>
+            <PaymentCompleted />
+          </PageScreen>
+        );
+      default:
+        return <></>;
+    }
+  }, []);
+
+  return (
+    <Box flex={1}>
+      <FormProvider {...forms}>
+        <HeaderApp title="Bills" goBack IconRight={Icons.Calendar} />
+        {navigateFinish ? (
+          <>
+            <TabPages
+              list={ListTab}
+              renderItem={renderItem}
+              loading={!navigateFinish}
+            />
+          </>
+        ) : (
+          <LoadingComponent />
+        )}
+      </FormProvider>
+    </Box>
+  );
+};
+export const Bills = performanceNavigation(BillsScreen);

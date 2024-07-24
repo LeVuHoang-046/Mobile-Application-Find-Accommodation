@@ -1,6 +1,7 @@
-import { FontSize, scaler } from "@themes";
+import { scaler } from "@themes/scaler";
 import { dimensions } from "./app";
 import { ColorsStatic } from "./Colors";
+import { FontSize } from "@themes/size";
 
 export const initItemPicker = {
     label: '',

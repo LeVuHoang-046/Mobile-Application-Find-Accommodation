@@ -1,0 +1,145 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "srcs/assets/Fonts/AntDesign.ttf",
+      "sha1": "4e77868439280fb434d4697c7b911271406c81f3"
+    },
+    {
+      "path": "srcs/assets/Fonts/Entypo.ttf",
+      "sha1": "12b5670eb178138f77285d5f2c246d3cc5fa67d6"
+    },
+    {
+      "path": "srcs/assets/Fonts/EvilIcons.ttf",
+      "sha1": "91d377ea3cf47490b256c2ed081704a7dabdae0c"
+    },
+    {
+      "path": "srcs/assets/Fonts/Feather.ttf",
+      "sha1": "e6604258b1ced5efd51360875d782fca65381d47"
+    },
+    {
+      "path": "srcs/assets/Fonts/FontAwesome.ttf",
+      "sha1": "13b1eab65a983c7a73bc7997c479d66943f7c6cb"
+    },
+    {
+      "path": "srcs/assets/Fonts/FontAwesome5_Brands.ttf",
+      "sha1": "3fa2d67cef22da5c3f3eb5730c6afbd6fecf0372"
+    },
+    {
+      "path": "srcs/assets/Fonts/FontAwesome5_Regular.ttf",
+      "sha1": "7d849a3981a716e2ba4a84634bc57d0b8054a6a3"
+    },
+    {
+      "path": "srcs/assets/Fonts/FontAwesome5_Solid.ttf",
+      "sha1": "c1b9fae262f42868c075ac865a8ab34920e20a2c"
+    },
+    {
+      "path": "srcs/assets/Fonts/FontAwesome6_Brands.ttf",
+      "sha1": "d8b3568e9d8a1d3c01c85520eb9ca0b49b72815d"
+    },
+    {
+      "path": "srcs/assets/Fonts/FontAwesome6_Regular.ttf",
+      "sha1": "2d7890e12afb77490112ec57fe47ca0688aebda2"
+    },
+    {
+      "path": "srcs/assets/Fonts/FontAwesome6_Solid.ttf",
+      "sha1": "e9ace557c3aa403307f1e7a2cef1c035d522b94b"
+    },
+    {
+      "path": "srcs/assets/Fonts/Fontisto.ttf",
+      "sha1": "c090a3ec96a3f1bb9b615c2f3f204ce0dcdcdbc3"
+    },
+    {
+      "path": "srcs/assets/Fonts/Foundation.ttf",
+      "sha1": "4b2bce6c792493a4a5716b6fec2dbefe89492c3f"
+    },
+    {
+      "path": "srcs/assets/Fonts/Ionicons.ttf",
+      "sha1": "86e07c3d974eb09099e6e5a9b3b8310303cf0feb"
+    },
+    {
+      "path": "srcs/assets/Fonts/MaterialCommunityIcons.ttf",
+      "sha1": "4c2a838b00dbb5e8bb1b368fce0de534e8eb241c"
+    },
+    {
+      "path": "srcs/assets/Fonts/MaterialIcons.ttf",
+      "sha1": "7e02c3f005532ff4d24148567c84089756a7848a"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-Black.ttf",
+      "sha1": "45732c45a85c41474a627b449b06a2477c50b5cd"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-BlackItalic.ttf",
+      "sha1": "e126dc5dab8e11149cf9a2619a51eeec56f1afab"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-Bold.ttf",
+      "sha1": "97cb4086e384a1e2e8688985b7eb8cbbc63354cb"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-BoldItalic.ttf",
+      "sha1": "4061617656058ea495a6483684d9f2a1ea5eff2c"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-ExtraBold.ttf",
+      "sha1": "eab0fa8dcde903b5fdec3bfe94c645f48cf0bf7d"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-ExtraBoldItalic.ttf",
+      "sha1": "9e579b3d29c5473a7ef497ba4adb5c252a536c7a"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-ExtraLight.ttf",
+      "sha1": "504e63dd1df7fa7f77d34b9fa85a7cc0dc848c48"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-ExtraLightItalic.ttf",
+      "sha1": "d70b63f3e56130131cb32227644ba40964440835"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-Italic.ttf",
+      "sha1": "25329363869c1fa530a6b32dfa72268c723963f8"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-Light.ttf",
+      "sha1": "25efbd3c907aa50302047815ce8049bed0b613e2"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-LightItalic.ttf",
+      "sha1": "8fbfbc6f4a485e6394593bf8b70e27d0ba9b91de"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-Medium.ttf",
+      "sha1": "6201b3d5d10905f878860861d4e7ebcca6ca3936"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-MediumItalic.ttf",
+      "sha1": "8ee9e83a95dab7a0f11d5c189f7071483ec35e82"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-Regular.ttf",
+      "sha1": "65aa946a76999c7fe9a6b4478e9c35db9c80b137"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-SemiBold.ttf",
+      "sha1": "0935586660615fe1c41fc1bc8aa3a5e0c8c744a8"
+    },
+    {
+      "path": "srcs/assets/Fonts/Mulish-SemiBoldItalic.ttf",
+      "sha1": "007622927fe66ef3fbe8fb786efb845f636f1c45"
+    },
+    {
+      "path": "srcs/assets/Fonts/Octicons.ttf",
+      "sha1": "56acefc0731f35ee23b195b1c8cb5fa94a0db97b"
+    },
+    {
+      "path": "srcs/assets/Fonts/SimpleLineIcons.ttf",
+      "sha1": "9ffb81a5a11112e292f2cc323e98486bad597599"
+    },
+    {
+      "path": "srcs/assets/Fonts/Zocial.ttf",
+      "sha1": "6a48a962b06cc3acbdfd61df0d9a34744eea5e8d"
+    }
+  ]
+}

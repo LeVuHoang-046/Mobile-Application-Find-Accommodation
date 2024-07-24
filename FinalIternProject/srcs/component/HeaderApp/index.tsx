@@ -1,5 +1,4 @@
 import { Icons, Images } from "@assets";
-import { Box, IconButton, ImageApp, Row, TextApp } from "@component";
 import { useNavigation } from "@react-navigation/native";
 import { FontSize, scaler } from "@themes";
 import { TAppNavigation } from "@types";
@@ -7,6 +6,10 @@ import React, { memo, useMemo } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useStyles } from "react-native-unistyles";
 import { stylesheet } from "./HeaderApp.style";
+import { Box, Row } from "@component/layout";
+import { ImageApp } from "@component/media";
+import { IconButton } from "@component/forms";
+import { TextApp } from "@component/typography";
 
 type HeaderAppProps = {
     title?: string;

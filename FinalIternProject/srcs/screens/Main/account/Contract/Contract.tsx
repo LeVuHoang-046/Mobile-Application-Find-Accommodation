@@ -1,118 +1,99 @@
-import { screenWidth, ShadowStyle1 } from "@constants";
-import { useNavigation } from "@react-navigation/native";
-import { TopbarContracts } from "@viewpager";
-import React, { useRef } from "react";
-import { Keyboard, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AntIcon from 'react-native-vector-icons/AntDesign';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Icons} from '@assets';
+import {
+  Box,
+  HeaderApp,
+  InputApp,
+  LoadingComponent,
+  PageScreen,
+  performanceNavigation,
+  PerformanceNavigationHOC,
+} from '@component';
+import {TabPages} from '@component/tabs/TabPages';
+import {ColorsStatic, defaultContractValue, EDetailTab} from '@constants';
+import {scaler} from '@themes';
+import {FormsContract, TabPageType} from '@types';
+import React, {useCallback} from 'react';
+import {FormProvider, useForm} from 'react-hook-form';
+import {ExpiredContract, ValidContract, WaitConfirm} from './pages';
 
+const ContractsScreen: React.FC<PerformanceNavigationHOC> = ({
+  navigateFinish,
+}) => {
+  const forms = useForm<FormsContract>({
+    defaultValues: defaultContractValue,
+    mode: 'onChange',
+  });
 
+  const listTab: TabPageType[] = [
+    {
+      title: 'Wait confirm',
+      keyTab: EDetailTab.First,
+    },
+    {
+      title: 'Valid',
+      keyTab: EDetailTab.Second,
+    },
+    {
+      title: 'Expired',
+      keyTab: EDetailTab.Third,
+    },
+  ];
 
-export const Contracts = () => {
-    const navigation = useNavigation();
-    const textInputRef = useRef<TextInput>(null);
-
-    const handleSearchIconPress = () => {
-        textInputRef.current?.focus();
-    };
-    const handleUnFocus = () => {
-        Keyboard.dismiss();
+  const renderItem = useCallback(({item}: {item: TabPageType}) => {
+    switch (item.keyTab) {
+      case EDetailTab.First:
+        return (
+          <PageScreen>
+            <WaitConfirm />
+          </PageScreen>
+        );
+      case EDetailTab.Second:
+        return (
+          <PageScreen>
+            <ValidContract />
+          </PageScreen>
+        );
+      case EDetailTab.Third:
+        return (
+          <PageScreen>
+            <ExpiredContract />
+          </PageScreen>
+        );
+      default:
+        return <></>;
     }
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <StatusBar backgroundColor={'transparent'} barStyle={"dark-content"} />
-            <TouchableWithoutFeedback onPress={handleUnFocus}>
-                <View style={{ flex: 1 }}>
-                    {/* ===================HEADER CONTENT================ */}
-                    <View style={[styles.headercontainer, ShadowStyle1]}>
-                        <TouchableOpacity onPress={() => navigation.goBack()}
-                            style={{
-                                left: 0,
-                                marginLeft: 15,
-                                position: 'absolute'
-                            }}>
-                            <AntIcon name='left' size={30} color={'#000'} />
-                        </TouchableOpacity>
-                        <Text style={{
-                            fontSize: 24,
-                            fontWeight: 'bold',
-                            justifyContent: 'center',
-                            marginLeft: 70,
-                            color: '#000'
-                        }}>Contract</Text>
-                        <TouchableOpacity style={{
-                            position: 'absolute',
-                            right: 0,
-                            marginRight: 15
-                        }}>
-                            <CommunityIcon name="calendar" size={30} color={'#000'} />
-                        </TouchableOpacity>
-
-                    </View>
-                    {/* ===================END HEADER CONTENT================ */}
-
-
-                    {/* ===================START SEARCH BAR================ */}
-
-                    <View style={styles.viewSearchBar}>
-                        <TextInput
-                            ref={textInputRef}
-                            placeholder="Type here..."
-                            keyboardType='default'
-                            style={styles.searchBar}
-                        />
-
-                        <TouchableOpacity style={{ position: 'absolute', left: 25 }} onPress={handleSearchIconPress}>
-                            <FeatherIcon name="search"
-                                size={30} color={'#ccc'}
-                                style={styles.searchIconContainer} />
-                        </TouchableOpacity>
-                    </View>
-                    {/* ===================END SEARCH BAR================ */}
-
-                    <View style={{ backgroundColor: '#EEEEEE', height: 1000, marginTop: 130 }}>
-                        <TopbarContracts />
-                    </View>
-                </View>
-            </TouchableWithoutFeedback>
-        </SafeAreaView>
-    )
+  }, []);
+  return (
+    <Box flex={1}>
+      <FormProvider {...forms}>
+        <HeaderApp title="Contract" goBack IconRight={Icons.Calendar} />
+        {navigateFinish ? (
+          <>
+            <Box
+              flex={1}
+              color={ColorsStatic.white}
+              ph={scaler(10)}
+              pt={scaler(16)}
+              pb={scaler(6)}
+              rowGap={scaler(12)}>
+              <InputApp
+                name="Search"
+                control={forms.control}
+                placeholder="Search here..."
+                IconRight={Icons.Search}
+              />
+              <TabPages
+                list={listTab}
+                renderItem={renderItem}
+                loading={!navigateFinish}
+              />
+            </Box>
+          </>
+        ) : (
+          <LoadingComponent />
+        )}
+      </FormProvider>
+    </Box>
+  );
 };
-
-const styles = StyleSheet.create({
-    headercontainer: {
-        width: screenWidth,
-        backgroundColor: '#ffffff',
-        height: 60,
-        position: 'absolute',
-        flexDirection: 'row',
-        alignItems: 'center',
-
-    },
-    viewSearchBar: {
-        height: 80,
-        marginTop: 60,
-        width: screenWidth,
-        backgroundColor: '#ffffff',
-        position: 'absolute',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        paddingBottom: 10
-    },
-    searchBar: {
-        backgroundColor: '#EEEEEE',
-        height: 50,
-        width: screenWidth - 30,
-        borderRadius: 13,
-        paddingLeft: 55,
-        fontSize: 16
-
-
-    },
-    searchIconContainer: {
-        marginBottom: 10
-    }
-})
+export const Contracts = performanceNavigation(ContractsScreen);

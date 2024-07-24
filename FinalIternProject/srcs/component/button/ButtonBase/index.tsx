@@ -1,4 +1,6 @@
-import { BoxAnimated, ButtonBaseProps, stylesheetForms } from '@component';
+
+import { ButtonBaseProps, stylesheetForms } from '@component/forms';
+import { BoxAnimated } from '@component/layout';
 import { scaler } from '@themes';
 import React, {useRef} from 'react';
 import {Pressable} from 'react-native';

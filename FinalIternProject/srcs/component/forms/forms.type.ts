@@ -1,4 +1,4 @@
-import { BoxProps } from "@component";
+import { BoxProps } from "@component/layout";
 import { StyleProp, ViewStyle } from "react-native";
 
 export type ButtonBaseProps = {
