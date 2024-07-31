@@ -18,51 +18,7 @@ interface Props {
 }
 
 export const ServiceScreen = () => {
-    // ================HEADER NAVIGATE===============
-    // const NavigatetoManaServiceOr = ()=>{
-    //     navigation.navigate("NavigatetoManaServiceOr")
-    // }
-
-    // const NavigateShoppingCart = ()=>{
-    //     navigation.navigate('NavigateShoppingCart')
-    // }
-
-    // // ================SLIDER NAVIGATE================
-    // const NavigateDesignRoomService = ()=>{
-    //     navigation.navigate("NavigateDesignRoomService")
-    // }
-
-    // const NavigateRepairService = ()=>{
-    //     navigation.navigate("NavigateRepairService")
-    // }
-
-    // const NavigateLaudryService = ()=>{
-    //     navigation.navigate("NavigateLaudryService")
-    // }
-
-    // const NavigateWaterService = ()=>{
-    //     navigation.navigate("NavigateWaterService")
-    // }
-
-    // const NavigateGasService = ()=>{
-    //     navigation.navigate("NavigateGasService")
-    // }
-
-    // const NavigateTransportService = ()=>{
-    //     navigation.navigate("NavigateTransportService")
-    // }
-
-
-
-    // const ServiceItems: ServiceItem[] =[
-    //     {icon:'message-bookmark-outline', text:'room design consultation', action:NavigateDesignRoomService},
-    //     {icon:'message-bookmark-outline', text:'"Electrical and plumbing repair', action:NavigateRepairService},
-    //     {icon:'message-bookmark-outline', text:'Laundry', action:NavigateLaudryService},
-    //     {icon:'message-bookmark-outline', text:'Water container', action:NavigateWaterService},
-    //     {icon:'message-bookmark-outline', text:'Gas', action:NavigateGasService},
-    //     {icon:'message-bookmark-outline', text:'Transport', action:NavigateTransportService},
-
-    // ]
+   
 
     const RenderServiceItems: React.FC<ServiceItem> = ({ icon, text, action }) => {
         return (
@@ -76,40 +32,18 @@ export const ServiceScreen = () => {
     }
 
     return (
-        // <SafeAreaView style={{flex:1}}>
-        // <StatusBar backgroundColor="#ffffff" barStyle='dark-content' translucent={true}/>
+
         <Box flex={1}>
             <HeaderApp
                 title="Sales service"
                 isImageBg
             />
-            {/* <View style={styles.headersection}>
-                <Text style={{fontSize:24,
-                    fontWeight:'bold',color:'black',
-                    alignSelf:'center',
-                    paddingLeft:15}}>Sales service</Text>
-                <TouchableOpacity onPress={NavigateShoppingCart} style={{position:'absolute',right:60}}>
-                    <MaterialIcon name="shopping-cart" size={30} color={'#000'}
-                    style={{alignItems:'center',
-                        padding:15}}/>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={NavigatetoManaServiceOr}>
-                    <MaterialIcon name="menu" size={30} color={'#000'}
-                    style={{alignItems:'center',
-                        padding:15}}/>
-                </TouchableOpacity>
-            </View> */}
+         
             <View style={{ top: 60, marginHorizontal: 15 }}>
                 <ScrollView
-                    showsVerticalScrollIndicator={false}
+            
                     contentContainerStyle={{ height: 800, backgroundColor: '#EEEEEE' }}>
-                    {/* <View style={[styles.serviceItemsContainer]}>
-                    {ServiceItems.map((item,index)=>(
-                        <React.Fragment key={index}>
-                        {RenderServiceItems(item)}
-                        </React.Fragment>
-                    ))}
-                </View> */}
+                   
                 </ScrollView>
 
             </View>

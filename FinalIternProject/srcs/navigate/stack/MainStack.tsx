@@ -83,6 +83,10 @@ const MainStackComponent = memo(() => {
                     name={RouteMain.WaterService}
                     component={Screens.WaterService}
                 />
+                 <MainStack.Screen
+                    name={RouteMain.SearchForNews}
+                    component={Screens.SearchForNews}
+                />
             </MainStack.Navigator>
             <StatusBar barStyle="dark-content" />
         </>

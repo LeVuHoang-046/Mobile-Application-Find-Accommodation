@@ -1,27 +1,31 @@
 import {
   Box,
-  BoxDetail,
   HeaderApp,
   LoadingComponent,
   performanceNavigation,
   PerformanceNavigationHOC,
 } from '@component';
-import {BoxInformation} from '@component/box/BoxInformation';
-import {screenWidth} from '@constants';
-import {scaler} from '@themes';
-import {StyleSheet} from 'react-native';
+import {FlatListApp} from '@component/FlatListApp';
+import {useCallback} from 'react';
+import {BoxLikedPost} from './BoxLikePost';
 
 export const LikedPostScreen: React.FC<PerformanceNavigationHOC> = ({
   navigateFinish,
 }) => {
+  const renderItem = useCallback(({item}: {item: any}) => {
+    return <BoxLikedPost item={item} />;
+  }, []);
+
   return (
     <Box flex={1}>
       <HeaderApp title="Liked Post" goBack />
       {navigateFinish ? (
         <>
-          <BoxDetail p={scaler(10)} m={scaler(10)}>
-            <BoxInformation />
-          </BoxDetail>
+          <FlatListApp
+            data={Array(10).fill(0)}
+            renderItem={renderItem}
+            refreshing={false}
+          />
         </>
       ) : (
         <LoadingComponent />
@@ -31,14 +35,3 @@ export const LikedPostScreen: React.FC<PerformanceNavigationHOC> = ({
 };
 
 export const LikedPost = performanceNavigation(LikedPostScreen);
-
-const styles = StyleSheet.create({
-  headercontainer: {
-    width: screenWidth,
-    backgroundColor: 'red',
-    height: 60,
-    position: 'absolute',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});

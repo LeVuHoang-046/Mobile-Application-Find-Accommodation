@@ -14,3 +14,5 @@ export * from './bottom-sheet';
 export * from './hooks';
 export * from './BottomSheetModalApp';
 export * from './EmptyData';
+export * from './modal';
+export* from './LinearGradientShadow';

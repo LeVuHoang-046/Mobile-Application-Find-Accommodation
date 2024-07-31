@@ -10,3 +10,8 @@ export enum EKeySheet {
     Name = 'name',
     Code = 'code',
 }
+
+export enum ESort {
+    ASC = 'ASC',
+    DESC = 'DESC',
+}

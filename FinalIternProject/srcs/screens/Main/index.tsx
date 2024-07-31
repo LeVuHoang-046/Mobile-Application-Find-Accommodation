@@ -6,6 +6,7 @@ export * from './service';
 export * from './Notification';
 export * from './ShoppingCart';
 export * from './SearchPosting';
+export * from './home';
 
 
 

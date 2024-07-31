@@ -1,4 +1,5 @@
-import { ItemPickerDateType } from "./common";
+import { ESort } from "@constants";
+import { ItemPickerDateType, ItemPickerType } from "./common";
 
 export type FormsAppointmentSchedule = {
     search: string;
@@ -11,4 +12,15 @@ export type FormsBills = {
 
 export type FormsContract = {
     time: ItemPickerDateType;
+}
+
+export type FormsSearchForNews = {
+    price: ItemPickerType;
+    sortBy: ItemPickerType;
+    area: ItemPickerType;
+    roomType: ItemPickerType;
+    postType: ItemPickerType;
+    amentitiesType: ItemPickerType;
+    interior: ItemPickerType;
+    sort: ESort;
 }

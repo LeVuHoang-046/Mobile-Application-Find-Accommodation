@@ -51,7 +51,7 @@ import { Box, HeaderApp } from "@component";
                         // <Text style={{fontSize:24, fontWeight:'bold', color:'black', alignSelf:'center', paddingLeft:15}}>Message</Text>
                         <HeaderApp
                         title="Message"
-                        isImageBg
+                        
                         />
                     )}
                     <TouchableOpacity onPress={showSearchBar? handleCancelPress: toggleSearchBar}>

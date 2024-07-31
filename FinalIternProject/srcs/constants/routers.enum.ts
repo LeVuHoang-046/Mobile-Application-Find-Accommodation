@@ -25,6 +25,7 @@ export enum RouteMain {
     TermPolicies = 'term_policies',
     TransportService = 'transport_service',
     WaterService = 'water_service',
+    SearchForNews = 'search_for_news',
 
 }
 

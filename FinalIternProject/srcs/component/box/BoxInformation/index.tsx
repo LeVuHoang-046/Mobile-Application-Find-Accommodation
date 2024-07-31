@@ -1,29 +1,30 @@
 import {Icons, Images} from '@assets';
-import {Box, Row} from '@component/layout';
+import {Absolute, Box, Row} from '@component/layout';
 import {ImageApp} from '@component/media';
 import {TextApp} from '@component/typography';
 import {ColorsStatic} from '@constants';
 import {FontSize, scaler} from '@themes';
-import {StyleProp, TextStyle, ViewStyle} from 'react-native';
+import {ImageProps, StyleProp, TextStyle, ViewStyle} from 'react-native';
 import {createStyleSheet, useStyles} from 'react-native-unistyles';
 
 export type BoxInformationProps = {
-  img?: string;
+  source?: StyleProp<ImageProps>;
   tilte?: string;
-  price?: number;
+  price?: string;
   location?: string;
   district?: string;
   buildingName?: string;
-  area?: number;
-  numberPeople?: number;
+  area?: string;
+  numberPeople?: string;
   style?: StyleProp<ViewStyle>;
   styleTitle?: StyleProp<TextStyle>;
   stylePrice?: StyleProp<TextStyle>;
   styleOther?: StyleProp<TextStyle>;
+  isLiked?: boolean;
 };
 
 export const BoxInformation: React.FC<BoxInformationProps> = ({
-  img,
+  source = Images.nhaTro,
   tilte,
   price,
   location,
@@ -35,52 +36,76 @@ export const BoxInformation: React.FC<BoxInformationProps> = ({
   styleTitle,
   stylePrice,
   styleOther,
+  isLiked = false,
 }) => {
-  const {styles,theme} = useStyles(stylesheet);
+  const {styles, theme} = useStyles(stylesheet);
 
   return (
-      <Row 
-      columnGap={scaler(15)} 
-      p={scaler(5)}
-      style={style}>
-        <Box height={scaler(120)} width={scaler(100)}>
-          <ImageApp source={Images.nhaTro} style={styles.image} />
-        </Box>
-        <Box rowGap={scaler(3)} flex={1}>
-          <TextApp style={styles.titleText} size={FontSize.Font14} weight={700}>
-            Khai truong toa nha moi King Kong. Full do noi that
-          </TextApp>
+    <Row columnGap={scaler(15)} style={style}>
+      <Box height={scaler(120)} width={scaler(100)}>
+        <ImageApp source={source} style={styles.image} />
+      </Box>
+      <Box rowGap={scaler(3)} flex={1}>
+        <TextApp
+          style={[styles.titleText, styleTitle]}
+          size={FontSize.Font14}
+          weight={700}>
+          {tilte}
+        </TextApp>
+        <TextApp
+          size={FontSize.Font14}
+          color={ColorsStatic.red2}
+          style={stylePrice}
+          weight={700}>
+          {price}
+        </TextApp>
+        <Row>
+          <Icons.LocationHome size={12} color={ColorsStatic.red1} />
           <TextApp
-            size={FontSize.Font14}
-            color={ColorsStatic.red2}
-            weight={700}>
-            Tu 1.500.000d/thang
+            style={[styles.textOther, styleOther]}
+            numberOfLines={1}
+            ellipsizeMode="tail">
+            {location}
           </TextApp>
-          <Row>
-            <Icons.LocationHome size={12} color={ColorsStatic.red1} />
-            <TextApp style={styles.textOther}>
-              Phuong kim ma, Quan Ba dinh, Ha Noi
-            </TextApp>
-          </Row>
-          <Row>
-            <Icons.District size={12} />
-            <TextApp style={styles.textOther}>Quan Dong Da</TextApp>
-          </Row>
+        </Row>
+        <Row>
+          <Icons.District size={12} />
+          <TextApp style={[styles.textOther, styleOther]}>{district}</TextApp>
+        </Row>
+        {buildingName && (
           <Row>
             <Icons.Tower size={14} />
-            <TextApp style={styles.textOther}>Ten toa nha: CHH 10</TextApp>
-          </Row>
-          <Row>
-            <Icons.Area size={11} />
-            <TextApp style={styles.textOther} pr={scaler(12)}>
-              6m2
+            <TextApp style={[styles.textOther, styleOther]}>
+              {buildingName}
             </TextApp>
-            <Icons.UserGroup size={11} />
-            <TextApp style={styles.textOther}>1</TextApp>
           </Row>
-        </Box>
-      </Row>
-    // </Box>
+        )}
+        <Row>
+          {area && (
+            <>
+              <Icons.Area size={11} />
+              <TextApp style={[styles.textOther, styleOther]} pr={scaler(12)}>
+                {area}
+              </TextApp>
+            </>
+          )}
+          {numberPeople && (
+            <>
+              <Icons.UserGroup size={11} />
+              <TextApp style={[styles.textOther, styleOther]}>
+                {numberPeople}
+              </TextApp>
+            </>
+          )}
+        </Row>
+
+        {isLiked ? (
+          <Absolute bottom={5} right={5}>
+            <Icons.Heart size={20} color={ColorsStatic.red2} />
+          </Absolute>
+        ) : null}
+      </Box>
+    </Row>
   );
 };
 

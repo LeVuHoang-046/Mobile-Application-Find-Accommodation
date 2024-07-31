@@ -8,6 +8,8 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Awesome6Icon from 'react-native-vector-icons/FontAwesome6';
 import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
+import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+
 type iconProps = {
   color?: string;
   size?: number;
@@ -146,6 +148,35 @@ const Area = ({ size = 14, color = '#000' }: iconProps) => {
 const UserGroup = ({ size = 14, color = '#000' }: iconProps) => {
   return <FontAwesome6Icon name='user-group' size={size} color={color} />
 }
+const Heart = ({ size = 14, color = '#000' }: iconProps) => {
+  return <AntIcon name='heart' size={size} color={color} />
+}
+const Dot = ({ size = 14, color = '#000' }: iconProps) => {
+  return <IconEntypo name='dot-single' size={size} color={color} />
+}
+const GenderFemale = ({ size = 14, color = '#E90074' }: iconProps) => {
+  return <SimpleIcon name='symbol-female' size={size} color={color} />
+}
+const GenderMale = ({ size = 14, color = '#06D001' }: iconProps) => {
+  return <IoniconsIcon name='male' size={size} color={color} />
+}
+const GenderMaleFemale = ({ size = 14, color = '#AF47D2' }: iconProps) => {
+  return <IoniconsIcon name='male-female' size={size} color={color} />
+}
+const ArrowSortByDown = ({ size = 14, color = '#FF0000' }: iconProps) => {
+  return <AntIcon name='arrowdown' size={size} color={color} />
+}
+const Adjusment = ({ size = 20, color = '#000' }: iconProps) => {
+  return <FontAwesome6Icon name='sliders' size={size} color={color} />
+}
+const ArrowSortByUp = ({ size = 14, color = '#000' }: iconProps) => {
+  return <AntIcon name='arrowup' size={size} color={color} />
+}
+const MoneyRange = ({ size = 14, color = '#000' }: iconProps) => {
+  return <FontAwesome6Icon name='sack-dollar' size={size} color={color} />
+}
+
+
 
 
 export const Icons = {
@@ -191,5 +222,15 @@ export const Icons = {
   Tower,
   Area,
   UserGroup,
+  Heart,
+  Dot,
+  GenderFemale,
+  GenderMale,
+  GenderMaleFemale,
+  ArrowSortByDown,
+  Adjusment,
+  ArrowSortByUp,
+  MoneyRange,
+
 }
 

@@ -21,6 +21,7 @@ import {
     TransportService,
     WaterService,
     SearchPosting,
+    SearchForNews,
 
 } from './Main';
 
@@ -45,6 +46,7 @@ const Screens = {
     ShoppingCart,
     TransportService,
     WaterService,
-    SearchPosting
+    SearchPosting,
+    SearchForNews,
 };
 export {Screens} 

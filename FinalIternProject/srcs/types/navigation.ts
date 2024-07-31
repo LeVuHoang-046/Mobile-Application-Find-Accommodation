@@ -36,6 +36,7 @@ export type AppStackParamList = {
     [RouteMain.TermPolicies]: undefined;
     [RouteMain.TransportService]: undefined;
     [RouteMain.WaterService]: undefined;
+    [RouteMain.SearchForNews]: undefined;
 
 };
 export type TAppNavigation<T extends RouterScreen> = NativeStackNavigationProp<

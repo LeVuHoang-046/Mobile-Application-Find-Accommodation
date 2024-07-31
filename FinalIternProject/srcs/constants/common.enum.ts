@@ -3,4 +3,10 @@ export enum EDetailTab {
     Second = 1,
     Third = 2,
     Fourth = 3,
-  }
+}
+
+export enum EGender {
+  Male = 'Male',
+  Female = 'Female',
+  MaleFemale = 'Male/Femle',
+}

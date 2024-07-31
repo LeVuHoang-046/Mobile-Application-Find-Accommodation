@@ -1,51 +1,65 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import AntIcon from 'react-native-vector-icons/AntDesign';
-import { screenWidth, ShadowStyle1 } from "@constants";
-import { TopbarReportProblem } from "@viewpager";
+import {
+  Box,
+  HeaderApp,
+  LoadingComponent,
+  PageScreen,
+  performanceNavigation,
+  PerformanceNavigationHOC,
+} from '@component';
+import {EDetailTab} from '@constants';
+import {TabPageType} from '@types';
+import {useCallback} from 'react';
+import {Finished, Requesting} from './pages';
+import {TabPages} from '@component/tabs/TabPages';
 
-
-
-export const ReportProblem = () => {
-    const navigation = useNavigation();
-    return(
-        <SafeAreaView style={{flex:1}}>
-            <View style={{flex:1}}>
-                <View style={[styles.headercontainer, ShadowStyle1]}>
-                    <TouchableOpacity onPress={()=>navigation.goBack()} 
-                    style={{
-                        left:0,
-                        marginLeft:15,
-                        position:'absolute'}}>
-                        <AntIcon name='left' size={30} color={'#000'}/>
-                    </TouchableOpacity>
-                        <Text style={{
-                            fontSize:24,
-                            fontWeight:'bold',
-                            justifyContent:'center',
-                            marginLeft:70,
-                            color:'#000'
-                        }}>Report Problem</Text>
-                </View>
-                <View style={{backgroundColor:'#EEEEEE',height:1000,marginTop:60}}>                    
-                    <TopbarReportProblem/>
-                </View>
-            </View>
-        </SafeAreaView>
-    )
-    
-};
-
-const styles = StyleSheet.create({
-    headercontainer:{
-        width: screenWidth,
-        backgroundColor:'red',
-        height:60,
-        position:'absolute',
-        flexDirection:'row',
-        alignItems:'center',
-        
+const ReportProblemScreen: React.FC<PerformanceNavigationHOC> = ({
+  navigateFinish,
+}) => {
+  const list: TabPageType[] = [
+    {
+      title: 'Requesting',
+      keyTab: EDetailTab.First,
     },
-})
+    {
+      title: 'Finished',
+      keyTab: EDetailTab.Second,
+    },
+  ];
 
+  const renderItem = useCallback(({item}: {item: TabPageType}) => {
+    switch (item.keyTab) {
+      case EDetailTab.First:
+        return (
+          <PageScreen>
+            <Requesting />
+          </PageScreen>
+        );
+      case EDetailTab.Second:
+        return (
+          <PageScreen>
+            <Finished />
+          </PageScreen>
+        );
+      default:
+        return <></>;
+    }
+  }, []);
+
+  return (
+    <Box flex={1}>
+      <HeaderApp title="Report problem" goBack />
+      {navigateFinish ? (
+        <>
+          <TabPages
+            list={list}
+            renderItem={renderItem}
+            loading={!navigateFinish}
+          />
+        </>
+      ) : (
+        <LoadingComponent />
+      )}
+    </Box>
+  );
+};
+export const ReportProblem = performanceNavigation(ReportProblemScreen);
