@@ -30,7 +30,7 @@ export const BoxHeader: React.NamedExoticComponent = memo(() => {
               0123456789
             </TextApp>
           </Box>
-          <Icons.ArrowRight size={22} color="#000" />
+          <Icons.ArrowRight size={22} color={ColorsStatic.black} />
         </TouchableApp>
       </Absolute>
     </>

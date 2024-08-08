@@ -5,6 +5,9 @@ import {Box, Row, TextApp, TouchableApp} from '@component';
 import {FontSize, scaler} from '@themes';
 import {Icons} from '@assets';
 import {stylesheet} from '../index.style';
+import {useNavigation} from '@react-navigation/native';
+import {TAppNavigation} from '@types';
+import {RouteMain, RouteTab} from '@constants';
 // import {Icon} from 'react-native-vector-icons/Icon';
 
 type HeaderSearchAnimationProps = {
@@ -15,6 +18,7 @@ type HeaderSearchAnimationProps = {
 export const HeaderSearchAnimation: React.NamedExoticComponent<HeaderSearchAnimationProps> =
   memo(({onPress, scrollY}) => {
     const {styles, theme} = useStyles(stylesheet);
+    const navigation = useNavigation<TAppNavigation<RouteTab.HomeTab>>();
 
     //==============================  START SLIDER ===================================================
     //   const scrollY = new Animated.Value(0);
@@ -28,6 +32,14 @@ export const HeaderSearchAnimation: React.NamedExoticComponent<HeaderSearchAnima
       inputRange: [225, 275],
       extrapolate: 'clamp',
     });
+
+    const handleNavigate = () => {
+      navigation.navigate(RouteMain.SearchForNews);
+    };
+
+    const onPressNotification = () => [
+      navigation.navigate(RouteMain.Notification)
+    ]
 
     return (
       <Animated.View
@@ -47,18 +59,21 @@ export const HeaderSearchAnimation: React.NamedExoticComponent<HeaderSearchAnima
               </TextApp>
             </Row>
           </TouchableApp>
-          <Row flex={1}  zIndex={0} left={scaler(-15)}>
+          <Row flex={1} zIndex={0} left={scaler(-15)}>
             <TouchableApp
+              onPress={handleNavigate}
               activeOpacity={1}
-              style={[styles.headerSearchBar, {width:scaler(265), marginRight:scaler(5)}]}>
+              style={[
+                styles.headerSearchBar,
+                {width: scaler(265), marginRight: scaler(5)},
+              ]}>
               <TextApp size={FontSize.Font14} color={theme.colors.gray10}>
                 Find Postings
               </TextApp>
             </TouchableApp>
             <TouchableOpacity
-              // onPress={NavigateNotification}
-              activeOpacity={1}
-              >
+              onPress={onPressNotification}
+              activeOpacity={1}>
               <Icons.Notification size={35} color={theme.colors.gray1} />
             </TouchableOpacity>
           </Row>

@@ -1,15 +1,15 @@
 import {Icons} from '@assets';
 import {Absolute, Box, Row, TextApp, TouchableApp} from '@component';
 import {ColorsStatic, RouteMain} from '@constants';
+import {useNavigation} from '@react-navigation/native';
 import {FontSize, scaler, shadow} from '@themes';
-import React, {memo, useCallback, useRef} from 'react';
+import {TAppNavigation} from '@types';
+import React, {memo, useRef} from 'react';
 import {ScrollView} from 'react-native';
 import {useStyles} from 'react-native-unistyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {stylesheet} from '../../index.style';
 import {ModalDetail, ModalDetailHeaderBoard} from '../ModalDetail';
-import {useNavigation} from '@react-navigation/native';
-import {TAppNavigation} from '@types';
 
 type OptionItem = {
   icon: string;
@@ -26,6 +26,7 @@ export const BoxHeaderBoard: React.NamedExoticComponent<BoxHeaderBoardProps> =
     const {styles} = useStyles(stylesheet);
 
     const modalDetailRef = useRef<ModalDetailHeaderBoard>(null);
+    const navigation = useNavigation<TAppNavigation<RouteMain.SearchForNews>>();
 
     const OptionItems: OptionItem[] = [
       {icon: 'location-sharp', text: 'Nearby rooms'},
@@ -57,7 +58,6 @@ export const BoxHeaderBoard: React.NamedExoticComponent<BoxHeaderBoardProps> =
         </TouchableApp>
       );
     };
-    const navigation = useNavigation<TAppNavigation<RouteMain.SearchForNews>>();
 
     const handleNavigate = () => {
       navigation.navigate(RouteMain.SearchForNews);

@@ -26,6 +26,9 @@ export enum RouteMain {
     TransportService = 'transport_service',
     WaterService = 'water_service',
     SearchForNews = 'search_for_news',
+    DetailRoom = 'detail_room',
+    ImageRoomDetail = 'image_room_detail',
+    LandlordInformationDetail = 'landlord_information_detail',
 
 }
 

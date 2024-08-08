@@ -20,6 +20,7 @@ type HeaderAppProps = {
     onPressRight?: () => void;
     onPressRightSecond?: () => void;
     goBack?: boolean;
+    hideBorder?: boolean;
 };
 
 export const HeaderApp: React.NamedExoticComponent<HeaderAppProps> = memo(
@@ -29,6 +30,7 @@ export const HeaderApp: React.NamedExoticComponent<HeaderAppProps> = memo(
         IconRight,
         IconRightSecond,
         goBack = false,
+        hideBorder = false,
         onPressLeft,
         onPressRight,
         onPressRightSecond,
@@ -46,8 +48,8 @@ export const HeaderApp: React.NamedExoticComponent<HeaderAppProps> = memo(
             <Box
                 width={'100%'}
                 color={colors.white}
-                borderBottomWidth={isImageBg ? 0 : 1}
-                borderBottomColor={isImageBg ? undefined : colors.gray4}>
+                borderBottomWidth={ hideBorder ? 0 : isImageBg ? 0 : 1}
+                borderBottomColor={ hideBorder? undefined : isImageBg ? undefined : colors.gray4}>
                 {isImageBg ? (
                     <ImageApp source={Images.bgImg1} style={styles.image} />
 

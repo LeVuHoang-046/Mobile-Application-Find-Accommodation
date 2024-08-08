@@ -4,3 +4,7 @@ export * from './BoxInformation';
 export * from './BoxButtonChooseCity';
 export * from './BoxShowMore';
 export * from './BoxInformationVertical';
+export * from './BoxButtonsForm';
+export * from './BoxRoomDetailInformation';
+export * from './BoxInformationRoomNumber';
+export *from './BoxInformationIconService';

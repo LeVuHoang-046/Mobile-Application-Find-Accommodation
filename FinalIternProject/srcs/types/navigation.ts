@@ -3,6 +3,10 @@ import { RouteMain, RouteTab } from "@constants";
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
+type HaveImgParams = {
+ images?: string[];
+ activeIndex: number;
+}
 
 type RouterScreen = 
 // RouteAuth | 
@@ -37,6 +41,9 @@ export type AppStackParamList = {
     [RouteMain.TransportService]: undefined;
     [RouteMain.WaterService]: undefined;
     [RouteMain.SearchForNews]: undefined;
+    [RouteMain.DetailRoom]: undefined;
+    [RouteMain.ImageRoomDetail]: HaveImgParams;
+    [RouteMain.LandlordInformationDetail]: undefined;
 
 };
 export type TAppNavigation<T extends RouterScreen> = NativeStackNavigationProp<

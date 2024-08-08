@@ -63,7 +63,7 @@ export const InputApp: React.FC<InputAppProps> = ({
         borderRadius={scaler(5)}
         borderColor={theme.colors.gray4}
         borderWidth={1}>
-        <Box>{!!IconLeft && <IconLeft color={ColorStatusInput} />}</Box>
+        <Box pl={scaler(5)}>{!!IconLeft && <IconLeft size={iconSize} color={ColorStatusInput} />}</Box>
         <Row color={theme.colors.white} flex={1}>
           <TextInput
             placeholder={placeholder}

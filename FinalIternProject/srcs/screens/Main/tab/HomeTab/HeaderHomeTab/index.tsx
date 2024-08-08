@@ -1,11 +1,13 @@
 import {Icons, Images} from '@assets';
 import {Box, ImageApp, TouchableApp} from '@component';
-import {ColorsStatic, screenWidth} from '@constants';
+import {ColorsStatic, RouteMain, RouteTab, screenWidth} from '@constants';
 import {memo, useEffect, useRef, useState} from 'react';
 import {Animated, ScrollView} from 'react-native';
 import {useStyles} from 'react-native-unistyles';
 import {stylesheet} from '../index.style';
 import {BoxHeaderBoard} from './BoxHeaderBoard';
+import {useNavigation} from '@react-navigation/native';
+import {TAppNavigation} from '@types';
 
 type ImageItem = {
   image: JSX.Element;
@@ -19,6 +21,12 @@ type HeaderHomeTabProps = {
 export const HeaderHomeTab: React.NamedExoticComponent<HeaderHomeTabProps> =
   memo(({onPress, scrollY}) => {
     const {styles} = useStyles(stylesheet);
+    const navigation = useNavigation<TAppNavigation<RouteTab.HomeTab>>();
+
+    const onPressNotification = () => {
+      navigation.navigate(RouteMain.Notification);
+    };
+
     const HandleScroll = (e: {nativeEvent?: any}) => {
       if (!e || !e.nativeEvent) {
         return;
@@ -36,10 +44,8 @@ export const HeaderHomeTab: React.NamedExoticComponent<HeaderHomeTabProps> =
     };
     const [imageList, SetImageList] = useState<ImageItem[]>([]);
     const StepCarousel = useRef<ScrollView>(null);
- 
 
     useEffect(() => {
-      //load data tu sever
       const data = [
         {
           image: <ImageApp style={styles.slide} source={Images.bgImg1} />,
@@ -70,7 +76,7 @@ export const HeaderHomeTab: React.NamedExoticComponent<HeaderHomeTabProps> =
           if (index === imageList.length) {
             index = 0;
           }
-        }, 3000); // 3 seconds
+        }, 3000);
         return () => clearInterval(intervalId);
       }
     }, [imageList, screenWidth]);
@@ -92,12 +98,14 @@ export const HeaderHomeTab: React.NamedExoticComponent<HeaderHomeTabProps> =
               <Box key={index.toString()}>{e.image}</Box>
             ))}
           </ScrollView>
-          <TouchableApp activeOpacity={0} style={styles.notiIcon}>
+          <TouchableApp
+            onPress={onPressNotification}
+            activeOpacity={0}
+            style={styles.notiIcon}>
             <Icons.Notification size={35} color={ColorsStatic.white} />
           </TouchableApp>
         </Box>
         <BoxHeaderBoard onPress={onPress} />
-   
       </>
     );
   });

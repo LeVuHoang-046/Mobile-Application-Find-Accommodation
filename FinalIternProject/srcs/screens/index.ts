@@ -22,6 +22,9 @@ import {
     WaterService,
     SearchPosting,
     SearchForNews,
+    DetailRoom,
+    ImageRoomDetail,
+    LandlordInformationDetail,
 
 } from './Main';
 
@@ -48,5 +51,8 @@ const Screens = {
     WaterService,
     SearchPosting,
     SearchForNews,
+    DetailRoom,
+    ImageRoomDetail,
+    LandlordInformationDetail,
 };
 export {Screens} 

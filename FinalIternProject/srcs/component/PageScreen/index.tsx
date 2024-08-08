@@ -22,7 +22,7 @@ export const PageScreen: React.FC<React.PropsWithChildren<PageScreenProps>> = ({
       <ScrollView
         bounces={false}
         style={styles.scroll}
-        // showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={[
           styles.contentContainerStyle,
           contentContainerStyle,
@@ -36,11 +36,11 @@ export const PageScreen: React.FC<React.PropsWithChildren<PageScreenProps>> = ({
 const stylesheet = createStyleSheet({
   scroll: {
     flex: 1,
-    marginTop: scaler(10),
+    // marginTop: scaler(10),
   },
   contentContainerStyle: {
     paddingHorizontal: scaler(10),
-    rowGap: scaler(10),
+    rowGap: scaler(6),
     paddingBottom: scaler(40),
   },
 });

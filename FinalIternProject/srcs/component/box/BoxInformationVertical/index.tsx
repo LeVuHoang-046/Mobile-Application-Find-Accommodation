@@ -58,7 +58,7 @@ export const BoxInformationVertical: React.FC<BoxInformationVerticalProps> = ({
     }
   };
   return (
-    <TouchableApp style={[ styles.buttonContainer, style]}>
+    <Box style={[ styles.buttonContainer, style]}>
       <Box height={scaler(90)}>
         <ImageApp source={source} style={styles.image} />
       </Box>
@@ -139,7 +139,7 @@ export const BoxInformationVertical: React.FC<BoxInformationVerticalProps> = ({
           )}
         </Row>
       </Box>
-    </TouchableApp>
+    </Box>
   );
 };
 const stylesheet = createStyleSheet(() => ({

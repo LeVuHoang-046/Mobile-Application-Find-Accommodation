@@ -8,22 +8,27 @@ import {
   performanceNavigation,
   PerformanceNavigationHOC,
   Row,
+  TextApp,
+  TouchableApp,
   TouchableIconApp,
 } from '@component';
 import {ColorsStatic, defaultSearchForNewsValue} from '@constants';
 import {scaler} from '@themes';
 import {FormsSearchForNews} from '@types';
-import {useCallback} from 'react';
+import {useCallback, useRef} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
 import {useStyles} from 'react-native-unistyles';
 import {BoxSearchForNews} from './BoxSearchForNews';
 import {FlatListApp} from '@component/FlatListApp';
 import {StyleSheet} from 'react-native';
+import {LineApp} from '@component/LineApp';
+import { ModalDetail, ModalDetailSearchForNewsProps } from './ModalDetail';
 
 const SearchForNewsScreen: React.FC<PerformanceNavigationHOC> = ({
   navigateFinish,
 }) => {
   const {theme} = useStyles();
+  const modalDetailRef = useRef<ModalDetailSearchForNewsProps>(null);
   const forms = useForm<FormsSearchForNews>({
     defaultValues: defaultSearchForNewsValue,
     mode: 'onChange',
@@ -32,6 +37,10 @@ const SearchForNewsScreen: React.FC<PerformanceNavigationHOC> = ({
   const renderItem = useCallback(({item}: {item: any}) => {
     return <BoxSearchForNews item={item} />;
   }, []);
+
+  const handlePressModalDetail = useCallback(() => {
+     modalDetailRef.current?.show();
+  },[])
   return (
     <Box flex={1}>
       <FormProvider {...forms}>
@@ -42,20 +51,24 @@ const SearchForNewsScreen: React.FC<PerformanceNavigationHOC> = ({
               color={ColorsStatic.white}
               ph={scaler(10)}
               pt={scaler(16)}
-              pb={scaler(6)}
-              rowGap={scaler(12)}>
+              pb={scaler(6)}>
               <Row>
                 <InputApp
                   name="search"
                   control={forms.control}
                   placeholder="search news"
+                  IconLeft={Icons.Search}
+                  iconSize={20}
                 />
               </Row>
               <Row justify="space-between">
                 <TouchableIconApp
-                  IconLeft={<Icons.MoneyRange color={theme.colors.tint} />}
-                  title="Price range"
+                  title="Area: Ho Chi Minh"
+                  IconLeft={<Icons.Location size={14} />}
+                  IconRight={<Icons.ArrowDown color={ColorsStatic.gray1} />}
+                  onPress={handlePressModalDetail}
                 />
+
                 <ButtonSort
                   title="Sort by"
                   sort={forms.watch('sort')}
@@ -70,14 +83,15 @@ const SearchForNewsScreen: React.FC<PerformanceNavigationHOC> = ({
               numColumns={2}
               contentContainerStyle={styles.flatList}
               columnWrapperStyle={styles.columnWrapper}
-              // ItemSeparatorComponent={ItemSeparatorComponent}
             />
           </Box>
         ) : (
           <LoadingComponent />
         )}
+          <ModalDetail ref={modalDetailRef} />
       </FormProvider>
     </Box>
+    
   );
 };
 const styles = StyleSheet.create({
