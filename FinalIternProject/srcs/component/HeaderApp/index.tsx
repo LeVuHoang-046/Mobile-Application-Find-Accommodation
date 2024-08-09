@@ -15,8 +15,8 @@ type HeaderAppProps = {
     title?: string;
     isImageBg?: boolean;
     onPressLeft?: () => void;
-    IconRight?: React.FunctionComponent<any>;
-    IconRightSecond?: React.FunctionComponent<any>;
+    IconRight?: React.ReactNode;
+    IconRightSecond?: React.ReactNode;
     onPressRight?: () => void;
     onPressRightSecond?: () => void;
     goBack?: boolean;
@@ -59,7 +59,7 @@ export const HeaderApp: React.NamedExoticComponent<HeaderAppProps> = memo(
                     <Row width={WidthIcon} height={'100%'}>
                         {navigation?.canGoBack() && goBack ? (
                             <IconButton
-                                IconSvg={Icons.BackLeft}
+                                IconSvg={<Icons.BackLeft/>}
                                 stylePressable={styles.buttonIcon(true)}
                                 height="100%"
                                 onPress={() => {

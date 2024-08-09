@@ -1,90 +1,74 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { screenWidth } from '../../../../constants/WindowWidth';
-import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-import CommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
-import React from "react";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ShadowStyle } from "../../../../constants/ShadowStyle";
-import { Box, HeaderApp } from "@component";
-
-interface ServiceItem {
-    icon: string;
-    text: string;
-    action: () => void;
-}
-interface Props {
-    navigation: StackNavigationProp<any>;
-}
+import {Images} from '@assets';
+import {
+  Box,
+  ButtonChooseServiceProps,
+  HeaderApp,
+  ListButtonServiceTab,
+  PageScreen,
+} from '@component';
+import { RouteMain, RouteTab } from '@constants';
+import { useNavigation } from '@react-navigation/native';
+import {scaler} from '@themes';
+import { TAppNavigation } from '@types';
+import React from 'react';
+import {createStyleSheet, useStyles} from 'react-native-unistyles';
 
 export const ServiceScreen = () => {
-   
+  const {styles} = useStyles(stylesheet);
 
-    const RenderServiceItems: React.FC<ServiceItem> = ({ icon, text, action }) => {
-        return (
-            <TouchableOpacity onPress={action} style={[styles.serviceItem, ShadowStyle]}>
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <CommunityIcon name={icon} size={60} color={'#000'} />
-                    <Text style={styles.serviceText}>{text}</Text>
-                </View>
-            </TouchableOpacity>
-        )
-    }
+  const navigation = useNavigation<TAppNavigation<RouteTab.ServiceTab>>();
 
-    return (
 
-        <Box flex={1}>
-            <HeaderApp
-                title="Sales service"
-                isImageBg
-            />
-         
-            <View style={{ top: 60, marginHorizontal: 15 }}>
-                <ScrollView
-            
-                    contentContainerStyle={{ height: 800, backgroundColor: '#EEEEEE' }}>
-                   
-                </ScrollView>
+  const list: ButtonChooseServiceProps[] = [
+    {
+      image: Images.designRoom,
+      title: 'Room design consultation',
+      onPress: () => navigation.navigate(RouteMain.DesignRoomService)
+    },
+    {
+      image: Images.waterElectricRepair,
+      title: 'Repair service',
+      onPress: () => navigation.navigate(RouteMain.RepairService)
+    },
+    {
+      image: Images.laudryService,
+      title: 'Laudry service',
+      onPress: () => navigation.navigate(RouteMain.LaundryService)
+    },
+    {
+      image: Images.waterService,
+      title: 'Water service',
+      onPress: () => navigation.navigate(RouteMain.WaterService)
+    },
+    {
+      image: Images.gas,
+      title: 'Gas Service',
+      onPress: () => navigation.navigate(RouteMain.GasService)
+    },
+    {
+      image: Images.transportSerice,
+      title: 'Transportation service',
+      onPress: () => navigation.navigate(RouteMain.TransportService)
+    },
+    {
+      image: Images.decord,
+      title: 'Cheap furniture',
+      onPress: () => navigation.navigate(RouteMain.DesignRoomService)
+    },
+  ];
 
-            </View>
-
-        </Box>
-        // </SafeAreaView>
-    )
+  return (
+    <Box flex={1}>
+      <HeaderApp title="Sales service" />
+      <PageScreen contentContainerStyle={styles.container}>
+        <ListButtonServiceTab list={list} />
+      </PageScreen>
+    </Box>
+  );
 };
 
-const styles = StyleSheet.create({
-    // headersection: {
-    //     width: screenWidth,
-    //     backgroundColor: '#ffffff',
-    //     height: 60,
-    //     position: 'absolute',
-    //     zIndex: 1,
-    //     flexDirection: 'row',
-    //     justifyContent: 'space-between'
-    // },
-    serviceItemsContainer: {
-        width: screenWidth - 30,
-        backgroundColor: '#EEEEEE',
-        marginTop: 15,
-        borderRadius: 20,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-
-    },
-    serviceItem: {
-        alignItems: 'center',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        backgroundColor: '#ffffff',
-        width: (screenWidth - 50) / 2, // Adjust item width here
-        borderRadius: 15,
-        marginVertical: 10
-    },
-    serviceText: {
-        fontSize: 16,
-        marginLeft: 20,
-        color: '#000'
-    },
-})
+const stylesheet = createStyleSheet({
+  container: {
+    marginTop: scaler(10),
+  },
+});

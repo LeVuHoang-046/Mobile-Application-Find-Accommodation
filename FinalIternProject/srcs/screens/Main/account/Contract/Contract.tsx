@@ -66,7 +66,7 @@ const ContractsScreen: React.FC<PerformanceNavigationHOC> = ({
   return (
     <Box flex={1}>
       <FormProvider {...forms}>
-        <HeaderApp title="Contract" goBack IconRight={Icons.Calendar} />
+        <HeaderApp title="Contract" goBack IconRight={<Icons.Calendar/>} />
         {navigateFinish ? (
           <>
             <Box

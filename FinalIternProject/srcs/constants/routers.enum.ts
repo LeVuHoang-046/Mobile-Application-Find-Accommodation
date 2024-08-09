@@ -29,6 +29,8 @@ export enum RouteMain {
     DetailRoom = 'detail_room',
     ImageRoomDetail = 'image_room_detail',
     LandlordInformationDetail = 'landlord_information_detail',
+    ProductDetails = 'product_details',
+    ImageProductDetails = 'image_product_details',
 
 }
 

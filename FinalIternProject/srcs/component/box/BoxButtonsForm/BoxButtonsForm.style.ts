@@ -16,10 +16,12 @@ export const stylesheet = createStyleSheet({
     backgroundColor: ColorsStatic.tint,
     borderRadius: scaler(6),
     marginTop: scaler(15),
+    // flex: 1
   },
 
   buttonScheduleOrder:{
     paddingHorizontal: scaler(24),
+    flex:1
   },
   buttonReportAndChat: {
     paddingHorizontal: scaler(12),

@@ -26,7 +26,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
       styleButton={styleButton}
       onPress={onPress}>
       <Center height={scaler(30)} p={scaler(12)} {...props}>
-        {!!IconSvg ? <IconSvg /> : null}
+        {!!IconSvg ? IconSvg : null}
         {!!IconElement ? IconElement : null}
       </Center>
     </ButtonBase>

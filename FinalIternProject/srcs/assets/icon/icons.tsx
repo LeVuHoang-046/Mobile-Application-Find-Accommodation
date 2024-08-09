@@ -69,7 +69,7 @@ const ArrowDown = ({size = 30, color = '#000'}: iconProps) => {
 const BackLeft = ({size = 15, color = '#000'}: iconProps) => {
   return <IoniconsIcon name="arrow-back" size={size} color={color} />;
 };
-const ShoppingCart = ({size = 30, color = '#000'}: iconProps) => {
+const ShoppingCart = ({size = 20, color = '#000'}: iconProps) => {
   return <MaterialIcon name="shopping-cart" size={size} color={color} />;
 };
 const Menu = ({size = 30, color = '#000'}: iconProps) => {
@@ -301,6 +301,9 @@ const Pencil = ({size = 20, color = '#EB5B00'}: iconProps) => {
 const Email = ({size = 20, color = '#EB5B00'}: iconProps) => {
   return <CommunityIcon name="email" size={size} color={color} />;
 };
+const ShoppingCartPlus = ({size = 20, color = '#EB5B00'}: iconProps) => {
+  return <CommunityIcon name="cart-plus" size={size} color={color} />;
+};
 
 export const Icons = {
   Home,
@@ -387,4 +390,5 @@ export const Icons = {
   Toilet,
   Pencil,
   Email,
+  ShoppingCartPlus,
 };

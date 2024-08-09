@@ -96,6 +96,14 @@ const MainStackComponent = memo(() => {
           name={RouteMain.LandlordInformationDetail}
           component={Screens.LandlordInformationDetail}
         />
+        <MainStack.Screen
+          name={RouteMain.ProductDetails}
+          component={Screens.ProductDetails}
+        />
+        <MainStack.Screen
+          name={RouteMain.ImageProductDetails}
+          component={Screens.ImageProductDetails}
+        />
       </MainStack.Navigator>
       <StatusBar barStyle="dark-content" />
     </>

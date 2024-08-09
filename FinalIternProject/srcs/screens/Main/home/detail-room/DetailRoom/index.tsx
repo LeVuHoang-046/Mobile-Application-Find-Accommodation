@@ -14,12 +14,11 @@ const DetailRoomScreen: React.FC<PerformanceNavigationHOC> = ({
 }) => {
   return (
     <Box flex={1}>
-      <HeaderApp title="Detail room" goBack IconRight={Icons.HeartOutLine} />
+      <HeaderApp title="Detail room" goBack IconRight={<Icons.HeartOutLine/>} />
       {navigateFinish ? (
         <>
           <BoxRoomDetail item={null} />
-
-          <BoxButtonsForm />
+          <BoxButtonsForm titleBetweenButton='Chat' />
         </>
       ) : (
         <LoadingComponent />

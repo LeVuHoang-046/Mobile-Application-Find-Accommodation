@@ -53,7 +53,7 @@ const BillsScreen: React.FC<PerformanceNavigationHOC> = ({navigateFinish}) => {
   return (
     <Box flex={1}>
       <FormProvider {...forms}>
-        <HeaderApp title="Bills" goBack IconRight={Icons.Calendar} />
+        <HeaderApp title="Bills" goBack IconRight={<Icons.Calendar/>} />
         {navigateFinish ? (
           <>
             <TabPages

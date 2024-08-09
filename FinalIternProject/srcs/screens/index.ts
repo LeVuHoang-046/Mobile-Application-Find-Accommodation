@@ -25,6 +25,8 @@ import {
     DetailRoom,
     ImageRoomDetail,
     LandlordInformationDetail,
+    ProductDetails,
+    ImageProductDetails,
 
 } from './Main';
 
@@ -54,5 +56,7 @@ const Screens = {
     DetailRoom,
     ImageRoomDetail,
     LandlordInformationDetail,
+    ProductDetails,
+    ImageProductDetails,
 };
 export {Screens} 

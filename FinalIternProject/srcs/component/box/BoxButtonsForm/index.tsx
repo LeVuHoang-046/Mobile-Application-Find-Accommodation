@@ -19,17 +19,23 @@ export type BoxButtonsFormProps = {
   onPressRightButton?: () => void;
   insetBtn?: boolean;
   boxShadow?: boolean;
+  iconLeft?: React.ReactNode;
+  iconBetween?: React.ReactNode;
+  iconRight?: React.ReactNode;
 };
 
 export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
   titleLeftButton = 'Report',
-  titleBetweenButton = 'Chat',
+  titleBetweenButton,
   titleRightButton = 'Scheduling a room viewing',
   onPressLeftButton,
   onPressRightButton,
   styleBtn,
   insetBtn = true,
   boxShadow = true,
+  iconLeft = <Icons.AlertOutLine color={ColorsStatic.tint} size={19} />,
+  iconBetween = <Icons.Message size={21} color={ColorsStatic.tint} />,
+  iconRight = <Icons.Calendar size={20} color={ColorsStatic.white} />,
 }) => {
   const {styles} = useStyles(stylesheet);
 
@@ -49,8 +55,7 @@ export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
       bottom={0}
       left={0}
       right={0}
-      style={shadowContent}
-      >
+      style={shadowContent}>
       <Row>
         <TouchableApp
           onPress={onPressLeftButton}
@@ -61,7 +66,7 @@ export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
             styleBtn,
           ]}>
           <Row columnGap={scaler(7)}>
-            <Icons.AlertOutLine color={ColorsStatic.tint} size={19} />
+            {iconLeft}
             <TextApp
               style={[
                 styles.txtSubmit,
@@ -73,24 +78,29 @@ export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
             </TextApp>
           </Row>
         </TouchableApp>
-        <TouchableApp
-          onPress={onPressRightButton}
-          style={[
-            styles.buttonSubmit,
-            styles.buttonReportAndChat,
-            insetButton,
-            styleBtn,
-          ]}>
-          <Row columnGap={scaler(5)}>
-            <Icons.Message size={21} color={ColorsStatic.tint} />
-            <TextApp style={[
-                styles.txtSubmit,
-                {
-                  color: ColorsStatic.tint,
-                },
-              ]}>{titleBetweenButton}</TextApp>
-          </Row>
-        </TouchableApp>
+        {titleBetweenButton && (
+          <TouchableApp
+            onPress={onPressRightButton}
+            style={[
+              styles.buttonSubmit,
+              styles.buttonReportAndChat,
+              insetButton,
+              styleBtn,
+            ]}>
+            <Row columnGap={scaler(5)}>
+              {iconBetween}
+              <TextApp
+                style={[
+                  styles.txtSubmit,
+                  {
+                    color: ColorsStatic.tint,
+                  },
+                ]}>
+                {titleBetweenButton}
+              </TextApp>
+            </Row>
+          </TouchableApp>
+        )}
         <TouchableApp
           onPress={onPressRightButton}
           style={[
@@ -99,11 +109,10 @@ export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
             insetButton,
             styleBtn,
           ]}>
-            <Row columnGap={scaler(5)}>
-              <Icons.Calendar size={20} color={ColorsStatic.white}/>
-          <TextApp style={styles.txtSubmit}>{titleRightButton}</TextApp>
-            </Row>
-
+          <Row columnGap={scaler(5)}>
+            {iconRight}
+            <TextApp pv={scaler(2)} style={styles.txtSubmit}>{titleRightButton}</TextApp>
+          </Row>
         </TouchableApp>
       </Row>
     </Box>

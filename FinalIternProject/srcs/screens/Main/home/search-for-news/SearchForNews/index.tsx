@@ -44,7 +44,7 @@ const SearchForNewsScreen: React.FC<PerformanceNavigationHOC> = ({
   return (
     <Box flex={1}>
       <FormProvider {...forms}>
-        <HeaderApp title="Search for news" goBack IconRight={Icons.Adjusment} />
+        <HeaderApp title="Search for news" goBack IconRight={<Icons.Adjusment/>} />
         {navigateFinish ? (
           <Box flex={1}>
             <Box

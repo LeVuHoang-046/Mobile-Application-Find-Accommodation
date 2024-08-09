@@ -82,7 +82,7 @@ const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
         <HeaderApp
           title="Manage schedules"
           goBack
-          IconRight={Icons.Calendar}
+          IconRight={<Icons.Calendar/>}
           onPressRight={() => modalSheetBottomApp.current?.open()}
         />
         {navigateFinish ? (

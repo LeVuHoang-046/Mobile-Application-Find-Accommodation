@@ -17,3 +17,5 @@ export * from './EmptyData';
 export * from './modal';
 export* from './LinearGradientShadow';
 export * from './list';
+export * from './SliderSwipe';
+export * from './SliderPressDetail';

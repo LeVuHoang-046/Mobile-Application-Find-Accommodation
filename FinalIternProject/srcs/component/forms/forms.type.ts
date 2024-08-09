@@ -13,7 +13,7 @@ export type ButtonBaseProps = {
   };
 
   export type IconButtonProps = {
-    IconSvg?: React.FunctionComponent<any>;
+    IconSvg?: React.ReactNode;
     IconElement?: React.ReactElement;
     styleContainer?: StyleProp<ViewStyle>;
   } & BoxProps &

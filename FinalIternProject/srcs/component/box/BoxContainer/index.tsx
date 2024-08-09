@@ -1,13 +1,12 @@
-import React, {PropsWithChildren} from 'react';
-import {ColorValue} from 'react-native';
-
-import {BoxDetail} from '../BoxDetail';
-import { ColorsStatic } from '@constants';
+import React, { PropsWithChildren } from 'react';
+import { ColorValue, StyleProp, TextStyle } from 'react-native';
 import { Icons } from '@assets';
-import { FontSize, scaler } from '@themes';
 import { Row } from '@component/layout';
-import { TextApp } from '@component/typography';
 import { LineApp } from '@component/LineApp';
+import { TextApp } from '@component/typography';
+import { ColorsStatic } from '@constants';
+import { FontSize, scaler } from '@themes';
+import { BoxDetail } from '../BoxDetail';
 
 type BoxContainerProps = {
   title?: string;
@@ -17,6 +16,7 @@ type BoxContainerProps = {
   require?: boolean;
   Icon?: React.ReactNode;
   showIcon?: boolean;
+  styleText?: StyleProp<TextStyle>;
 };
 
 export const BoxContainer: React.FC<PropsWithChildren<BoxContainerProps>> = ({
@@ -28,6 +28,7 @@ export const BoxContainer: React.FC<PropsWithChildren<BoxContainerProps>> = ({
   require = false,
   Icon = <Icons.Pencil/>,
   showIcon = false,
+  styleText
 }) => {
   return (
     <BoxDetail p={scaler(10)}>
@@ -42,7 +43,7 @@ export const BoxContainer: React.FC<PropsWithChildren<BoxContainerProps>> = ({
       </Row>
       {!hideLine && <LineApp />}
       <>
-        {!!children ? children : <TextApp weight={500}>{text ?? '_'}</TextApp>}
+        {!!children ? children : <TextApp style={styleText} weight={500}>{text ?? '_'}</TextApp>}
       </>
     </BoxDetail>
   );

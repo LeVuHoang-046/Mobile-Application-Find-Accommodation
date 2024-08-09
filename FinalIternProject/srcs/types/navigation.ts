@@ -44,6 +44,8 @@ export type AppStackParamList = {
     [RouteMain.DetailRoom]: undefined;
     [RouteMain.ImageRoomDetail]: HaveImgParams;
     [RouteMain.LandlordInformationDetail]: undefined;
+    [RouteMain.ProductDetails]: undefined;
+    [RouteMain.ImageProductDetails]: HaveImgParams;
 
 };
 export type TAppNavigation<T extends RouterScreen> = NativeStackNavigationProp<

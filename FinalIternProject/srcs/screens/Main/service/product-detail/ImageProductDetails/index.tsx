@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {TAppNavigation} from '@types';
 import React from 'react';
 
-export const ImageRoomDetail = ({route}: any) => {
+export const ImageProductDetails = ({route}: any) => {
   const {images, activeIndex} = route.params;
   const navigation = useNavigation<TAppNavigation<RouteMain.DetailRoom>>();
 
