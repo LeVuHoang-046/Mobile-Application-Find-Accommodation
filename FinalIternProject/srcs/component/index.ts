@@ -19,3 +19,4 @@ export* from './LinearGradientShadow';
 export * from './list';
 export * from './SliderSwipe';
 export * from './SliderPressDetail';
+export * from './HeaderUserChat';

@@ -1,5 +1,4 @@
-
-import { ButtonSelectBottomSheetProps } from '@component/button';
+import {ButtonSelectBottomSheetProps} from '@component/button';
 import {EKeySheet} from '@constants';
 import {
   FetchNextPageOptions,
@@ -15,6 +14,7 @@ export type ButtonPickerProps = {
   onPress?: (item: ItemPickerType) => void;
   value: ItemPickerType | undefined;
   style?: StyleProp<ViewStyle>;
+  isHaveTitle?: boolean;
 };
 
 export type BottomSheetPickerAppProps = {
@@ -24,11 +24,12 @@ export type BottomSheetPickerAppProps = {
   keySheet: EKeySheet;
   itemSelected: ItemPickerType;
   onSearch?: (text: string) => void; // khi khác undefined thì sheet có input tìm kiếm
+  searchLocal?: boolean;
+  require?: boolean;
   isAlwaysSelectedWhenOnlyOne?: boolean;
   isFetchingNextPage?: boolean;
   hasNextPage?: boolean;
   isFetching?: boolean;
-  disabledBtn?: boolean;
   fetchNextPage?: (
     options?: FetchNextPageOptions | undefined,
   ) => Promise<InfiniteQueryObserverResult<any[], Error>>;
@@ -39,7 +40,8 @@ export type BottomSheetPickerAppProps = {
 
 export type HeaderSheetPickerProps = {
   onPress: () => void;
-} & Pick<BottomSheetPickerAppProps, 'title' | 'onSearch'>;
+  onSearch?: (text: string) => void;
+} & Pick<BottomSheetPickerAppProps, 'title' | 'searchLocal'>;
 
 export type BottomSheetPickerAppRef = {
   open: () => void;

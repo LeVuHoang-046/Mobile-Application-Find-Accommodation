@@ -1,13 +1,19 @@
-import {BoxDetail, BoxInformation, BoxInformationProps} from '@component';
+import {
+  BoxDetail,
+  BoxInformation,
+  BoxInformationProps,
+  TouchableApp,
+} from '@component';
 import {scaler} from '@themes';
 import {memo} from 'react';
 
 type BoxDependableLandlordProps = {
   item: any;
+  onPress?: () => void;
 };
 
 export const BoxDependableLandlord: React.NamedExoticComponent<BoxDependableLandlordProps> =
-  memo(({item}) => {
+  memo(({item, onPress}) => {
     const list: BoxInformationProps[] = [
       {
         tilte: 'Siêu CCMN giá cực tốt cho SV Hà Đông',
@@ -24,7 +30,14 @@ export const BoxDependableLandlord: React.NamedExoticComponent<BoxDependableLand
       <>
         <BoxDetail mv={scaler(5)} p={scaler(10)}>
           {list.map((_, index) => {
-            return <BoxInformation {..._} key={index} />;
+            return (
+              <TouchableApp
+                onPress={onPress}
+                activeOpacity={1}
+                key={`BoxDependableLandlord_${index}`}>
+                <BoxInformation {..._} key={index} />
+              </TouchableApp>
+            );
           })}
         </BoxDetail>
       </>

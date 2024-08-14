@@ -8,3 +8,4 @@ export * from './Center';
 export * from './Absolute';
 export * from './AbsoluteCenter';
 export * from './BoxAnimatedFade';
+export * from './BoxFormTitle';

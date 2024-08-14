@@ -1,9 +1,11 @@
 import {createStyleSheet} from 'react-native-unistyles';
 import {ColorValue, KeyboardTypeOptions, NativeSyntheticEvent, StyleProp, TextInputFocusEventData, TextInputProps, ViewStyle} from 'react-native';
 import { scaler } from '@themes';
-import { EVariantButton, EVariantInput } from './forms.enum';
+import { ESpinnerPlacement, EVariantButton, EVariantInput } from './forms.enum';
 import { getVariantButtonBase } from './forms.func';
 import {Control, FieldErrors} from 'react-hook-form';
+import { BoxProps } from '@component/layout';
+import { ButtonBaseProps } from './forms.type';
 
 
 export const stylesheetForms = createStyleSheet(theme => ({
@@ -28,6 +30,16 @@ export const stylesheetForms = createStyleSheet(theme => ({
     borderWidth: scaler(1),
   },
 }));
+export type ButtonAppProps = {
+  leftIcon?: React.ReactElement;
+  rightIcon?: React.ReactElement;
+  loadingText?: string;
+  spinner?: React.ReactElement;
+  spinnerPlacement?: ESpinnerPlacement;
+  variant?: EVariantButton;
+  title?: string;
+} & BoxProps &
+  Omit<ButtonBaseProps, 'children'>;
 
 export type InputAppProps = {
   max?: number;

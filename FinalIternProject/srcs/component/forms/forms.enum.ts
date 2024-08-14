@@ -9,3 +9,7 @@ export enum EVariantInput {
   Password = 'input-password',
   Phone = 'input-phone',
 }
+export enum ESpinnerPlacement {
+  Start = 'start',
+  End = 'end',
+}

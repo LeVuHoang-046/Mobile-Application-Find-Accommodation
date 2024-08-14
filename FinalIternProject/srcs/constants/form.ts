@@ -19,9 +19,9 @@ export const defaultSearchForNewsValue: FormsSearchForNews = {
     price: initItemPicker,
     sortBy: initItemPicker,
     area: initItemPicker,
-    roomType: initItemPicker,
-    postType: initItemPicker,
-    amentitiesType: initItemPicker,
-    interior: initItemPicker,
+    roomType: [],
+    postType: [],
+    amentitiesType: [],
+    interior: [],
     sort: ESort.DESC,
 }

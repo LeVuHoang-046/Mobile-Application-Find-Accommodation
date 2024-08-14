@@ -1,23 +1,26 @@
-import {StyleSheet} from 'react-native';
+import {Icons} from '@assets';
+import {TouchableApp} from '@component/forms';
+import {Box, Row} from '@component/layout';
+import {TextApp} from '@component/typography';
+import {scaler, shadow} from '@themes';
+import {createStyleSheet, useStyles} from 'react-native-unistyles';
 import {HeaderSheetCalenderPickerProps} from './BottomSheetCalenderPicker.type';
-import { Box, Row } from '@component/layout';
-import { scaler, shadow } from '@themes';
-import { ColorsStatic } from '@constants';
-import { TouchableApp } from '@component/forms';
-import { Icons } from '@assets';
-import { TextApp } from '@component/typography';
 
 export const HeaderSheetCalenderPicker: React.FC<
   HeaderSheetCalenderPickerProps
-> = ({title, onPressClose, onPressConfirm}) => {
+> = ({title, onPressClose, onPressConfirm, disabled}) => {
+  const {
+    styles,
+    theme: {colors},
+  } = useStyles(stylesheet);
   return (
     <Row
       justify="space-between"
       style={shadow.primary}
-      color={ColorsStatic.white}
+      color={colors.white}
       ph={scaler(10)}>
       <Box flex={1} align="flex-start">
-        <TouchableApp style={styles.button} onPress={onPressClose}>
+        <TouchableApp style={styles.button(false)} onPress={onPressClose}>
           <Icons.X_Mark />
         </TouchableApp>
       </Box>
@@ -25,8 +28,11 @@ export const HeaderSheetCalenderPicker: React.FC<
         <TextApp textAlign="center">{title}</TextApp>
       </Box>
       <Box flex={1} align="flex-end">
-        <TouchableApp style={styles.button} onPress={onPressConfirm}>
-          <TextApp weight={600} color={ColorsStatic.tint}>
+        <TouchableApp
+          style={styles.button(disabled)}
+          onPress={onPressConfirm}
+          disabled={disabled}>
+          <TextApp weight={600} color={colors.tint}>
             Xác nhận
           </TextApp>
         </TouchableApp>
@@ -35,8 +41,9 @@ export const HeaderSheetCalenderPicker: React.FC<
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
+const stylesheet = createStyleSheet({
+  button: disabled => ({
     padding: scaler(12),
-  },
+    opacity: disabled ? 0.3 : 1,
+  }),
 });

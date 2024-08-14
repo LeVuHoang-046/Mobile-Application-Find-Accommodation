@@ -8,7 +8,6 @@ import {StyleSheet, TouchableHighlight} from 'react-native';
 export const BoxHeader: React.NamedExoticComponent = memo(() => {
   return (
     <>
-      {/* ============= HEADER ================== */}
       <Box style={styles.header}>
         <Absolute right={15} top={15}>
           <TouchableHighlight>
@@ -16,7 +15,6 @@ export const BoxHeader: React.NamedExoticComponent = memo(() => {
           </TouchableHighlight>
         </Absolute>
       </Box>
-      {/* ===================== START ACCOUNT BOARD ==================== */}
       <Absolute top={scaler(145)}>
         <TouchableApp activeOpacity={1} style={styles.accountButton}>
           <Box style={styles.avatar}>
@@ -40,7 +38,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: ColorsStatic.gray1,
     height: scaler(180),
-    justifyContent: 'center', // align subHeader vertically
+    justifyContent: 'center',
   },
   accountButton: {
     backgroundColor: ColorsStatic.white,

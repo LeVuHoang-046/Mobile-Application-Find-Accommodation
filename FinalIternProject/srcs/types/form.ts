@@ -18,9 +18,9 @@ export type FormsSearchForNews = {
     price: ItemPickerType;
     sortBy: ItemPickerType;
     area: ItemPickerType;
-    roomType: ItemPickerType;
-    postType: ItemPickerType;
-    amentitiesType: ItemPickerType;
-    interior: ItemPickerType;
+    roomType: ItemPickerType[];
+    postType: ItemPickerType[];
+    amentitiesType: ItemPickerType[];
+    interior: ItemPickerType[];
     sort: ESort;
 }

@@ -1,12 +1,18 @@
-import {BoxDetail, BoxInformation, BoxInformationProps} from '@component';
+import {
+  BoxDetail,
+  BoxInformation,
+  BoxInformationProps,
+  TouchableApp,
+} from '@component';
 import {scaler} from '@themes';
 import {memo} from 'react';
 type BoxLikedPostProps = {
   item: any;
+  onPress?: () => void;
 };
 
 export const BoxLikedPost: React.NamedExoticComponent<BoxLikedPostProps> = memo(
-  ({item}) => {
+  ({item, onPress}) => {
     const list: BoxInformationProps[] = [
       {
         tilte: 'Phòng mới Nguyễn Văn Trỗi gần Ga Văn Quán',
@@ -23,7 +29,14 @@ export const BoxLikedPost: React.NamedExoticComponent<BoxLikedPostProps> = memo(
     return (
       <BoxDetail p={scaler(10)}>
         {list.map((_, index) => {
-          return <BoxInformation {..._} key={index} />;
+          return (
+            <TouchableApp
+              activeOpacity={1}
+              onPress={onPress}
+              key={`BoxLikedPost_${index}`}>
+              <BoxInformation {..._} key={index} />
+            </TouchableApp>
+          );
         })}
       </BoxDetail>
     );

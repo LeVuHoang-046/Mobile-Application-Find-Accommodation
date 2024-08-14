@@ -84,7 +84,7 @@ export const getPeriodCalendarRange = (
     const isStartTime = currentTimestamp === startTimestamp;
     const dateString = formatUnixToDateCalender(currentTimestamp);
     periods[dateString] = {
-      color: isStartTime ? ColorsStatic.gray1 : ColorsStatic.background,
+      color: isStartTime ? ColorsStatic.gray1 : ColorsStatic.gray1,
       startingDay: isStartTime,
       textColor: isStartTime ? ColorsStatic.blue4 : ColorsStatic.blue4,
     };

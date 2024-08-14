@@ -10,3 +10,8 @@ export enum EGender {
   Female = 'Female',
   MaleFemale = 'Male/Femle',
 }
+
+export enum EFocusRangeCalendar {
+  From = 'from',
+  To = 'to',
+}

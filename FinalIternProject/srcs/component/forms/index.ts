@@ -6,3 +6,4 @@ export * from './IconButton';
 export * from './TouchableApp';
 export * from './InputApp';
 export * from './TouchableIconApp';
+export * from './ButtonApp';

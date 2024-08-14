@@ -1,18 +1,17 @@
 import {
-  BoxDetail,
-  BoxInformation,
   BoxInformationVertical,
   BoxInformationVerticalProps,
+  TouchableApp,
 } from '@component';
-import {scaler} from '@themes';
 import {memo} from 'react';
 
 type BoxLowCostRoomProps = {
   item: any;
+  onPress?: () => void;
 };
 
 export const BoxLowCostRoom: React.NamedExoticComponent<BoxLowCostRoomProps> =
-  memo(({item}) => {
+  memo(({item, onPress}) => {
     const list: BoxInformationVerticalProps[] = [
       {
         time: '1 hours ago',
@@ -29,9 +28,16 @@ export const BoxLowCostRoom: React.NamedExoticComponent<BoxLowCostRoomProps> =
 
     return (
       <>
-          {list.map((_, index) => {
-            return <BoxInformationVertical {..._} key={index} />;
-          })}
+        {list.map((_, index) => {
+          return (
+            <TouchableApp
+              onPress={onPress}
+              activeOpacity={1}
+              key={`BoxLowCostRoom_${index}`}>
+              <BoxInformationVertical {..._} key={index} />
+            </TouchableApp>
+          );
+        })}
       </>
     );
   });

@@ -1,5 +1,6 @@
 import {Icons} from '@assets';
 import {
+  BottomSheetModalAppRef,
   Box,
   ButtonSort,
   HeaderApp,
@@ -22,12 +23,14 @@ import {BoxSearchForNews} from './BoxSearchForNews';
 import {FlatListApp} from '@component/FlatListApp';
 import {StyleSheet} from 'react-native';
 import {LineApp} from '@component/LineApp';
-import { ModalDetail, ModalDetailSearchForNewsProps } from './ModalDetail';
+import {ModalDetail, ModalDetailSearchForNewsProps} from './ModalDetail';
+import { ModalFilter } from './ModalFilter';
 
 const SearchForNewsScreen: React.FC<PerformanceNavigationHOC> = ({
   navigateFinish,
 }) => {
-  const {theme} = useStyles();
+  const modalFilterRef = useRef<BottomSheetModalAppRef>(null);
+
   const modalDetailRef = useRef<ModalDetailSearchForNewsProps>(null);
   const forms = useForm<FormsSearchForNews>({
     defaultValues: defaultSearchForNewsValue,
@@ -39,12 +42,17 @@ const SearchForNewsScreen: React.FC<PerformanceNavigationHOC> = ({
   }, []);
 
   const handlePressModalDetail = useCallback(() => {
-     modalDetailRef.current?.show();
-  },[])
+    modalDetailRef.current?.show();
+  }, []);
   return (
     <Box flex={1}>
       <FormProvider {...forms}>
-        <HeaderApp title="Search for news" goBack IconRight={<Icons.Adjusment/>} />
+        <HeaderApp
+          title="Search for news"
+          goBack
+          IconRight={<Icons.Adjusment />}
+          onPressRight={() => modalFilterRef.current?.open()}
+        />
         {navigateFinish ? (
           <Box flex={1}>
             <Box
@@ -88,10 +96,13 @@ const SearchForNewsScreen: React.FC<PerformanceNavigationHOC> = ({
         ) : (
           <LoadingComponent />
         )}
-          <ModalDetail ref={modalDetailRef} />
+        <ModalFilter
+          close={() => modalFilterRef.current?.close()}
+          ref={modalFilterRef}
+        />
+        <ModalDetail ref={modalDetailRef} />
       </FormProvider>
     </Box>
-    
   );
 };
 const styles = StyleSheet.create({

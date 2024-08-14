@@ -31,7 +31,9 @@ export enum RouteMain {
     LandlordInformationDetail = 'landlord_information_detail',
     ProductDetails = 'product_details',
     ImageProductDetails = 'image_product_details',
-
+    MessageDetail = 'message_detail',
+    RoomSearchPost = 'room_search_post',
+    RoommateSearchPost = 'roommate_search_post',
 }
 
 export enum LabelTab {

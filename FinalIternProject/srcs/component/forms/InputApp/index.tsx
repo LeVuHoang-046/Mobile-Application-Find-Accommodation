@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {useController} from 'react-hook-form';
 import {TextInput} from 'react-native';
 import {useStyles} from 'react-native-unistyles';
@@ -46,36 +46,39 @@ export const InputApp: React.FC<InputAppProps> = ({
     }
     return theme.colors.gray1;
   }, [isFocus, value, valueText]);
+  const handleFocus = useCallback((e: any) => {
+    setIsFocus(true);
+    onFocus?.(e);
+  }, [onFocus]);
 
-  const handleChangeText = (text: string = '') => {
+  const handleBlur = useCallback(() => {
+    setIsFocus(false);
+    onBlur();
+  }, [onBlur]);
+
+  const handleChangeText = useCallback((text: string = '') => {
     if (onChangeText) {
       onChangeText(text);
     } else {
       onChange(text);
     }
-  };
+  },[onChangeText, onChange]);
 
   return (
     <Box width="100%" {...(typeof customStyle === 'object' ? customStyle : {})}>
       <Row
-        height={scaler(30)}
+        height={scaler(35)}
         color={theme.colors.white}
         borderRadius={scaler(5)}
-        borderColor={theme.colors.gray4}
+        borderColor={theme.colors.gray1}
         borderWidth={1}>
         <Box pl={scaler(5)}>{!!IconLeft && <IconLeft size={iconSize} color={ColorStatusInput} />}</Box>
         <Row color={theme.colors.white} flex={1}>
           <TextInput
             placeholder={placeholder}
             style={styles.input}
-            onFocus={e => {
-              setIsFocus(true);
-              onFocus?.(e);
-            }}
-            onBlur={() => {
-              setIsFocus(false);
-              onBlur();
-            }}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             placeholderTextColor={theme.colors.gray1}
             secureTextEntry={variant === EVariantInput.Password && show}
             value={valueText ?? value}
@@ -89,11 +92,11 @@ export const InputApp: React.FC<InputAppProps> = ({
         </Row>
 
         {!!showBtnDelete ? (
-          <BoxAnimatedFade>
+          <BoxAnimatedFade pt={scaler(2)}>
             <IconButton
               style={{paddingBottom: scaler(5), paddingTop: scaler(5)}}
               onPress={handleChangeText}
-              IconElement={<Icons.CircleX size={12} color={ColorStatusInput} />}
+              IconElement={<Icons.CircleX size={18} color={ColorStatusInput} />}
             />
           </BoxAnimatedFade>
         ) : null}

@@ -8,6 +8,8 @@ export type ItemPickerType = {
   label: string;
   value: string;
   isAll?: boolean;
+  isTitle?: boolean;
+  code?: string;
 };
 
 export type ItemPickerDateType = {

@@ -1,6 +1,6 @@
-import { ButtonSelectBottomSheetProps } from '@component/button';
-import { EKeySheet } from '@constants';
-import { ItemPickerDateType } from '@types';
+import {ButtonSelectBottomSheetProps} from '@component/button';
+import {EKeySheet} from '@constants';
+import {ItemPickerDateType} from '@types';
 import {DateData} from 'react-native-calendars';
 
 export type ButtonPickerProps = {
@@ -14,10 +14,12 @@ export type BottomSheetCalenderPicker = {
   valueStart: DateData | null;
   valueEnd: DateData | null;
   placeholder?: string;
+  require?: boolean;
   saveWhenPressCloseHeader?: boolean;
 } & Pick<ButtonSelectBottomSheetProps, 'hideIcon' | 'style'>;
 
 export type HeaderSheetCalenderPickerProps = {
   onPressClose: () => void;
   onPressConfirm: () => void;
+  disabled?: boolean;
 } & Pick<BottomSheetCalenderPicker, 'title'>;

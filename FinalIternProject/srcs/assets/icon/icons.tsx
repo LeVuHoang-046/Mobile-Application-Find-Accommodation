@@ -1,4 +1,5 @@
 // CustomIcons.jsimport React from 'react';
+import { opacity } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -147,8 +148,8 @@ const EyeOff = ({size = 14, color = '#000'}: iconProps) => {
 const X_Mark = ({size = 14, color = '#000'}: iconProps) => {
   return <Awesome6Icon name="xmark" size={size} color={color} />;
 };
-const Check = ({size = 14, color = '#000'}: iconProps) => {
-  return <FeatherIcon name="check" size={size} color={color} />;
+const Check = ({size = 14, color = '#000', opacity= 1} : iconProps & {opacity?: number}) => {
+  return <FeatherIcon name="check" size={size} color={color} style={{opacity}}/>;
 };
 const Empty = ({size = 14, color = '#000'}: iconProps) => {
   return <MaterialIcon name="hourglass-empty" size={size} color={color} />;
@@ -304,6 +305,15 @@ const Email = ({size = 20, color = '#EB5B00'}: iconProps) => {
 const ShoppingCartPlus = ({size = 20, color = '#EB5B00'}: iconProps) => {
   return <CommunityIcon name="cart-plus" size={size} color={color} />;
 };
+const Shield = ({size = 20, color = '#EB5B00'}: iconProps) => {
+  return <CommunityIcon name="shield-star-outline" size={size} color={color} />;
+};
+const Plus = ({size = 24, color = '#000'}: iconProps) => {
+  return <AntIcon name="plus" size={size} color={color} />;
+};
+const ChevronDown = ({size = 16, color = '#000'}: iconProps) => {
+  return <FeatherIcon name="chevron-down" size={size} color={color} />;
+};
 
 export const Icons = {
   Home,
@@ -391,4 +401,7 @@ export const Icons = {
   Pencil,
   Email,
   ShoppingCartPlus,
+  Shield,
+  Plus,
+  ChevronDown,
 };

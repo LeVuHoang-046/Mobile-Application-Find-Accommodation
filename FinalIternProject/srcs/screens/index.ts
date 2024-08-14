@@ -27,6 +27,9 @@ import {
     LandlordInformationDetail,
     ProductDetails,
     ImageProductDetails,
+    MessageDetail,
+    RoomSearchPost,
+    RoommateSearchPost,
 
 } from './Main';
 
@@ -58,5 +61,9 @@ const Screens = {
     LandlordInformationDetail,
     ProductDetails,
     ImageProductDetails,
+    MessageDetail,
+    RoomSearchPost,
+    RoommateSearchPost,
+
 };
 export {Screens} 

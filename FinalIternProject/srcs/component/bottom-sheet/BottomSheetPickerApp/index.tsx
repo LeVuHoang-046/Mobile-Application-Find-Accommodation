@@ -1,7 +1,15 @@
-
+import {
+  BottomSheetModalApp,
+  BottomSheetModalAppRef,
+} from '@component/BottomSheetModalApp';
+import {ButtonSelectBottomSheet} from '@component/button';
+import {EmptyData} from '@component/EmptyData';
+import {Box} from '@component/layout';
+import {LoadingComponent} from '@component/loading';
 import {
   HEIGHT_ITEM_PICKER,
   initItemPicker,
+  ItemPickerAll,
   MAX_HEIGHT_MODAL,
   PADDING_BOTTOM_LIST,
 } from '@constants';
@@ -11,6 +19,7 @@ import {
 } from '@gorhom/bottom-sheet';
 import {scaler} from '@themes';
 import {ForwardRefComponent, ItemPickerType} from '@types';
+import {searchAndSortFilter, sortBetweenTitlePicker} from '@utils';
 import React, {
   forwardRef,
   useCallback,
@@ -27,11 +36,6 @@ import {
 } from './BottomSheetPickerApp.type';
 import {ButtonPicker} from './ButtonPicker';
 import {HeaderSheetPicker} from './HeaderSheetPicker';
-import { BottomSheetModalApp, BottomSheetModalAppRef } from '@component/BottomSheetModalApp';
-import { ButtonSelectBottomSheet } from '@component/button';
-import { Box } from '@component/layout';
-import { EmptyData } from '@component/EmptyData';
-import { LoadingComponent } from '@component/loading';
 
 export const BottomSheetPickerApp: ForwardRefComponent<
   BottomSheetPickerAppRef,
@@ -47,6 +51,7 @@ export const BottomSheetPickerApp: ForwardRefComponent<
       Icon,
       hideIcon,
       style,
+      searchLocal = false,
       onSearch,
       isAlwaysSelectedWhenOnlyOne,
       isFetchingNextPage = false,
@@ -54,7 +59,7 @@ export const BottomSheetPickerApp: ForwardRefComponent<
       isFetching = false,
       fetchNextPage,
       refetch,
-      disabledBtn,
+      require = false,
     },
     ref,
   ) => {
@@ -65,19 +70,38 @@ export const BottomSheetPickerApp: ForwardRefComponent<
         return '50%';
       }
       const _height =
-        list?.length * HEIGHT_ITEM_PICKER + 2 * PADDING_BOTTOM_LIST;
+        list?.length * HEIGHT_ITEM_PICKER +
+        2 * PADDING_BOTTOM_LIST +
+        (searchLocal ? scaler(100) : 0);
 
       return _height > MAX_HEIGHT_MODAL ? MAX_HEIGHT_MODAL : _height;
-    }, [list?.length]);
+    }, [list?.length, searchLocal]);
 
     const [disabled, setDisabled] = useState<boolean>(false);
+    const [search, setSearch] = useState<string>('');
 
     const modalSheetBottomApp = useRef<BottomSheetModalAppRef>(null);
     const listRef = useRef<BottomSheetFlatListMethods>(null);
 
+    const isHaveTitle = useMemo(() => {
+      return list.some(_ => !!_?.isTitle) && !search.length;
+    }, [list, search]);
+
+    const DATA = useMemo(() => {
+      const itemAll: ItemPickerType = {
+        label: 'Tất cả',
+        value: ItemPickerAll,
+      };
+
+      if (!searchLocal) {
+        return sortBetweenTitlePicker([itemAll].concat(list));
+      }
+      return searchAndSortFilter([itemAll].concat(list), search);
+    }, [list, search, searchLocal]);
+
     useEffect(() => {
       handleFocusDataPicker();
-    }, [list?.length]);
+    }, [list?.length, isAlwaysSelectedWhenOnlyOne]);
 
     useImperativeHandle(
       ref,
@@ -93,15 +117,17 @@ export const BottomSheetPickerApp: ForwardRefComponent<
 
     const handleChangeModal = (index: number) => {
       if (!!itemSelected.value && index === 0 && list.length > 5) {
-        const findIndex = list?.findIndex(
+        const findIndex = DATA?.findIndex(
           _item => _item.value === itemSelected?.value,
         );
+
         listRef.current?.scrollToIndex({index: findIndex});
       }
     };
 
     const handleFocusDataPicker = () => {
       if (
+        isAlwaysSelectedWhenOnlyOne ||
         (list?.length === 1 && !!isAlwaysSelectedWhenOnlyOne) ||
         list.length === 0
       ) {
@@ -112,9 +138,28 @@ export const BottomSheetPickerApp: ForwardRefComponent<
     };
 
     const handlePress = (item: ItemPickerType) => {
-      onChange?.(item?.value === itemSelected?.value ? initItemPicker : item);
+      const isSame = item?.value === itemSelected?.value;
+      if (isSame) {
+        if (!require) {
+          onChange?.(isSame ? initItemPicker : item);
+        }
+      } else {
+        onChange?.(item);
+      }
       modalSheetBottomApp.current?.close();
     };
+
+    const handleRemoveValue = useCallback(() => {
+      onChange?.(initItemPicker);
+    }, [onChange]);
+
+    const handlePressHeader = useCallback(() => {
+      modalSheetBottomApp.current?.close();
+    }, []);
+
+    const handleSearchHeader = useCallback((text: string) => {
+      setSearch(text);
+    }, []);
 
     const onEndReached = useCallback(() => {
       if (hasNextPage && !isFetching) {
@@ -133,11 +178,21 @@ export const BottomSheetPickerApp: ForwardRefComponent<
             item={item}
             onPress={handlePress}
             value={itemSelected}
+            isHaveTitle={isHaveTitle}
           />
         );
       },
-      [itemSelected],
+      [itemSelected, isHaveTitle],
     );
+
+    const stickyHeaderIndices = useMemo(() => {
+      return DATA.reduce((acc: number[], item, index) => {
+        if (item.isTitle) {
+          acc.push(index);
+        }
+        return acc;
+      }, []);
+    }, [DATA]);
 
     return (
       <>
@@ -151,26 +206,31 @@ export const BottomSheetPickerApp: ForwardRefComponent<
           hideIcon={hideIcon}
           style={style}
           empty={!list.length}
-          disabled={disabledBtn || disabled}
+          disabled={disabled}
+          onRemoveValue={handleRemoveValue}
+          require={require}
         />
         <BottomSheetModalApp
           snapPoints={[snapPoints]}
           ref={modalSheetBottomApp}
           onChange={handleChangeModal}
+          pressBackdropClose
+          enablePanDownToClose
           keySheet={keySheet}>
           <Box flex={1}>
             <HeaderSheetPicker
               title={title}
-              onPress={() => {
-                modalSheetBottomApp.current?.close();
-              }}
-              onSearch={onSearch}
+              onPress={handlePressHeader}
+              searchLocal={searchLocal && !!list.length}
+              onSearch={handleSearchHeader}
             />
             <Box flex={1}>
               <BottomSheetFlatList
                 ref={listRef}
                 key={String(title)}
-                data={list}
+                stickyHeaderIndices={stickyHeaderIndices}
+                data={DATA}
+                keyboardShouldPersistTaps="always"
                 keyExtractor={(_, i) => `${String(keySheet)}_${_?.value}_${i}`}
                 bounces={false}
                 renderItem={renderItem}
@@ -200,7 +260,7 @@ export const BottomSheetPickerApp: ForwardRefComponent<
 
 const stylesheet = createStyleSheet({
   contentContainer: {
-    paddingHorizontal: scaler(30),
+    paddingHorizontal: scaler(20),
     paddingBottom: scaler(50),
     flexGrow: 1,
   },

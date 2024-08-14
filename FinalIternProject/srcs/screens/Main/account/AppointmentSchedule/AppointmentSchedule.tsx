@@ -1,4 +1,6 @@
-import {Icons} from '@assets';
+import React, { useCallback, useRef } from 'react';
+import { StyleSheet } from 'react-native';
+import { FormProvider, useForm } from 'react-hook-form';
 import {
   BottomSheetModalAppRef,
   Box,
@@ -9,43 +11,31 @@ import {
   performanceNavigation,
   PerformanceNavigationHOC,
 } from '@component';
-import {TabPages} from '@component/tabs/TabPages';
-import {ColorsStatic, defaultAppointmentScheduleValue, EDetailTab} from '@constants';
-import {scaler} from '@themes';
-import {FormsAppointmentSchedule, TabPageType} from '@types';
-import React, {useCallback, useRef} from 'react';
-import {FormProvider, useForm} from 'react-hook-form';
-import {Confirmed, Diposited, Overdue, WaitConfirm} from './pages';
+import { CalenderRangePickerHeader } from '@component/calender';
+import { ColorsStatic, defaultAppointmentScheduleValue, EDetailTab, EKeySheet } from '@constants';
+import { scaler } from '@themes';
+import { FormsAppointmentSchedule, TabPageType } from '@types';
+import { Confirmed, Diposited, Overdue, WaitConfirm } from './pages';
+import { TabPages } from '@component/tabs/TabPages';
+import { Icons } from '@assets';
 
 const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
   navigateFinish,
 }) => {
-  const modalSheetBottomApp = useRef<BottomSheetModalAppRef>(null);
+  const calendarRef = useRef<BottomSheetModalAppRef>(null);
   const forms = useForm<FormsAppointmentSchedule>({
     defaultValues: defaultAppointmentScheduleValue,
     mode: 'onChange',
   });
 
   const listTab: TabPageType[] = [
-    {
-      title: 'Wait confirm',
-      keyTab: EDetailTab.First,
-    },
-    {
-      title: 'Confirmed',
-      keyTab: EDetailTab.Second,
-    },
-    {
-      title: 'Diposited',
-      keyTab: EDetailTab.Third,
-    },
-    {
-      title: 'Overdue',
-      keyTab: EDetailTab.Fourth,
-    },
+    { title: 'Wait confirm', keyTab: EDetailTab.First },
+    { title: 'Confirmed', keyTab: EDetailTab.Second },
+    { title: 'Diposited', keyTab: EDetailTab.Third },
+    { title: 'Overdue', keyTab: EDetailTab.Fourth },
   ];
 
-  const renderItem = useCallback(({item}: {item: TabPageType}) => {
+  const renderItem = useCallback(({ item }: { item: TabPageType }) => {
     switch (item.keyTab) {
       case EDetailTab.First:
         return (
@@ -82,9 +72,10 @@ const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
         <HeaderApp
           title="Manage schedules"
           goBack
-          IconRight={<Icons.Calendar/>}
-          onPressRight={() => modalSheetBottomApp.current?.open()}
+          IconRight={<Icons.Calendar />}
+          onPressRight={() => calendarRef.current?.open()}
         />
+        
         {navigateFinish ? (
           <Box
             flex={1}
@@ -93,11 +84,13 @@ const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
             pt={scaler(16)}
             pb={scaler(6)}
             rowGap={scaler(12)}>
+           
             <InputApp
               name="Search"
               control={forms.control}
               placeholder="Search here..."
-              IconRight={Icons.Search}
+              IconLeft={Icons.Search}
+              iconSize={20}
             />
             <TabPages
               list={listTab}
@@ -108,11 +101,25 @@ const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
         ) : (
           <LoadingComponent />
         )}
+        <CalenderRangePickerHeader
+          ref={calendarRef}
+          keySheet={EKeySheet.Calender}
+          title="Select date range"
+          onChange={time => forms.setValue('time', time)}
+          style={styles.button}
+          valueStart={forms.watch('time').startDate}
+          valueEnd={forms.watch('time').endDate}
+        />
       </FormProvider>
     </Box>
   );
 };
 
-export const AppointmentSchedule = performanceNavigation(
-  AppointmentScheduleScreen,
-);
+export const AppointmentSchedule = performanceNavigation(AppointmentScheduleScreen);
+
+const styles = StyleSheet.create({
+  button: {
+    flex: 1,
+    display: 'none',
+  },
+});

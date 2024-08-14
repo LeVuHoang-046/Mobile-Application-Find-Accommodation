@@ -1,4 +1,4 @@
-import {BoxInformationVertical, BoxInformationVerticalProps} from '@component';
+import {BoxInformationVertical, BoxInformationVerticalProps, TouchableApp} from '@component';
 import { EGender } from '@constants';
 import {FontSize, scaler} from '@themes';
 import {memo} from 'react';
@@ -6,10 +6,11 @@ import {StyleSheet} from 'react-native';
 
 type BoxLookingForRoomatesProps = {
   item: any;
+  onPress?: () => void;
 };
 
 export const BoxLookingForRoomates: React.NamedExoticComponent<BoxLookingForRoomatesProps> =
-  memo(({item}) => {
+  memo(({item, onPress}) => {
     const list: BoxInformationVerticalProps[] = [
       {
         time: '1 hours ago',
@@ -28,12 +29,14 @@ export const BoxLookingForRoomates: React.NamedExoticComponent<BoxLookingForRoom
       <>
         {list.map((_, index) => {
           return (
-            <BoxInformationVertical
-              styleTitle={styles.title}
-              style={styles.boxContainer}
-              {..._}
-              key={index}
-            />
+            <TouchableApp onPress={onPress} activeOpacity={1} key={`BoxLookingForRoomates_${index}`}>
+              <BoxInformationVertical
+                styleTitle={styles.title}
+                style={styles.boxContainer}
+                {..._}
+                key={index}
+              />
+            </TouchableApp>
           );
         })}
       </>
