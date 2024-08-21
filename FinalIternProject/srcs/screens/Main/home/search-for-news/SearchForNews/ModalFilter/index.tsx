@@ -16,7 +16,7 @@ import {ColorsStatic, defaultSearchForNewsValue, EKeySheet} from '@constants';
 import {BottomSheetView} from '@gorhom/bottom-sheet';
 import {scaler} from '@themes';
 import {FormsSearchForNews, ForwardRefComponent} from '@types';
-import React, {forwardRef} from 'react';
+import React, {forwardRef, useEffect} from 'react';
 import {useFormContext} from 'react-hook-form';
 import {StyleSheet} from 'react-native';
 import {useImmer} from 'use-immer';
@@ -34,7 +34,7 @@ export const ModalFilter: ForwardRefComponent<
   BottomSheetModalAppRef,
   ModalFilterProps
 > = forwardRef(({close, find}, ref) => {
-  const {getValues, reset, control} = useFormContext<FormsSearchForNews>();
+  const {getValues, reset, control,watch} = useFormContext<FormsSearchForNews>();
 
   const [forms, setForms] = useImmer<FormsSearchForNews>(getValues());
 
@@ -72,39 +72,13 @@ export const ModalFilter: ForwardRefComponent<
             isAlwaysSelectedWhenOnlyOne={init.length == 1}
             keySheet={EKeySheet.Price}
             itemSelected={forms.price}
-            title="Học viện Chính trị Khu vực I"
+            title="Sort by"
             hideIcon
             onChange={item =>
               setForms(daft => {
                 daft.price = item;
               })
             }
-          />
-          <BottomSheetPickerApp
-            list={init}
-            isAlwaysSelectedWhenOnlyOne={init.length === 1}
-            keySheet={EKeySheet.SortBy}
-            itemSelected={forms.sortBy}
-            title="Mã/tên lịch công tác"
-            hideIcon
-            onChange={item => {
-              setForms(daft => {
-                daft.sortBy = item;
-              });
-            }}
-          />
-          <BottomSheetPickerApp
-            list={init}
-            isAlwaysSelectedWhenOnlyOne={init.length === 1}
-            keySheet={EKeySheet.Area}
-            itemSelected={forms.area}
-            title="Cán bộ"
-            hideIcon
-            onChange={item => {
-              setForms(daft => {
-                daft.area = item;
-              });
-            }}
           />
           {/* <CalenderRangePicker
               keySheet={EKeySheet.Calender}
@@ -121,21 +95,22 @@ export const ModalFilter: ForwardRefComponent<
             list={init}
             keySheet={EKeySheet.RoomType}
             listSelected={forms.roomType}
-            title="Room type"
+            title="Room type1"
             onChange={item => {
               setForms(daft => {
+             
                 daft.roomType = item;
               });
             }}
           />
-          <BottomSheetPickerMultilineApp
+          {/* <BottomSheetPickerMultilineApp
             list={init}
             keySheet={EKeySheet.PostType}
             listSelected={forms.postType}
             title="Post type"
             onChange={item => {
               setForms(daft => {
-                daft.postType = item;
+                daft.postType = [...item];
               });
             }}
           />
@@ -160,7 +135,7 @@ export const ModalFilter: ForwardRefComponent<
                 daft.interior = item;
               });
             }}
-          />
+          /> */}
         </Box>
       </Box>
     </BottomSheetFilter>

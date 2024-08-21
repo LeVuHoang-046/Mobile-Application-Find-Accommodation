@@ -1,11 +1,11 @@
-import { Icons } from '@assets';
-import { TouchableApp } from '@component/forms';
-import { Box } from '@component/layout';
-import { TextApp } from '@component/typography';
-import { ColorsStatic, HEIGHT_ITEM_PICKER } from '@constants';
-import { scaler } from '@themes';
-import { StyleSheet } from 'react-native';
-import { ButtonPickerProps } from './BottomSheetPickerApp.type';
+import {TouchableApp} from '@component/forms';
+import {Box} from '@component/layout';
+import {TextApp} from '@component/typography';
+import {HEIGHT_ITEM_PICKER} from '@constants';
+import {FontSize, scaler} from '@themes';
+import {createStyleSheet, useStyles} from 'react-native-unistyles';
+import {ButtonPickerProps} from './BottomSheetPickerApp.type';
+import { LineApp } from '@component/LineApp';
 
 export const ButtonPicker: React.FC<ButtonPickerProps> = ({
   item,
@@ -13,35 +13,54 @@ export const ButtonPicker: React.FC<ButtonPickerProps> = ({
   value,
   style,
   isHaveTitle = false,
+  isLastItem = false,
 }) => {
+  const {styles} = useStyles(stylesheet);
   const selected = !!value && value?.value === item?.value;
 
   return (
-    <Box pl={isHaveTitle && !item.isTitle ? scaler(20) : 0}>
-      <TouchableApp
-        disabled={!!item?.isTitle}
-        onPress={() => onPress?.(item)}
-        style={[styles.buttonPicker, style]}>
-        <Box flex={1}>
-          <TextApp weight={item?.isTitle ? 700 : 400}>{item?.label}</TextApp>
-        </Box>
-        <Icons.Check
-          color={ColorsStatic.tint}
-          opacity={selected ? 1 : 0}
-        />
-      </TouchableApp>
-    </Box>
+    <>
+    <TouchableApp
+      disabled={!!item?.isTitle}
+      onPress={() => onPress?.(item)}
+      style={[styles.buttonPicker, style]}>
+      <Box p={scaler(10)} flex={1}>
+        <TextApp size={FontSize.Font13} weight={item?.isTitle ? 700 : 600}>
+          {item?.label}
+        </TextApp>
+      </Box>
+      <Box style={styles.circle(selected)}>
+        {selected && <Box style={styles.tick} />}
+      </Box>
+    </TouchableApp>
+    {!isLastItem && <LineApp space={0} />}
+    </>
   );
 };
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet(theme => ({
   buttonPicker: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     minHeight: HEIGHT_ITEM_PICKER,
-    backgroundColor: ColorsStatic.white,
-    paddingVertical: scaler(4),
+    backgroundColor: theme.colors.white,
     columnGap: scaler(8),
   },
-});
+  circle: (isActive: boolean) => ({
+    width: scaler(20),
+    height: scaler(20),
+    borderRadius: scaler(10),
+    borderWidth: scaler(2),
+    borderColor: isActive ? theme.colors.tint : theme.colors.gray2,
+    backgroundColor: isActive ? theme.colors.white : undefined,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }),
+  tick: {
+    width: scaler(10),
+    height: scaler(10),
+    backgroundColor: theme.colors.tint,
+    borderRadius: scaler(5),
+  },
+}));

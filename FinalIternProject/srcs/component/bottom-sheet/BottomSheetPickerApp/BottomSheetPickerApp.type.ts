@@ -15,6 +15,7 @@ export type ButtonPickerProps = {
   value: ItemPickerType | undefined;
   style?: StyleProp<ViewStyle>;
   isHaveTitle?: boolean;
+  isLastItem?: boolean;
 };
 
 export type BottomSheetPickerAppProps = {

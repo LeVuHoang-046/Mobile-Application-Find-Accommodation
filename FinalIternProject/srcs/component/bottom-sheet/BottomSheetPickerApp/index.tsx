@@ -4,7 +4,7 @@ import {
 } from '@component/BottomSheetModalApp';
 import {ButtonSelectBottomSheet} from '@component/button';
 import {EmptyData} from '@component/EmptyData';
-import {Box} from '@component/layout';
+import {Box, Row} from '@component/layout';
 import {LoadingComponent} from '@component/loading';
 import {
   HEIGHT_ITEM_PICKER,
@@ -17,7 +17,7 @@ import {
   BottomSheetFlatList,
   BottomSheetFlatListMethods,
 } from '@gorhom/bottom-sheet';
-import {scaler} from '@themes';
+import {FontSize, scaler} from '@themes';
 import {ForwardRefComponent, ItemPickerType} from '@types';
 import {searchAndSortFilter, sortBetweenTitlePicker} from '@utils';
 import React, {
@@ -36,6 +36,8 @@ import {
 } from './BottomSheetPickerApp.type';
 import {ButtonPicker} from './ButtonPicker';
 import {HeaderSheetPicker} from './HeaderSheetPicker';
+import {TextApp} from '@component/typography';
+import { LineApp } from '@component/LineApp';
 
 export const BottomSheetPickerApp: ForwardRefComponent<
   BottomSheetPickerAppRef,
@@ -196,7 +198,32 @@ export const BottomSheetPickerApp: ForwardRefComponent<
 
     return (
       <>
-        <ButtonSelectBottomSheet
+        <Box flex={1}>
+          <Box p={scaler(5)} mb={scaler(10)}>
+            <TextApp
+              // numberOfLines={1}
+              size={FontSize.Font16}
+              weight={700}
+              color={theme.colors.text}>
+              {title}
+            </TextApp>
+          </Box>
+          <Row rowGap={scaler(3)} flexWrap="wrap" justify="space-between">
+            {list.map((item, index) => (
+            <ButtonPicker
+            key={`${keySheet}_${index}`}
+            item={item}
+            onPress={handlePress}
+            value={itemSelected}
+            isHaveTitle={isHaveTitle}
+            isLastItem={index === list.length - 1} 
+          />
+          ))}
+          </Row>
+        </Box>
+          <LineApp space={0}/>
+
+        {/* <ButtonSelectBottomSheet
           placeholder={title}
           label={itemSelected?.label}
           onPress={() => {
@@ -209,8 +236,8 @@ export const BottomSheetPickerApp: ForwardRefComponent<
           disabled={disabled}
           onRemoveValue={handleRemoveValue}
           require={require}
-        />
-        <BottomSheetModalApp
+        /> */}
+        {/* <BottomSheetModalApp
           snapPoints={[snapPoints]}
           ref={modalSheetBottomApp}
           onChange={handleChangeModal}
@@ -252,7 +279,7 @@ export const BottomSheetPickerApp: ForwardRefComponent<
               />
             </Box>
           </Box>
-        </BottomSheetModalApp>
+        </BottomSheetModalApp> */}
       </>
     );
   },

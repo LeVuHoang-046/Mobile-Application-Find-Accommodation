@@ -1,5 +1,5 @@
 
-import { RouteMain, RouteTab } from "@constants";
+import { RouteAuth, RouteMain, RouteTab } from "@constants";
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
@@ -10,9 +10,13 @@ type HaveImgParams = {
 
 type RouterScreen = 
 // RouteAuth | 
-RouteTab | RouteMain;
+RouteTab | RouteMain | RouteAuth;
 
 export type AppStackParamList = {
+  //auth
+  [RouteAuth.LOGIN]: undefined;
+  [RouteAuth.SignUp]: undefined;
+  [RouteAuth.InputOTP]: undefined;
     //main
     [RouteTab.Tab]: undefined;
     

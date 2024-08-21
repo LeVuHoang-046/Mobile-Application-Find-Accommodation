@@ -54,7 +54,7 @@ const SearchForNewsScreen: React.FC<PerformanceNavigationHOC> = ({
           onPressRight={() => modalFilterRef.current?.open()}
         />
         {navigateFinish ? (
-          <Box flex={1}>
+          <Box flex={1} >
             <Box
               color={ColorsStatic.white}
               ph={scaler(10)}

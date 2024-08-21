@@ -27,6 +27,10 @@ const waterElectricRepair = require('./waterElectricRepair.png');
 const DesginRoom1 = require('./imageDesignRoom.jpg');
 const DesginRoom2 = require('./ImageDesignRoom2.jpg');
 const DesginRoom3 = require('./ImageDesignRoom3.jpg');
+const SignUp = require('./SignUp.png');
+const SignUp2 = require('./SignUp2.png');
+const SignUp3 = require('./SignUp3.png');
+
 
 const Images = {
   avatarDefault,
@@ -58,6 +62,9 @@ const Images = {
   DesginRoom1,
   DesginRoom2,
   DesginRoom3,
+  SignUp,
+  SignUp2,
+  SignUp3,
 };
 
 export {Images};

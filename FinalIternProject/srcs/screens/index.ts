@@ -1,5 +1,6 @@
-
+import {Login, SignUp, InputOTP} from './Auth';
 import {
+    
     HomeScreen,
     MessageScreen,
     ServiceScreen,
@@ -34,6 +35,9 @@ import {
 } from './Main';
 
 const Screens = {
+    Login,
+    SignUp,
+    InputOTP,
     HomeScreen,
     MessageScreen,
     ServiceScreen,

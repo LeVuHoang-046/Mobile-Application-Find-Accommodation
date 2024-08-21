@@ -12,7 +12,7 @@ export const initDatePicker = {
   startDate: null,
   endDate: null,
 };
-export const SnapPointsFilter = [dimensions.height - scaler(90)];
+export const SnapPointsFilter = [dimensions.height - scaler(60)];
 export const ItemPickerAll = 'item_picker_all';
 
 export const HeightPicker = scaler(32);

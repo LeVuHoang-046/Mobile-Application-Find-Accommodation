@@ -36,6 +36,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import {FlatListApp} from '@component/FlatListApp';
 import {TextApp} from '@component/typography';
 import {useStyles} from 'react-native-unistyles';
+import { LineApp } from '@component/LineApp';
 
 export const BottomSheetPickerMultilineApp: ForwardRefComponent<
   BottomSheetPickerAppRef,
@@ -56,6 +57,7 @@ export const BottomSheetPickerMultilineApp: ForwardRefComponent<
       isFetching = false,
       fetchNextPage,
       refetch,
+  
     },
     ref,
   ) => {
@@ -75,8 +77,13 @@ export const BottomSheetPickerMultilineApp: ForwardRefComponent<
     }, [list?.length]);
 
     useEffect(() => {
-      setListPick(listSelected);
-    }, [listSelected]);
+      onChange?.(listPick);
+    }, [listPick]);
+
+
+
+    console.log({listPick})
+
 
     useImperativeHandle(
       ref,
@@ -87,6 +94,7 @@ export const BottomSheetPickerMultilineApp: ForwardRefComponent<
     );
 
     const open = () => {
+      // setListPick(listSelected);
       modalSheetBottomApp.current?.open();
     };
 
@@ -172,16 +180,19 @@ export const BottomSheetPickerMultilineApp: ForwardRefComponent<
           <Row rowGap={scaler(20)} flexWrap='wrap' justify='space-between'>
           {list.map((item, index) => (
             <ButtonMultilinePicker
-              key={index}
+              key={`${String(keySheet)}_${item?.value}item${index}`}
               item={item}
               onPress={handlePressItem}
               listSelected={listPick}
+              
               // placeholder={title}
             />
           ))}
 
           </Row>
         </Box>
+        <LineApp/>
+
         {/* <ButtonSelectBottomSheet
           placeholder={title}
           label={concatLabelListPicker(listSelected)}
@@ -192,13 +203,14 @@ export const BottomSheetPickerMultilineApp: ForwardRefComponent<
           hideIcon={hideIcon}
           style={style}
           onRemoveValue={handleRemoveValue}
-        /> */}
+        />
 
-        {/* <BottomSheetModalApp
+        <BottomSheetModalApp
           snapPoints={[snapPoints]}
           ref={modalSheetBottomApp}
           keySheet={keySheet}
-          onChange={handleChangeModal}>
+          onChange={handleChangeModal}
+          >
           <Box flex={1}>
             <HeaderSheetPicker
               title={title}

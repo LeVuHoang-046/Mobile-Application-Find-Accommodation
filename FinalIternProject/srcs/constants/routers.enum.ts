@@ -5,6 +5,15 @@ export enum RouteTab {
     MessageTab = 'message_tab',
     AccountTab = 'account_tab',
 }
+export enum RouteAuth {
+    // INTRO = 'intro',
+    LOGIN = 'login',
+    SignUp = 'sign_up',
+    InputOTP = 'input_otp',
+    // FORGOT_PASSWORD = 'forgot_password',
+    // AUTHEN_CODE = 'authen_code',
+    // CHOOSE_ACTIVITY = 'choose_activity',
+  }
 
 export enum RouteMain {
     RouteMain = 'route_main',
