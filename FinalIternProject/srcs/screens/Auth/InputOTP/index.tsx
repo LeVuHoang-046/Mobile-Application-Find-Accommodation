@@ -1,11 +1,10 @@
-import {Absolute, Box, Row, TextApp, TouchableApp} from '@component';
-import {ColorsStatic, RouteAuth, RouteMain, RouteTab} from '@constants';
-import { useNavigation } from '@react-navigation/native';
-import {FontSize, scaler} from '@themes';
-import { TAppNavigation } from '@types';
-import {useEffect, useRef, useState} from 'react';
-import {KeyboardAvoidingView, StyleSheet} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
+import React, { useEffect, useRef, useState } from 'react';
+import { Alert, KeyboardAvoidingView, StyleSheet, TextInput, View } from 'react-native';
+import { Absolute, Box, Row, TextApp, TouchableApp } from '@component';
+import { ColorsStatic } from '@constants';
+import auth from '@react-native-firebase/auth';
+import { useRoute } from '@react-navigation/native';
+import { FontSize, scaler } from '@themes';
 
 export const InputOTP = () => {
   const textInput = useRef<TextInput | null>(null);
@@ -15,11 +14,52 @@ export const InputOTP = () => {
   const [internalVal, setInternalVal] = useState('');
   const [countdown, setCountdown] = useState(defaultCountdown);
   const [enableResend, setEnableResend] = useState(false);
+  const [verificationId, setVerificationId] = useState<string | null>(null);
+  const route = useRoute();
+  const { phoneNumber } = route.params as { phoneNumber: string };
 
-  
+  useEffect(() => {
+    const sendVerification = async () => {
+      try {
+        const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+        setVerificationId(confirmation.verificationId);
+      } catch (error) {
+        const errorMessage = (error as Error).message || 'An error occurred';
+        Alert.alert('Error', errorMessage);
+      }
+    };
+
+    sendVerification();
+
+    return () => {
+      if (clockCall) {
+        clearInterval(clockCall);
+      }
+    };
+  }, [phoneNumber]);
+
+  const confirmCode = async () => {
+    if (verificationId && internalVal.length === lengthInput) {
+      try {
+        const credential = auth.PhoneAuthProvider.credential(
+          verificationId,
+          internalVal
+        );
+        await auth().signInWithCredential(credential);
+        Alert.alert('Login Successful');
+        setInternalVal('');
+      } catch (error) {
+        const errorMessage = (error as Error).message || 'An error occurred';
+        Alert.alert('Error', errorMessage);
+      }
+    }
+  };
+
   const onChangeText = (val: string) => {
     setInternalVal(val);
-  
+    if (val.length === lengthInput) {
+      confirmCode();
+    }
   };
 
   useEffect(() => {
@@ -35,31 +75,37 @@ export const InputOTP = () => {
   }, []);
 
   const decrementClock = () => {
-    setCountdown((prevCountdown) => {
+    setCountdown(prevCountdown => {
       if (prevCountdown <= 1) {
-        
         setEnableResend(true);
         clearInterval(clockCall ?? 0);
-        return 0;  
+        return 0;
       } else {
         return prevCountdown - 1;
       }
     });
   };
+
   const onChangeNumber = () => {
-    setInternalVal('')
-  }
+    setInternalVal('');
+    // Optionally handle changing phone number here
+  };
 
   const onResendOTP = () => {
     if (enableResend) {
       setCountdown(defaultCountdown);
       setEnableResend(false);
-      if (clockCall) {
-        clearInterval(clockCall);
-      }
-      clockCall = setInterval(() => {
-        decrementClock();
-      }, 1000);
+      const sendVerification = async () => {
+        try {
+          const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+          setVerificationId(confirmation.verificationId);
+        } catch (error) {
+          const errorMessage = (error as Error).message || 'An error occurred';
+          Alert.alert('Error', errorMessage);
+        }
+      };
+
+      sendVerification();
     }
   };
 
@@ -72,27 +118,28 @@ export const InputOTP = () => {
       <KeyboardAvoidingView
         keyboardVerticalOffset={50}
         behavior="padding"
-        style={styles.AvoiddingView}>
+        style={styles.AvoidingView}
+      >
         <TextApp mv={scaler(50)} size={FontSize.Font16}>
           Input your OTP code sent via SMS
         </TextApp>
         <Box>
-            <Absolute bottom={scaler(10)} left={scaler(5)}>
-
-          <TextInput
-            ref={textInput}
-            onChangeText={onChangeText}
-            style={styles.inputOTP}
-            value={internalVal}
-            maxLength={lengthInput}
-            returnKeyType="done"
-            keyboardType="numeric"
-          />
-            </Absolute>
+          {/* Remove FirebaseRecaptchaVerifierModal */}
+          <Absolute bottom={scaler(10)} left={scaler(5)}>
+            <TextInput
+              ref={textInput}
+              onChangeText={onChangeText}
+              style={styles.inputOTP}
+              value={internalVal}
+              maxLength={lengthInput}
+              returnKeyType="done"
+              keyboardType="numeric"
+            />
+          </Absolute>
           <Row>
             {Array(lengthInput)
               .fill(0)
-              .map((data, index) => (
+              .map((_, index) => (
                 <Box
                   key={index}
                   pv={scaler(11)}
@@ -106,59 +153,58 @@ export const InputOTP = () => {
                       index === internalVal.length
                         ? ColorsStatic.orange2
                         : ColorsStatic.black,
-                  }}>
+                  }}
+                >
                   <TextApp
                     onPress={() => textInput.current?.focus()}
                     textAlign="center"
-                    size={FontSize.Font16}>
-                    {internalVal && internalVal.length > 0
-                      ? internalVal[index]
-                      : ''}
+                    size={FontSize.Font18}
+                  >
+                    {internalVal[index] || ''}
                   </TextApp>
                 </Box>
               ))}
           </Row>
+          <Box mt={scaler(20)}>
+            <TouchableApp onPress={onChangeNumber}>
+              <TextApp size={FontSize.Font16}>Change phone number</TextApp>
+            </TouchableApp>
+            <Row>
+              <TextApp size={FontSize.Font14}>Resend OTP in</TextApp>
+              <TextApp
+                size={FontSize.Font14}
+                color={enableResend ? ColorsStatic.blue8 : ColorsStatic.gray4}
+              >
+                {countdown}s
+              </TextApp>
+            </Row>
+            {enableResend && (
+              <TouchableApp onPress={onResendOTP}>
+                <TextApp size={FontSize.Font16} color={ColorsStatic.blue8}>
+                  Resend OTP
+                </TextApp>
+              </TouchableApp>
+            )}
+          </Box>
         </Box>
-        <Row flex={1} mb={scaler(50)} align="flex-end">
-          <TouchableApp onPress={onChangeNumber} style={styles.button}>
-            <TextApp
-              weight={700}
-              size={FontSize.Font14}
-              color={ColorsStatic.blue8}>
-              Change number
-            </TextApp>
-          </TouchableApp>
-          <TouchableApp onPress={onResendOTP} style={styles.button}>
-            <TextApp
-              weight={600}
-              size={FontSize.Font14}
-              color={enableResend ? ColorsStatic.orange2 : ColorsStatic.text}>
-              Resend OTP ({countdown})
-            </TextApp>
-          </TouchableApp>
-        </Row>
       </KeyboardAvoidingView>
     </Box>
   );
 };
 
 const styles = StyleSheet.create({
-  AvoiddingView: {
+  AvoidingView: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: scaler(10),
+    paddingHorizontal: scaler(20),
   },
   inputOTP: {
-    width: 0,
-    height: 0,
-    paddingHorizontal: scaler(145),
-    paddingVertical: scaler(20),
+    fontSize: FontSize.Font18,
+    textAlign: 'center',
+    width:300,
+    height:40,
+    backgroundColor:'red'
   },
-  button: {
-    width: scaler(150),
-    height: scaler(50),
-    borderRadius: scaler(10),
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  // Remove recaptchaContainer style
 });

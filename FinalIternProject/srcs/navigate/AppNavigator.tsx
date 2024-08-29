@@ -6,8 +6,8 @@ import { Stack } from "./stack";
 const NavigationApp: ForwardRefComponent<any, {}> = React.forwardRef(
     (_, ref: any) => {
         const renderStackApp = () => {
-            return <Stack.AuthStackComponent/>
             return <Stack.MainStackComponent />
+            return <Stack.AuthStackComponent/>
         }
         return (
             <NavigationContainer ref={ref}>

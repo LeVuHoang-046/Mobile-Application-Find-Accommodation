@@ -116,6 +116,22 @@ const MainStackComponent = memo(() => {
           name={RouteMain.RoommateSearchPost}
           component={Screens.RoommateSearchPost}
         />
+        <MainStack.Screen
+          name={RouteMain.OrderConfirmationDetail}
+          component={Screens.OrderConfirmationDetail}
+        />
+        <MainStack.Screen
+          name={RouteMain.ShoppingCartDetail}
+          component={Screens.ShoppingCartDetail}
+        />
+        <MainStack.Screen
+          name={RouteMain.UpdateInformation}
+          component={Screens.UpdateInformation}
+        />
+        <MainStack.Screen
+          name={RouteMain.FindRoomAroundHere}
+          component={Screens.FindRoomAroundHere}
+        />
       </MainStack.Navigator>
       <StatusBar barStyle="dark-content" />
     </>

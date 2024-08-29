@@ -1,26 +1,22 @@
-import {Absolute, Box, Row, TextApp, TouchableApp} from '@component';
-import {ColorsStatic, RouteAuth} from '@constants';
-import {useNavigation} from '@react-navigation/native';
-import {FontSize, scaler} from '@themes';
-import {TAppNavigation} from '@types';
-import {useState} from 'react';
-import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, TextInput } from 'react-native';
+import { Absolute, Box, Row, TextApp, TouchableApp } from '@component';
+import { ColorsStatic, RouteAuth } from '@constants';
+import { useNavigation } from '@react-navigation/native';
+import { FontSize, scaler } from '@themes';
+import auth from '@react-native-firebase/auth';
+import { TAppNavigation } from '@types';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const Login = () => {
   const navigation = useNavigation<TAppNavigation<RouteAuth.LOGIN>>();
-  const handleNavigate = () => {
-    navigation.navigate(RouteAuth.SignUp);
-  };
-
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [focusInput, setFocusInput] = useState(true);
 
   const onChangePhone = (number: string) => {
-    const maxNumber = number.replace(/[^0-9]/g, ''); // Remove non-numeric characters
-    if (maxNumber.length <= 10) {
-      setPhoneNumber(maxNumber);
-    }
+    // Remove non-numeric characters except '+' at the start
+    const formattedNumber = number.replace(/[^0-9+]/g, '');
+    setPhoneNumber(formattedNumber);
   };
 
   const onChangeFocus = () => {
@@ -31,9 +27,23 @@ export const Login = () => {
     setFocusInput(false);
   };
 
-  const onPressLogin = () => {
+  const onPressLogin = async () => {
     if (phoneNumber) {
-      navigation.navigate(RouteAuth.InputOTP);
+      // Ensure phone number starts with '+' and country code
+      const formattedPhoneNumber = `+84${phoneNumber.replace(/[^0-9]/g, '')}`;
+      console.log('Formatted Phone Number:', formattedPhoneNumber);
+      try {
+        const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
+        if (confirmation.verificationId) {
+          navigation.navigate(RouteAuth.InputOTP, { phoneNumber: formattedPhoneNumber });
+        } else {
+          Alert.alert('Error', 'Failed to get verification ID.');
+        }
+      } catch (error) {
+        Alert.alert('Error', 'Failed to send OTP. Please try again.');
+      }
+    } else {
+      Alert.alert('Error', 'Please enter a phone number.');
     }
   };
 
@@ -87,7 +97,7 @@ export const Login = () => {
           </TouchableApp>
           <Row pv={scaler(5)} columnGap={scaler(15)} justify="center">
             <TextApp size={FontSize.Font14}>Don't have an account yet?</TextApp>
-            <TouchableApp onPress={handleNavigate}>
+            <TouchableApp onPress={()=> navigation.navigate(RouteAuth.SignUp)}>
               <TextApp size={FontSize.Font12} color={ColorsStatic.blue8}>
                 Sign Up
               </TextApp>

@@ -1,4 +1,5 @@
 
+import { ButtonBuyServiceProps } from "@component";
 import { RouteAuth, RouteMain, RouteTab } from "@constants";
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -7,6 +8,9 @@ type HaveImgParams = {
  images?: string[];
  activeIndex: number;
 }
+type HaveIdParams = {
+  phoneNumber? : any;
+}
 
 type RouterScreen = 
 // RouteAuth | 
@@ -14,9 +18,9 @@ RouteTab | RouteMain | RouteAuth;
 
 export type AppStackParamList = {
   //auth
-  [RouteAuth.LOGIN]: undefined;
+  [RouteAuth.LOGIN]: HaveIdParams;
   [RouteAuth.SignUp]: undefined;
-  [RouteAuth.InputOTP]: undefined;
+  [RouteAuth.InputOTP]: {phoneNumber: string}; 
     //main
     [RouteTab.Tab]: undefined;
     
@@ -53,7 +57,10 @@ export type AppStackParamList = {
     [RouteMain.MessageDetail]: undefined;
     [RouteMain.RoomSearchPost]: undefined;
     [RouteMain.RoommateSearchPost]: undefined;
-
+    [RouteMain.OrderConfirmationDetail]: {selectedItem: ButtonBuyServiceProps | null; quantity: number };
+    [RouteMain.ShoppingCartDetail]: undefined;
+    [RouteMain.UpdateInformation]: undefined;
+    [RouteMain.FindRoomAroundHere]: undefined;
 };
 export type TAppNavigation<T extends RouterScreen> = NativeStackNavigationProp<
   AppStackParamList,

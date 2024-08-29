@@ -43,6 +43,10 @@ export enum RouteMain {
     MessageDetail = 'message_detail',
     RoomSearchPost = 'room_search_post',
     RoommateSearchPost = 'roommate_search_post',
+    OrderConfirmationDetail = 'order_confirmation_detail',
+    ShoppingCartDetail = 'shopping_cart_detail',
+    UpdateInformation = 'update_information',
+    FindRoomAroundHere = 'find_room_around_here',
 }
 
 export enum LabelTab {

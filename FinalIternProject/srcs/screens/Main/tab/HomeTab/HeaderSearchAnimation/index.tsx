@@ -1,13 +1,14 @@
-import {Animated, Text, TouchableOpacity, View} from 'react-native';
+import {Animated, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useStyles} from 'react-native-unistyles';
 import {memo, useEffect, useState} from 'react';
-import {Box, Row, TextApp, TouchableApp} from '@component';
+import {Absolute, Box, Row, TextApp, TouchableApp} from '@component';
 import {FontSize, scaler} from '@themes';
 import {Icons} from '@assets';
 import {stylesheet} from '../index.style';
 import {useNavigation} from '@react-navigation/native';
 import {TAppNavigation} from '@types';
 import {RouteMain, RouteTab} from '@constants';
+import {Circle} from '@component/layout/Circle';
 // import {Icon} from 'react-native-vector-icons/Icon';
 
 type HeaderSearchAnimationProps = {
@@ -18,6 +19,7 @@ type HeaderSearchAnimationProps = {
 export const HeaderSearchAnimation: React.NamedExoticComponent<HeaderSearchAnimationProps> =
   memo(({onPress, scrollY}) => {
     const {styles, theme} = useStyles(stylesheet);
+    const [dot, setDot] = useState<boolean>(true);
     const navigation = useNavigation<TAppNavigation<RouteTab.HomeTab>>();
 
     //==============================  START SLIDER ===================================================
@@ -38,8 +40,8 @@ export const HeaderSearchAnimation: React.NamedExoticComponent<HeaderSearchAnima
     };
 
     const onPressNotification = () => [
-      navigation.navigate(RouteMain.Notification)
-    ]
+      navigation.navigate(RouteMain.Notification),
+    ];
 
     return (
       <Animated.View
@@ -73,8 +75,15 @@ export const HeaderSearchAnimation: React.NamedExoticComponent<HeaderSearchAnima
             </TouchableApp>
             <TouchableOpacity
               onPress={onPressNotification}
-              activeOpacity={1}>
-              <Icons.Notification size={35} color={theme.colors.gray1} />
+              activeOpacity={1}
+              style={styles.buttonBell}>
+              <Icons.Bell size={35} />
+
+              <Circle
+                size={scaler(6)}
+                color={theme.colors.red1}
+                style={styles.dot}
+              />
             </TouchableOpacity>
           </Row>
         </Row>

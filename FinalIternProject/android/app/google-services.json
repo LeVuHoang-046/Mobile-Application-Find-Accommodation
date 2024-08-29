@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "645652005311",
+    "project_id": "find-accommodation-70a36",
+    "storage_bucket": "find-accommodation-70a36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645652005311:android:617f7b0e80180a2058610a",
+        "android_client_info": {
+          "package_name": "com.finaliternproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYCDAoaJK5UheyOMiGNOAxDEpzRC6UthQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

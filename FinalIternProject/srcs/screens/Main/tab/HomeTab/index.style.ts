@@ -29,6 +29,14 @@ export const stylesheet = createStyleSheet(theme =>({
   animationButton:{
     zIndex: 999
   },
+  buttonBell:{
+    paddingBottom: scaler(10),
+  },
+  dot: {
+    position: 'absolute',
+    top: scaler(8),
+    right: scaler(7),
+  },
   // ====================MODAL STYLES================
   modalContainer: {
     flex: 1,

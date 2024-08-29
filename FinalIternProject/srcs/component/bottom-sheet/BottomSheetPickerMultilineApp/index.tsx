@@ -83,6 +83,7 @@ export const BottomSheetPickerMultilineApp: ForwardRefComponent<
 
 
     console.log({listPick})
+    console.log({listSelected})
 
 
     useImperativeHandle(

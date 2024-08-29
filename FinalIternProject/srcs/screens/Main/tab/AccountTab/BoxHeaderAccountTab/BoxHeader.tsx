@@ -1,11 +1,17 @@
 import {Icons} from '@assets';
 import {Absolute, AvatarUser, Box, TextApp, TouchableApp} from '@component';
-import {ColorsStatic, screenWidth} from '@constants';
+import {ColorsStatic, RouteMain, RouteTab, screenWidth} from '@constants';
+import {useNavigation} from '@react-navigation/native';
 import {FontSize, scaler} from '@themes';
+import {TAppNavigation} from '@types';
 import {memo} from 'react';
 import {StyleSheet, TouchableHighlight} from 'react-native';
 
 export const BoxHeader: React.NamedExoticComponent = memo(() => {
+  const navigation = useNavigation<TAppNavigation<RouteTab.AccountTab>>();
+  const handleNavigate = () => {
+    navigation.navigate(RouteMain.UpdateInformation);
+  };
   return (
     <>
       <Box style={styles.header}>
@@ -16,7 +22,10 @@ export const BoxHeader: React.NamedExoticComponent = memo(() => {
         </Absolute>
       </Box>
       <Absolute top={scaler(145)}>
-        <TouchableApp activeOpacity={1} style={styles.accountButton}>
+        <TouchableApp
+          onPress={handleNavigate}
+          activeOpacity={1}
+          style={styles.accountButton}>
           <Box style={styles.avatar}>
             <AvatarUser size={50} />
           </Box>

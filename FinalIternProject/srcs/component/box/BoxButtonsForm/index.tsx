@@ -22,6 +22,7 @@ export type BoxButtonsFormProps = {
   iconLeft?: React.ReactNode;
   iconBetween?: React.ReactNode;
   iconRight?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
@@ -33,6 +34,7 @@ export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
   styleBtn,
   insetBtn = true,
   boxShadow = true,
+  style,
   iconLeft = <Icons.AlertOutLine color={ColorsStatic.tint} size={19} />,
   iconBetween = <Icons.Message size={21} color={ColorsStatic.tint} />,
   iconRight = <Icons.Calendar size={20} color={ColorsStatic.white} />,
@@ -55,7 +57,7 @@ export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
       bottom={0}
       left={0}
       right={0}
-      style={shadowContent}>
+      style={[shadowContent,style]}>
       <Row>
         <TouchableApp
           onPress={onPressLeftButton}

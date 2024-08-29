@@ -45,6 +45,7 @@ export const ModalFilter: ForwardRefComponent<
   };
 
   const handleReset = () => {
+    reset(defaultSearchForNewsValue);
     setForms(defaultSearchForNewsValue);
   };
 

@@ -4,6 +4,7 @@ import {createStyleSheet, useStyles} from 'react-native-unistyles';
 import {TouchableApp} from '../TouchableApp';
 import { FontWeightType, TextApp } from '@component/typography';
 import { scaler } from '@themes';
+import { LineApp } from '@component/LineApp';
 
 export type TouchableIconAppProps = {
   style?: StyleProp<ViewStyle>;
@@ -23,7 +24,7 @@ export const TouchableIconApp: React.FC<TouchableIconAppProps> = ({
   IconRight,
   onPress,
   styleText,
-  weightText = 400,
+  weightText = 600,
   disabled,
 }) => {
   const {styles} = useStyles(stylesheet);
@@ -49,5 +50,6 @@ const stylesheet = createStyleSheet(({colors}) => ({
     alignItems: 'center',
     columnGap: scaler(8),
     paddingVertical: scaler(8),
+    justifyContent:'space-between',
   },
 }));

@@ -6,5 +6,5 @@ export * from './ManaServiceOrder';
 export * from './mana-post';
 export * from './ReportProblem';
 export * from './TermPolicies';
-
+export * from './update-information';
 

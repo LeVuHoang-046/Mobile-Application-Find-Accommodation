@@ -13,7 +13,7 @@ import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
-
+import EvilIcon from 'react-native-vector-icons/EvilIcons';
 type iconProps = {
   color?: string;
   size?: number;
@@ -314,6 +314,24 @@ const Plus = ({size = 24, color = '#000'}: iconProps) => {
 const ChevronDown = ({size = 16, color = '#000'}: iconProps) => {
   return <FeatherIcon name="chevron-down" size={size} color={color} />;
 };
+const Minus = ({size = 16, color = '#000'}: iconProps) => {
+  return <FontAwesome6Icon name="minus" size={size} color={color} />;
+};
+const PlusVer2 = ({size = 16, color = '#000'}: iconProps) => {
+  return <FontAwesome6Icon name="plus" size={size} color={color} />;
+};
+const DocumentScan = ({size = 24, color = '#000'}: iconProps) => {
+  return <MaterialIcon name="document-scanner" size={size} color={color} />;
+};
+const ThreeDots = ({size = 24, color = '#000'}: iconProps) => {
+  return <CommunityIcon name="dots-vertical" size={size} color={color} />;
+};
+const TrashCan = ({size = 18, color = '#000'}: iconProps) => {
+  return <IoniconsIcon name="trash-outline" size={size} color={color} />;
+};
+const Bell = ({size = 18, color = '#000'}: iconProps) => {
+  return <EvilIcon name="bell" size={size} color={color} />;
+};
 
 export const Icons = {
   Home,
@@ -404,4 +422,10 @@ export const Icons = {
   Shield,
   Plus,
   ChevronDown,
+  Minus,
+  PlusVer2,
+  DocumentScan,
+  ThreeDots,
+  TrashCan,
+  Bell
 };

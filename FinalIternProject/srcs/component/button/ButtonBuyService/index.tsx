@@ -12,13 +12,17 @@ export type ButtonBuyServiceProps = {
   title: string;
   price: string;
   onPress?: () => void;
+  onPressBuy?: () => void;
+  onPressAdd?: () => void;
 };
 
 export const ButtonBuyService: React.FC<ButtonBuyServiceProps> = ({
   image,
   title,
   price,
-  onPress
+  onPress,
+  onPressBuy,
+  onPressAdd
 }) => {
   return (
     <TouchableApp onPress={onPress} style={[styles.buttonContainer, ShadowStyle]}>
@@ -33,13 +37,13 @@ export const ButtonBuyService: React.FC<ButtonBuyServiceProps> = ({
       </TextApp>
       <TextApp
         pb={scaler(10)}
-        weight={800}
-        color={ColorsStatic.red1}
+        weight={700}
+        color={ColorsStatic.red2}
         size={FontSize.Font14}>
         {price}
       </TextApp>
       <Row columnGap={scaler(5)}>
-        <TouchableApp style={styles.buttonBuy}>
+        <TouchableApp onPress={onPressBuy} style={styles.buttonBuy}>
           <TextApp
             textAlign="center"
             weight={700}
@@ -48,7 +52,7 @@ export const ButtonBuyService: React.FC<ButtonBuyServiceProps> = ({
             Buy now
           </TextApp>
         </TouchableApp>
-        <TouchableApp style={styles.addToCart}>
+        <TouchableApp onPress={onPressAdd} style={styles.addToCart}>
           <Icons.ShoppingCartPlus size={17} />
         </TouchableApp>
       </Row>

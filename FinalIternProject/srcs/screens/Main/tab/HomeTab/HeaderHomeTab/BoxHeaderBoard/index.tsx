@@ -1,6 +1,6 @@
 import {Icons} from '@assets';
 import {Absolute, Box, Row, TextApp, TouchableApp} from '@component';
-import {ColorsStatic, RouteMain} from '@constants';
+import {ColorsStatic, RouteMain, RouteTab} from '@constants';
 import {useNavigation} from '@react-navigation/native';
 import {FontSize, scaler, shadow} from '@themes';
 import {TAppNavigation} from '@types';
@@ -14,7 +14,7 @@ import {ModalDetail, ModalDetailHeaderBoard} from '../ModalDetail';
 type OptionItem = {
   icon: string;
   text: string;
-  // action: () => void;
+  action: () => void;
 };
 
 type BoxHeaderBoardProps = {
@@ -26,23 +26,23 @@ export const BoxHeaderBoard: React.NamedExoticComponent<BoxHeaderBoardProps> =
     const {styles} = useStyles(stylesheet);
 
     const modalDetailRef = useRef<ModalDetailHeaderBoard>(null);
-    const navigation = useNavigation<TAppNavigation<RouteMain.SearchForNews>>();
+    const navigation = useNavigation<TAppNavigation<RouteTab.HomeTab>>();
 
     const OptionItems: OptionItem[] = [
-      {icon: 'location-sharp', text: 'Nearby rooms'},
-      {icon: 'location-sharp', text: 'Room posts'},
-      {icon: 'location-sharp', text: 'Share room post'},
-      {icon: 'location-sharp', text: 'Transport'},
-      {icon: 'location-sharp', text: 'Gas serviece'},
-      {icon: 'location-sharp', text: 'Water container'},
-      {icon: 'location-sharp', text: 'Laudry'},
-      {icon: 'location-sharp', text: 'Repair service'},
-      {icon: 'location-sharp', text: 'Design room service'},
+      {icon: 'location-sharp', text: 'Nearby rooms', action: () => navigation.navigate(RouteMain.FindRoomAroundHere)},
+      {icon: 'location-sharp', text: 'Room posts', action: () => navigation.navigate(RouteMain.SearchForNews)},
+      {icon: 'location-sharp', text: 'Share room post',action: () => navigation.navigate(RouteMain.SearchForNews)},
+      {icon: 'location-sharp', text: 'Transport',action: () => navigation.navigate(RouteMain.DesignRoomService)},
+      {icon: 'location-sharp', text: 'Gas serviece',action: () => navigation.navigate(RouteMain.DesignRoomService)},
+      {icon: 'location-sharp', text: 'Water service',action: () => navigation.navigate(RouteMain.DesignRoomService)},
+      {icon: 'location-sharp', text: 'Laudry',action: () => navigation.navigate(RouteMain.DesignRoomService)},
+      {icon: 'location-sharp', text: 'Repair service',action: () => navigation.navigate(RouteMain.DesignRoomService)},
+      {icon: 'location-sharp', text: 'Design room service',action: () => navigation.navigate(RouteMain.DesignRoomService)},
     ];
-    const RenderOptionItems: React.FC<OptionItem> = ({icon, text}) => {
+    const RenderOptionItems: React.FC<OptionItem> = ({icon, text, action}) => {
       return (
         <TouchableApp
-          //   onPress={action}
+            onPress={action}
           style={styles.OptionContainer}>
           <Box justify="center" align="center">
             <Icon

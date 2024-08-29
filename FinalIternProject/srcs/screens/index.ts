@@ -31,6 +31,10 @@ import {
     MessageDetail,
     RoomSearchPost,
     RoommateSearchPost,
+    OrderConfirmationDetail,
+    ShoppingCartDetail,
+    UpdateInformation,
+    FindRoomAroundHere,
 
 } from './Main';
 
@@ -68,6 +72,10 @@ const Screens = {
     MessageDetail,
     RoomSearchPost,
     RoommateSearchPost,
+    OrderConfirmationDetail,
+    ShoppingCartDetail,
+    UpdateInformation,
+    FindRoomAroundHere,
 
 };
 export {Screens} 
