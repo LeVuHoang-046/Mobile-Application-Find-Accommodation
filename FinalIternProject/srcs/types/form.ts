@@ -24,3 +24,11 @@ export type FormsSearchForNews = {
     interior: ItemPickerType[];
     sort: ESort;
 }
+
+export type FormsUpdateInformation = {
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    dOB: number | null;
+    gender: ItemPickerType;
+}

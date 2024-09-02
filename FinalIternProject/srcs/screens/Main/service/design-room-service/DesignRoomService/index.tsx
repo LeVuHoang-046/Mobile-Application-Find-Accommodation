@@ -31,11 +31,16 @@ const DesignRoomServiceScreen: React.FC<PerformanceNavigationHOC> = ({
     setCartCount(prevCount => prevCount + 1);
   };
 
+  const handleNavigateManaOrder = () => {
+    navigation.navigate(RouteMain.ManaServiceOrder)
+  }
+
   return (
     <Box flex={1}>
       <HeaderApp
         title="Room design consultation"
         goBack
+        onPressRight={handleNavigateManaOrder}
         onPressRightSecond={handleNavigate}
         IconRight={<Icons.Menu />}
         IconRightSecond={
@@ -46,8 +51,8 @@ const DesignRoomServiceScreen: React.FC<PerformanceNavigationHOC> = ({
               <Box
                 color={ColorsStatic.red2}
                 borderRadius={scaler(10)}
-                width={scaler(17)}
-                height={scaler(17)}
+                width={scaler(15)}
+                height={scaler(15)}
                 justify="center"
                 align="center">
                 <TextApp
@@ -64,7 +69,7 @@ const DesignRoomServiceScreen: React.FC<PerformanceNavigationHOC> = ({
       />
       {navigateFinish ? (
         <>
-          <BoxDesignRoomService item={null} onAddToCart={handleAddToCart} />
+          <BoxDesignRoomService item={null} cartCount={cartCount} onAddToCart={handleAddToCart} />
         </>
       ) : (
         <LoadingComponent />

@@ -8,7 +8,7 @@ import { scaler } from '@themes';
 import {Calendar, DateData} from 'react-native-calendars';
 import {MarkedDates} from 'react-native-calendars/src/types';
 import { formatUnixToDateCalender, formatUnixToDateString } from '@utils';
-import { ButtonSelectBottomSheet, ButtonSelectBottomSheetProps } from '@component/button';
+import { ButtonSelectBottomSheet, ButtonSelectBottomSheetProps, ButtonSelectCalenderPicker } from '@component/button';
 import { BottomSheetPickerAppRef } from '@component/bottom-sheet';
 import { BottomSheetModalApp, BottomSheetModalAppRef } from '@component/BottomSheetModalApp';
 import { Box } from '@component/layout';
@@ -72,13 +72,13 @@ export const CalenderPicker: ForwardRefComponent<
 
     return (
       <>
-        <ButtonSelectBottomSheet
+        <ButtonSelectCalenderPicker
           placeholder={placeholder}
           label={formatUnixToDateString(timestamp || 0)}
           onPress={() => {
             modalSheetBottomApp.current?.open();
           }}
-          Icon={Icons.Calendar}
+          Icon={<Icons.Calendar/>}
           style={style}
         />
         <BottomSheetModalApp
@@ -94,7 +94,7 @@ export const CalenderPicker: ForwardRefComponent<
               <Calendar
                 onDayPress={handleDayPress}
                 initialDate={undefined}
-                monthFormat={'MMMM, yyyy'}
+                monthFormat={'MMMM,yyyy'}
                 firstDay={1}
                 theme={ThemeCalendar}
                 style={{

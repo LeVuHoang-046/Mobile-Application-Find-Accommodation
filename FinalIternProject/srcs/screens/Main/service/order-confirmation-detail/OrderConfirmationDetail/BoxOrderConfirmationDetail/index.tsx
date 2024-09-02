@@ -32,7 +32,7 @@ type OrderConfirmationDetailRouteProp = RouteProp<
 >;
 
 export const BoxOrderConfirmationDetail: React.NamedExoticComponent<BoxOrderConfirmationDetailProps> =
-  memo(() => {
+  memo((item) => {
     const {styles, theme} = useStyles(stylesheet);
     const inset = useSafeAreaInsets();
 

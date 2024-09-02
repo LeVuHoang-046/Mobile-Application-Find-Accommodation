@@ -12,7 +12,16 @@
           "package_name": "com.finaliternproject"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "645652005311-b1dnd1f86gg25p6gj712km4b4li39get.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.finaliternproject",
+            "certificate_hash": "d0ec1adf057f797820739f7aa865b4513f1d2ce7"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCYCDAoaJK5UheyOMiGNOAxDEpzRC6UthQ"

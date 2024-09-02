@@ -79,7 +79,7 @@ export const InputApp: React.FC<InputAppProps> = ({
             style={styles.input}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            placeholderTextColor={theme.colors.gray1}
+            placeholderTextColor={theme.colors.gray3}
             secureTextEntry={variant === EVariantInput.Password && show}
             value={valueText ?? value}
             onChangeText={handleChangeText}

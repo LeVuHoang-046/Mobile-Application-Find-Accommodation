@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react';
 import {useStyles} from 'react-native-unistyles';
-import { ButtonAppProps, stylesheetForms } from '../forms.style';
-import { ESpinnerPlacement, EVariantButton } from '../forms.enum';
-import { ButtonBase } from '@component/button';
-import { Box } from '@component/layout';
-import { TextApp } from '@component/typography';
-
+import {ButtonAppProps, stylesheetForms} from '../forms.style';
+import {ESpinnerPlacement, EVariantButton} from '../forms.enum';
+import {ButtonBase} from '@component/button';
+import {Box} from '@component/layout';
+import {TextApp} from '@component/typography';
+import {FontSize} from '@themes';
 
 export const ButtonApp: React.FC<ButtonAppProps> = ({
   leftIcon,
@@ -64,6 +64,7 @@ export const ButtonApp: React.FC<ButtonAppProps> = ({
       <Box>{LeftIcon}</Box>
       <Box>
         <TextApp
+          size={FontSize.Font14}
           weight={600}
           style={styles.textButtonApp(variant, color || theme.colors.tint)}>
           {TitleButton}

@@ -1,4 +1,4 @@
-import { FormsAppointmentSchedule, FormsBills, FormsContract, FormsSearchForNews } from "@types";
+import { FormsAppointmentSchedule, FormsBills, FormsContract, FormsSearchForNews, FormsUpdateInformation } from "@types";
 import { initDatePicker, initItemPicker } from "./common";
 import { ESort } from "./app.enum";
 
@@ -24,4 +24,12 @@ export const defaultSearchForNewsValue: FormsSearchForNews = {
     amentitiesType: [],
     interior: [],
     sort: ESort.DESC,
+}
+
+export const defaultUpdateInformationValue: FormsUpdateInformation = {
+    fullName: '',
+    phoneNumber: '',
+    email: '',
+    dOB: null,
+    gender: initItemPicker,
 }

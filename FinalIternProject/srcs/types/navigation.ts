@@ -52,7 +52,7 @@ export type AppStackParamList = {
     [RouteMain.DetailRoom]: undefined;
     [RouteMain.ImageRoomDetail]: HaveImgParams;
     [RouteMain.LandlordInformationDetail]: undefined;
-    [RouteMain.ProductDetails]: undefined;
+    [RouteMain.ProductDetails]:  {item: ButtonBuyServiceProps; quantity: number; cartCount: number };
     [RouteMain.ImageProductDetails]: HaveImgParams;
     [RouteMain.MessageDetail]: undefined;
     [RouteMain.RoomSearchPost]: undefined;

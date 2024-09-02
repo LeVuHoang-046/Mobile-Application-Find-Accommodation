@@ -1,4 +1,4 @@
-import {Box, PageScreen, SliderSwipe, TextApp} from '@component';
+import {Box, ButtonBuyServiceProps, PageScreen, SliderSwipe, TextApp} from '@component';
 import {BoxContainer} from '@component/box/BoxContainer';
 import {ColorsStatic, RouteMain, screenWidth} from '@constants';
 import {useNavigation} from '@react-navigation/native';
@@ -8,7 +8,7 @@ import {memo, useCallback} from 'react';
 import {StyleSheet} from 'react-native';
 
 type BoxProductDetailsProps = {
-  item?: any;
+  item: ButtonBuyServiceProps | null;
 };
 
 export const BoxProductDetails: React.NamedExoticComponent<BoxProductDetailsProps> =
@@ -43,13 +43,13 @@ export const BoxProductDetails: React.NamedExoticComponent<BoxProductDetailsProp
           />
           <Box pb={scaler(10)}>
             <TextApp size={FontSize.Font18} weight={700}>
-              Thiết kế/Decor phòng theo yêu cầu
+             {item?.title}
             </TextApp>
             <TextApp
               size={FontSize.Font16}
               weight={700}
               color={ColorsStatic.red2}>
-              1.500.000 VND
+              {item?.price}
             </TextApp>
             <TextApp pt={scaler(5)} size={FontSize.Font14} weight={700}>
               Đã bán: 51

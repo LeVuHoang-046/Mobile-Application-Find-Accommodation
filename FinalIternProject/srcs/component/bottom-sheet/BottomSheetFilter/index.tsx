@@ -100,6 +100,6 @@ const styles = StyleSheet.create({
     padding: scaler(10)
   },
   applyButton:{
-    borderRadius: scaler(15)
+    borderRadius: scaler(15),
   },
 });

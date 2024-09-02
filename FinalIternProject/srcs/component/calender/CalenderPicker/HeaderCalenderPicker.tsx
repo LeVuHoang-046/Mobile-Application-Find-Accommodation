@@ -3,7 +3,7 @@ import { TouchableApp } from '@component/forms';
 import { Box, Row } from '@component/layout';
 import { TextApp } from '@component/typography';
 import { ColorsStatic } from '@constants';
-import { scaler, shadow } from '@themes';
+import { FontSize, scaler, shadow } from '@themes';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 
@@ -24,7 +24,7 @@ export const HeaderCalenderPicker: React.FC<HeaderCalenderPickerProps> = ({
           <Icons.X_Mark />
         </TouchableApp>
         <Box flex={6}>
-          <TextApp textAlign="center">{title}</TextApp>
+          <TextApp size={FontSize.Font14} weight={700} textAlign="center">{title}</TextApp>
         </Box>
         <Box flex={1} />
       </Row>

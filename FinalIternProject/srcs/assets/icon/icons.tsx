@@ -332,6 +332,9 @@ const TrashCan = ({size = 18, color = '#000'}: iconProps) => {
 const Bell = ({size = 18, color = '#000'}: iconProps) => {
   return <EvilIcon name="bell" size={size} color={color} />;
 };
+const Camera = ({size = 18, color = '#000'}: iconProps) => {
+  return <IconEntypo name="camera" size={size} color={color} />;
+};
 
 export const Icons = {
   Home,
@@ -427,5 +430,6 @@ export const Icons = {
   DocumentScan,
   ThreeDots,
   TrashCan,
-  Bell
+  Bell,
+  Camera
 };

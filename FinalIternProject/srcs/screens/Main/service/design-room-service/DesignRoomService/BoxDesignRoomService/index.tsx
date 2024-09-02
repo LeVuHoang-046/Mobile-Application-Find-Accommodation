@@ -31,10 +31,11 @@ import { TAppNavigation } from '@types';
 type BoxDesignRoomServiceProps = {
   item: any;
   onAddToCart: () => void;
+  cartCount: number
 };
 
 export const BoxDesignRoomService: React.NamedExoticComponent<BoxDesignRoomServiceProps> =
-  memo(({item, onAddToCart}) => {
+  memo(({item, onAddToCart, cartCount}) => {
     const {styles} = useStyles(stylesheet);
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] =
@@ -117,9 +118,9 @@ export const BoxDesignRoomService: React.NamedExoticComponent<BoxDesignRoomServi
       navigation.navigate(RouteMain.OrderConfirmationDetail, {selectedItem, quantity});
     }, [selectedItem,quantity]);
 
-    const handleNavigate = () => {
-      navigation.navigate(RouteMain.ProductDetails)
-    }
+    const handleNavigate = useCallback((item: ButtonBuyServiceProps) => {
+      navigation.navigate(RouteMain.ProductDetails, {item, quantity, cartCount})
+    },[quantity, cartCount]);
 
     return (
       <Box flex={1}>
@@ -135,7 +136,7 @@ export const BoxDesignRoomService: React.NamedExoticComponent<BoxDesignRoomServi
               {...item}
               onPressBuy={() => openModal(item)}
               onPressAdd={onAddToCart}
-              onPress={handleNavigate}
+              onPress={() => handleNavigate(item)}
             />
           ))}
         </Row>

@@ -19,6 +19,7 @@ export enum EKeySheet {
   PostType = 'post_type',
   AmentitiesType = 'amentities_type',
   Interior = 'interior',
+  Gender = 'gender',
 }
 
 export enum ESort {
