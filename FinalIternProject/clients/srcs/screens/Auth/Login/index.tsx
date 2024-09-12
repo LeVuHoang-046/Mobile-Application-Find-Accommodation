@@ -3,10 +3,13 @@ import { Alert, StyleSheet, TextInput } from 'react-native';
 import { Absolute, Box, Row, TextApp, TouchableApp } from '@component';
 import { ColorsStatic, RouteAuth } from '@constants';
 import { useNavigation } from '@react-navigation/native';
-import { FontSize, scaler } from '@themes';
+
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { TAppNavigation } from '@types';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { FontSize, scaler } from '@themes';
+import { authenticationAPI } from '@api';
+
 
 export const Login = () => {
   const navigation = useNavigation<TAppNavigation<RouteAuth.LOGIN>>();
@@ -19,19 +22,44 @@ export const Login = () => {
   };
 
   const onPressLogin = async () => {
-    if (phoneNumber) {
-      const formattedPhoneNumber = `+84${phoneNumber.replace(/[^0-9]/g, '')}`;
-      try {
-        const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
-        setConfirm(confirmation);
-        navigation.navigate(RouteAuth.InputOTP, { phoneNumber: formattedPhoneNumber, confirm: confirmation });
-      } catch (error) {
-        Alert.alert('Error', 'Failed to send OTP. Please try again.');
-      }
-    } else {
-      Alert.alert('Error', 'Please enter a phone number.');
+    try {
+      const res = await authenticationAPI.handleAuthentication('/hello');
+      console.log(res)
+    } 
+    catch (error) {
+      console.log(error)
     }
   };
+  // if (phoneNumber) {
+  //     const formattedPhoneNumber = `+84${phoneNumber.replace(/[^0-9]/g, '')}`;
+      
+  //     try {
+  //         // Step 2: Check if the phone number is registered
+  //         const response = await fetch('http://10.15.189.161/auth/register', {
+  //             method: 'POST',
+  //             headers: {
+  //                 'Content-Type': 'application/json',
+  //             },
+  //             body: JSON.stringify({ phone: formattedPhoneNumber }),
+  //         });
+  //         const data = await response.json();
+
+  //         if (data.registered) {
+  //             // Step 3: Proceed with Firebase OTP if registered
+  //             const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
+  //             setConfirm(confirmation);
+  //             navigation.navigate(RouteAuth.InputOTP, { phoneNumber: formattedPhoneNumber, confirm: confirmation });
+  //         } else {
+  //             // Step 4: Show an error message if not registered
+  //             Alert.alert('Error', 'This phone number is not registered.');
+  //         }
+  //     } catch (error) {
+  //         Alert.alert('Error', 'Failed to check registration or send OTP. Please try again.');
+  //     }
+  // } else {
+  //     Alert.alert('Error', 'Please enter a phone number.');
+  // }
+
 
   return (
     <Box flex={1}>

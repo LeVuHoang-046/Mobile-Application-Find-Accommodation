@@ -1,6 +1,7 @@
 import { RouteAuth } from '@constants';
 import {createStackNavigator} from '@react-navigation/stack';
 import { Screens } from '@screens';
+
 import { AppStackParamList, MemoComponent } from '@types';
 import React, {memo} from 'react';
 import {StatusBar} from 'react-native';

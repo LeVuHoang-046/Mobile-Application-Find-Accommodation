@@ -40,7 +40,9 @@
       "@themes/*": ["srcs/themes/*"],
       "@translations/*": ["srcs/translations/*"],
       "@utils/*": ["srcs/utils/*"],
-      "@validates/*": ["srcs/validates/*"]
+      "@validates/*": ["srcs/validates/*"],
+      "@stores/*": ["srcs/stores/*"],
+      "@storages/*": ["srcs/storages/*"],
     },
     "allowSyntheticDefaultImports": true /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,

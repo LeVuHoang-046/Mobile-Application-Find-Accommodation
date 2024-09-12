@@ -8,6 +8,12 @@ const ratio = (width / 414 / height) * 1000;
 const widthRatio = width / 500;
 const heightRatio = height / 500;
 
+export const CONFIG_SSO = {
+  BASE: {
+    URL: 'http://192.168.1.3:3000'
+  }
+}
+
 export const dimensions = {
   height,
   width,

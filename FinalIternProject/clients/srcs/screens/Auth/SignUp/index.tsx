@@ -9,6 +9,7 @@ import { StyleSheet, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import { authenticationAPI } from '@api';
 
 type SignUpRouteProp = RouteProp<
   AppStackParamList,
@@ -21,7 +22,7 @@ export const SignUp = () => {
   const uid  = route.params?.uid;
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  console.log({uid})
+
 
   const SaveUser = async (uid: any, name: string, phonenumber: string) => {
     try {
@@ -37,15 +38,20 @@ export const SignUp = () => {
   };
 
   const onSignUp = async () => {
-    if (!name || !phoneNumber) {
-      Alert.alert('Error', 'Please enter both name and phone number.');
-      return;
-    }
-
+    const api = '/register';
     try {
+      const res = await authenticationAPI.handleAuthentication(
+        api,
+        { 
+          name: name,
+          phoneNumber: phoneNumber
+        },
+        'post',
+      );
+      console.log({res})
+      try {
       const formattedPhoneNumber = `+84${phoneNumber.replace(/[^0-9]/g, '')}`;
       const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
-
       if (confirmation.verificationId) {
         // Assuming you handle the OTP verification elsewhere
         await SaveUser(uid, name, formattedPhoneNumber);
@@ -57,6 +63,9 @@ export const SignUp = () => {
     } catch (error) {
       console.log('Error during sign up:', error);
       Alert.alert('Error', 'Failed to send OTP. Please try again.');
+    }
+    } catch (error) {
+      console.log(error)
     }
   };
 

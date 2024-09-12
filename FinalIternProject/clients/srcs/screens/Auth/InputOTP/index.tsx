@@ -7,6 +7,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { FontSize, scaler } from '@themes';
 import { AppStackParamList, TAppNavigation } from '@types';
 import firestore from '@react-native-firebase/firestore';
+import { useTokenUserStore } from '@stores';
 
 type LoginRouteProp = RouteProp<
   AppStackParamList,
@@ -29,6 +30,8 @@ export const InputOTP = () => {
 
   const { phoneNumber, confirm } = route.params;
 // console.log({confirm})
+
+const { refetch } = useTokenUserStore();
 
   const decrementClock = () => {
     setCountdown(prevCountdown => {
@@ -58,18 +61,15 @@ export const InputOTP = () => {
       console.log("Current user:", currentUser);
   
       if (currentUser && currentUser.uid === user.uid) {
-        const userDocument = await firestore().collection("users").doc(user.uid).get();
-        console.log('User document exists:', userDocument.exists);
-  
-        if (userDocument.exists) {
-          Alert.alert('Login Successful', 'Welcome back!');
-        } else {
-          Alert.alert('User not found', 'The phone number you entered is not registered.');
-          navigation.navigate(RouteAuth.SignUp, { uid: user.uid });
-        }
-      } else {
+        // Get the ID token
+        const Token = await currentUser.getIdToken();
+        console.log('User ID Token:', Token);
+        refetch()
+        Alert.alert('Login Successful', 'Welcome!');
+      } else { 
         console.log('User session not active');
         Alert.alert('Error', 'There was an issue with your login session.');
+        navigation.navigate(RouteAuth.LOGIN)
       }
     } catch (error) {
       console.error('OTP confirmation failed:', error);
@@ -81,8 +81,8 @@ export const InputOTP = () => {
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(user => {
       if (user && !!otpSubmitted) {
-        // console.log('User is signed in:', user);
-        Alert.alert('Success', 'You have successfully logged in.');
+        console.log('User is signed in:', user);
+        // Alert.alert('Success', 'You have successfully logged in.');
       } else {
         console.log('User is not signed in');
       }
