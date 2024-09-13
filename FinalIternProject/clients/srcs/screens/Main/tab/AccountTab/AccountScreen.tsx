@@ -14,40 +14,35 @@ import {pushToastCustom} from '@utils/toast';
 import {ToastPosition} from '@backpackapp-io/react-native-toast';
 import auth from '@react-native-firebase/auth';
 import Modal from 'react-native-modal';
-import { useTokenUserStore } from '@stores';
-import { GlobalService } from '@component/GlobalUI';
+import {useTokenUserStore} from '@stores';
+import {GlobalService} from '@component/GlobalUI';
 
 export const AccountScreen = () => {
   const navigation = useNavigation<TAppNavigation<RouteTab.AccountTab>>();
   const queryClient = useQueryClient();
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
-const { refetch } = useTokenUserStore();
+  const {clearToken} = useTokenUserStore();
 
   const handleLogout = async () => {
     try {
       GlobalService.showLoading();
       await auth().signOut();
-      console.log('User signed out');
-      
+
       // Clear token from query cache
       queryClient.removeQueries({queryKey: ['authToken']});
       console.log('Token removed from cache');
-      refetch();
-   
-      // Show success toast after logout
+      clearToken();
+
       setTimeout(() => {
         pushToastCustom(
-          'Đăng xuất thành công',
+          'Sign out successful',
           ETypeToastCustom.Success,
           ToastPosition.BOTTOM,
         );
         GlobalService.hideLoading();
       }, 1500);
-
-      // navigation.navigate(RouteMain.AuthStack);
     } catch (error) {
-    }
-    finally {
+    } finally {
     }
   };
   const Buttons: ButtonArrowProps[] = [
@@ -120,19 +115,26 @@ const { refetch } = useTokenUserStore();
           color={ColorsStatic.white}
           p={scaler(20)}
           borderRadius={scaler(10)}
-          align="center"
-         >
+          align="center">
           <TextApp mb={scaler(10)} weight={700} size={FontSize.Font16}>
             Sign Out
           </TextApp>
-          <TextApp mb={scaler(15)} size={FontSize.Font13} weight={600} color={ColorsStatic.gray3}>Are you sure you want to Sign out?</TextApp>
+          <TextApp
+            mb={scaler(15)}
+            size={FontSize.Font13}
+            weight={600}
+            color={ColorsStatic.gray3}>
+            Are you sure you want to Sign out?
+          </TextApp>
           <Row justify="space-between">
             <TouchableApp
               onPress={() => setModalVisible(false)}
               style={styles.modalButtonCancelled}>
               <TextApp color={ColorsStatic.white}>No</TextApp>
             </TouchableApp>
-            <TouchableApp onPress={handleLogout} style={styles.modalButtonConfirm}>
+            <TouchableApp
+              onPress={handleLogout}
+              style={styles.modalButtonConfirm}>
               <TextApp color={ColorsStatic.white}>Yes</TextApp>
             </TouchableApp>
           </Row>

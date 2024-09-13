@@ -7,14 +7,15 @@ import {LoadingComponent} from '@component';
 
 const NavigationApp: ForwardRefComponent<any, {}> = React.forwardRef(
   (_, ref: any) => {
-    const {data: token, refetch} = useTokenUserStore();
+    const {token} = useTokenUserStore();
+    console.log({token})
     
-    useEffect(() => {
-      console.log('Token:', token);
-      if (!token) {
-        refetch();
-      }
-    }, [token, refetch]);
+    // useEffect(() => {
+    //   console.log('Token:', token);
+    //   if (!token) {
+    //     refetch();
+    //   }
+    // }, [token, refetch]);
 
     const renderStackApp = () => {
       if (token) {

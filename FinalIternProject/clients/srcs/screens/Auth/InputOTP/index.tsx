@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Button, KeyboardAvoidingView, StyleSheet, TextInput, View } from 'react-native';
 import { Absolute, Box, Row, TextApp, TouchableApp } from '@component';
-import { ColorsStatic, RouteAuth } from '@constants';
+import { ColorsStatic, ETypeToastCustom, RouteAuth } from '@constants';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { FontSize, scaler } from '@themes';
 import { AppStackParamList, TAppNavigation } from '@types';
 import firestore from '@react-native-firebase/firestore';
 import { useTokenUserStore } from '@stores';
+import { pushToastCustom } from '@utils/toast';
+import { ToastPosition } from '@backpackapp-io/react-native-toast';
+import { GlobalService } from '@component/GlobalUI';
 
 type LoginRouteProp = RouteProp<
   AppStackParamList,
@@ -31,7 +34,8 @@ export const InputOTP = () => {
   const { phoneNumber, confirm } = route.params;
 // console.log({confirm})
 
-const { refetch } = useTokenUserStore();
+const {setToken} = useTokenUserStore();
+
 
   const decrementClock = () => {
     setCountdown(prevCountdown => {
@@ -62,10 +66,18 @@ const { refetch } = useTokenUserStore();
   
       if (currentUser && currentUser.uid === user.uid) {
         // Get the ID token
+        GlobalService.showLoading();
         const Token = await currentUser.getIdToken();
-        console.log('User ID Token:', Token);
-        refetch()
-        Alert.alert('Login Successful', 'Welcome!');
+        // console.log('User ID Token:', Token);
+        setToken(Token)
+        setTimeout(() => {
+          pushToastCustom(
+            'Login successful',
+            ETypeToastCustom.Success,
+            ToastPosition.BOTTOM,
+          );
+          GlobalService.hideLoading();
+        }, 1500);
       } else { 
         console.log('User session not active');
         Alert.alert('Error', 'There was an issue with your login session.');

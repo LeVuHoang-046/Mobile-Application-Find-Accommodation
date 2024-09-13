@@ -1,38 +1,49 @@
-import React, { useState } from 'react';
-import { Alert, StyleSheet, TextInput } from 'react-native';
-import { Absolute, Box, Row, TextApp, TouchableApp } from '@component';
-import { ColorsStatic, RouteAuth } from '@constants';
-import { useNavigation } from '@react-navigation/native';
-
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { TAppNavigation } from '@types';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FontSize, scaler } from '@themes';
-import { authenticationAPI } from '@api';
-
+import React, {useState} from 'react';
+import {Alert, StyleSheet, TextInput} from 'react-native';
+import {Absolute, Box, Row, TextApp, TouchableApp} from '@component';
+import {ColorsStatic, RouteAuth} from '@constants';
+import {useNavigation} from '@react-navigation/native';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {TAppNavigation} from '@types';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {FontSize, scaler} from '@themes';
+import {authenticationAPI} from '@api';
 
 export const Login = () => {
   const navigation = useNavigation<TAppNavigation<RouteAuth.LOGIN>>();
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [focusInput, setFocusInput] = useState(true);
-  const [confirm, setConfirm] = useState<FirebaseAuthTypes.ConfirmationResult | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const onChangePhone = (number: string) => {
     setPhoneNumber(number.replace(/[^0-9+]/g, ''));
   };
-
   const onPressLogin = async () => {
     try {
-      const res = await authenticationAPI.handleAuthentication('/hello');
-      console.log(res)
-    } 
-    catch (error) {
-      console.log(error)
+      if (phoneNumber) {
+        const formattedPhoneNumber = `+84${phoneNumber.replace(/[^0-9]/g, '')}`;
+        const res = await authenticationAPI.handleAuthentication(
+          '/login',
+          {phoneNumber: formattedPhoneNumber},
+          'post',
+        );
+        console.log(res);
+        try {
+          const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
+          navigation.navigate(RouteAuth.InputOTP, { phoneNumber: formattedPhoneNumber, confirm: confirmation });
+
+        } catch(error) {
+            setErrorMessage('Failed to check registration or send OTP. Please try again.')
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('Account does not exist in the system.');
     }
   };
   // if (phoneNumber) {
   //     const formattedPhoneNumber = `+84${phoneNumber.replace(/[^0-9]/g, '')}`;
-      
+
   //     try {
   //         // Step 2: Check if the phone number is registered
   //         const response = await fetch('http://10.15.189.161/auth/register', {
@@ -60,7 +71,6 @@ export const Login = () => {
   //     Alert.alert('Error', 'Please enter a phone number.');
   // }
 
-
   return (
     <Box flex={1}>
       <SafeAreaView edges={['top']} />
@@ -77,15 +87,13 @@ export const Login = () => {
         top={scaler(250)}
         mh={scaler(15)}
         pv={scaler(15)}
-        borderRadius={scaler(20)}
-      >
+        borderRadius={scaler(20)}>
         <Box rowGap={scaler(7)} mh={scaler(15)}>
           <Row
             ph={scaler(10)}
             borderWidth={scaler(1)}
             borderRadius={scaler(20)}
-            borderColor={ColorsStatic.gray1}
-          >
+            borderColor={ColorsStatic.gray1}>
             <TextApp size={FontSize.Font16}>{'+84 |'}</TextApp>
             <TextInput
               placeholder="Phone number"
@@ -98,15 +106,21 @@ export const Login = () => {
               autoFocus={focusInput}
             />
           </Row>
+          {errorMessage ? (
+            <TextApp size={FontSize.Font14} color={ColorsStatic.red2} mt={scaler(5)} textAlign='center'>
+              {errorMessage}
+            </TextApp>
+          ) : null}
           <TouchableApp
             onPress={onPressLogin}
             style={[
               styles.btn,
               {
-                backgroundColor: phoneNumber ? ColorsStatic.blue8 : ColorsStatic.gray1,
+                backgroundColor: phoneNumber
+                  ? ColorsStatic.blue8
+                  : ColorsStatic.gray1,
               },
-            ]}
-          >
+            ]}>
             <TextApp size={FontSize.Font18} color={ColorsStatic.white}>
               Login
             </TextApp>

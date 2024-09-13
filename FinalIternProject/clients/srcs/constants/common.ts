@@ -55,3 +55,9 @@ export enum ELoadingApp {
   Printer,
   None,
 }
+
+export enum ETypeRoles {
+  Admin = 0,
+  Staff = 1,
+  User = 2,
+}

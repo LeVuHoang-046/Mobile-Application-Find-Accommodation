@@ -47,6 +47,7 @@ export const ColorsStatic = {
   green6:'#F1F7F5',
   green7: '#64A38E',
   green8: '#06D001',
+  green9:'#52BE4F',
   text: '#090A0B',
   background: '#EFF1F3',
   tint: tintColor,

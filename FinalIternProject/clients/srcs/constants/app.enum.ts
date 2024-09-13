@@ -27,10 +27,14 @@ export enum ESort {
   DESC = 'DESC',
 }
 
+export enum EStorage {
+  ReactQueryCache = 'ReactQueryCache',
+}
+
 export enum StatusQueryType {
   LOADING = 'LOADING',
   NOT_STARTED = 'NOT_STARTED',
-  SUCCESS = 'SUCCESS',
+  SUCCESS = 200,
   NETWORK_ERROR = 'NETWORK_ERROR',
   UNKNOWN = 'UNKNOWN',
   MULTIPLE_DEVICES = 406,

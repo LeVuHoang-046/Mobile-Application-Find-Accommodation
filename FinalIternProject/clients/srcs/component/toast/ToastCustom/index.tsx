@@ -26,7 +26,7 @@ export const ToastCustom: React.NamedExoticComponent<ToastCustomProps> = memo(
         case ETypeToastCustom.Error:
           return ColorsStatic.red3;
         case ETypeToastCustom.Success:
-          return colors.tint;
+          return colors.green8;
         default:
           return colors.tint;
       }

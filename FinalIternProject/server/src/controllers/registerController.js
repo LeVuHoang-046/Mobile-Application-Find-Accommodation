@@ -6,6 +6,9 @@ const register = asyncHandle(async (req, res) => {
     const { name, phoneNumber } = req.body;
 
     console.log(req.body)
+    if (!name || name.trim() === '') {
+        return res.status(400).json({ message: "Full name is required" });
+    }
 
     // First, check if the user already exists by phone number
     const sqlCheck = "SELECT * FROM users WHERE phone = ?";
@@ -35,9 +38,31 @@ const register = asyncHandle(async (req, res) => {
     });
 });
 
-const login = asyncHandle((req,res) => {
+const login = asyncHandle(async (req, res) => {
+    const { phoneNumber } = req.body;
+
     console.log(req.body);
-    res.send('saabhb')
-})
+        // Check if phone number is provided
+    if (!phoneNumber) {
+        return res.status(400).json({ error: "Phone number is required" });
+    }
+
+    // Check if the phone number exists in the database
+    const sqlCheck = "SELECT * FROM users WHERE phone = ?";
+    connection.query(sqlCheck, [phoneNumber], (err, results) => {
+        if (err) {
+            console.error("Error checking user existence:", err);
+            return res.status(500).json({ error: "Database error" });
+        }
+
+        if (results.length > 0) {
+            // User exists, login successful
+            return res.status(200).json({ message: "Login successful", user: results[0] });
+        } else {
+            // User does not exist
+            return res.status(400).json({ error: "Phone number not registered" });
+        }
+    });
+});
 
 module.exports = { register, login };
