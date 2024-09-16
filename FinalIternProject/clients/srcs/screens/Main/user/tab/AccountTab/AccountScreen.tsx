@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Icons} from '@assets';
 import {Box, ButtonArrowProps, Row, TextApp, TouchableApp} from '@component';
 import {BoxButtonsArrow} from '@component/box/BoxButtonArrow';
-import {ColorsStatic, ETypeToastCustom, RouteMain, RouteTab} from '@constants';
+import {ColorsStatic, ETypeToastCustom, RouteMain, RouteTabUser} from '@constants';
 import {useNavigation} from '@react-navigation/native';
 import {FontSize, scaler} from '@themes';
 import {TAppNavigation} from '@types';
@@ -18,7 +18,7 @@ import {useTokenUserStore} from '@stores';
 import {GlobalService} from '@component/GlobalUI';
 
 export const AccountScreen = () => {
-  const navigation = useNavigation<TAppNavigation<RouteTab.AccountTab>>();
+  const navigation = useNavigation<TAppNavigation<RouteTabUser.AccountTab>>();
   const queryClient = useQueryClient();
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
   const {clearToken} = useTokenUserStore();

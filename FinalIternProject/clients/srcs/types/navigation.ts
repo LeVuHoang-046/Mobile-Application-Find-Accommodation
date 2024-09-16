@@ -1,6 +1,6 @@
 
 import { ButtonBuyServiceProps } from "@component";
-import { RouteAuth, RouteMain, RouteTab } from "@constants";
+import { RouteAuth, RouteMain, RouteTabStaff, RouteTabUser } from "@constants";
 import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -14,21 +14,26 @@ type HaveIdParams = {
 }
 
 type RouterScreen = 
-// RouteAuth | 
-RouteTab | RouteMain | RouteAuth;
+RouteTabUser | RouteTabStaff | RouteMain | RouteAuth;
 
 export type AppStackParamList = {
   //auth
   [RouteAuth.LOGIN]: HaveIdParams | undefined;
   [RouteAuth.SignUp]: {uid: string | undefined} | undefined;
   [RouteAuth.InputOTP]: {phoneNumber: string, confirm: FirebaseAuthTypes.ConfirmationResult  }; 
-    //main
-    [RouteTab.Tab]: undefined;
-    
-    [RouteTab.HomeTab]: undefined;
-    [RouteTab.ServiceTab]: undefined;
-    [RouteTab.MessageTab]: undefined;
-    [RouteTab.AccountTab]: undefined;
+    //user Tab
+    [RouteTabUser.Tab]: undefined;
+    [RouteTabUser.HomeTab]: undefined;
+    [RouteTabUser.ServiceTab]: undefined;
+    [RouteTabUser.MessageTab]: undefined;
+    [RouteTabUser.AccountTab]: undefined;
+
+    //Tab Staff
+    [RouteTabStaff.Tab]: undefined;
+    [RouteTabStaff.HomeTab]: undefined;
+    [RouteTabStaff.ServiceTab]: undefined;
+    [RouteTabStaff.MessageTab]: undefined;
+    [RouteTabStaff.AccountTab]: undefined;
 
     [RouteMain.RouteMain]: undefined;
 

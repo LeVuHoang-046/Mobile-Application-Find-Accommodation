@@ -8,7 +8,7 @@ import {
   TextApp,
   TouchableApp,
 } from '@component';
-import {ColorsStatic, RouteMain, RouteTab, ShadowStyle} from '@constants';
+import {ColorsStatic, RouteMain, RouteTabUser, ShadowStyle} from '@constants';
 import {FontSize, scaler} from '@themes';
 import React from 'react';
 import {useStyles} from 'react-native-unistyles';
@@ -19,7 +19,7 @@ import { TAppNavigation } from '@types';
 
 export const MessageScreen = () => {
   const {styles} = useStyles(stylesheet);
-  const navigation = useNavigation<TAppNavigation<RouteTab.MessageTab>>();
+  const navigation = useNavigation<TAppNavigation<RouteTabUser.MessageTab>>();
 
   const handleNavigate = () => {
     navigation.navigate(RouteMain.MessageDetail)

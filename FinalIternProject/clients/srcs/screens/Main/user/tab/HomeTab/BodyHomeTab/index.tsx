@@ -7,12 +7,12 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { BoxLookingForRoomates } from './BoxLookingForRoommates';
 import { useNavigation } from '@react-navigation/native';
 import { TAppNavigation } from '@types';
-import { RouteMain, RouteTab } from '@constants';
+import { RouteMain, RouteTabUser } from '@constants';
 
 export const BodyHomeTab = () => {
   const data = Array(6).fill(0);
 
-  const navigation = useNavigation<TAppNavigation<RouteTab.HomeTab>>();
+  const navigation = useNavigation<TAppNavigation<RouteTabUser.HomeTab>>();
   const handleNavigate = () => {
     navigation.navigate(RouteMain.DetailRoom)
   }

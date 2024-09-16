@@ -1,6 +1,6 @@
 import {Icons, Images} from '@assets';
 import {Box, ImageApp, TouchableApp} from '@component';
-import {ColorsStatic, RouteMain, RouteTab, screenWidth} from '@constants';
+import {ColorsStatic, RouteMain, RouteTabUser, screenWidth} from '@constants';
 import {memo, useEffect, useRef, useState} from 'react';
 import {Animated, ScrollView} from 'react-native';
 import {useStyles} from 'react-native-unistyles';
@@ -21,7 +21,7 @@ type HeaderHomeTabProps = {
 export const HeaderHomeTab: React.NamedExoticComponent<HeaderHomeTabProps> =
   memo(({onPress, scrollY}) => {
     const {styles} = useStyles(stylesheet);
-    const navigation = useNavigation<TAppNavigation<RouteTab.HomeTab>>();
+    const navigation = useNavigation<TAppNavigation<RouteTabUser.HomeTab>>();
 
     const onPressNotification = () => {
       navigation.navigate(RouteMain.Notification);

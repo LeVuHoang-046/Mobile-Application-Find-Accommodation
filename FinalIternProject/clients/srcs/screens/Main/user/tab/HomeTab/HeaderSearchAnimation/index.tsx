@@ -7,7 +7,7 @@ import {Icons} from '@assets';
 import {stylesheet} from '../index.style';
 import {useNavigation} from '@react-navigation/native';
 import {TAppNavigation} from '@types';
-import {RouteMain, RouteTab} from '@constants';
+import {RouteMain, RouteTabUser} from '@constants';
 import {Circle} from '@component/layout/Circle';
 // import {Icon} from 'react-native-vector-icons/Icon';
 
@@ -20,7 +20,7 @@ export const HeaderSearchAnimation: React.NamedExoticComponent<HeaderSearchAnima
   memo(({onPress, scrollY}) => {
     const {styles, theme} = useStyles(stylesheet);
     const [dot, setDot] = useState<boolean>(true);
-    const navigation = useNavigation<TAppNavigation<RouteTab.HomeTab>>();
+    const navigation = useNavigation<TAppNavigation<RouteTabUser.HomeTab>>();
 
     //==============================  START SLIDER ===================================================
     //   const scrollY = new Animated.Value(0);

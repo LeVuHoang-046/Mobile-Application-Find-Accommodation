@@ -2604,17 +2604,31 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@tanstack/query-core@5.51.9":
-  version "5.51.9"
-  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.51.9.tgz"
-  integrity sha512-HsAwaY5J19MD18ykZDS3aVVh+bAt0i7m6uQlFC2b77DLV9djo+xEN7MWQAQQTR8IM+7r/zbozTQ7P0xr0bHuew==
+"@tanstack/query-core@5.55.4":
+  version "5.55.4"
+  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.55.4.tgz"
+  integrity sha512-uoRqNnRfzOH4OMIoxj8E2+Us89UIGXfau981qYJWsNMkFS1GXR4UIyzUTVGq4N7SDLHgFPpo6IOazqUV5gkMZA==
+
+"@tanstack/query-persist-client-core@5.55.4":
+  version "5.55.4"
+  resolved "https://registry.npmjs.org/@tanstack/query-persist-client-core/-/query-persist-client-core-5.55.4.tgz"
+  integrity sha512-ebdslxxgS+F9Fq0MVrCAk8f126ynX/3HW5UxmFe6YvrwU/TQ6pSsdtkp+Lt6/9llj6H6bKonRfloVN6i4BAnoA==
+  dependencies:
+    "@tanstack/query-core" "5.55.4"
+
+"@tanstack/react-query-persist-client@^5.55.4":
+  version "5.55.4"
+  resolved "https://registry.npmjs.org/@tanstack/react-query-persist-client/-/react-query-persist-client-5.55.4.tgz"
+  integrity sha512-WLg0eHqCWFaKd8QBWJ+h1++Noe3iVtdv1YQzRQ30FF5b3xAuCPiuw/HDsQvo1msAfIU+AU5cce03deVNgVR9hQ==
+  dependencies:
+    "@tanstack/query-persist-client-core" "5.55.4"
 
 "@tanstack/react-query@^5.50.1":
-  version "5.51.11"
-  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.51.11.tgz"
-  integrity sha512-4Kq2x0XpDlpvSnaLG+8pHNH60zEc3mBvb3B2tOMDjcPCi/o+Du3p/9qpPLwJOTliVxxPJAP27fuIhLrsRdCr7A==
+  version "5.55.4"
+  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.55.4.tgz"
+  integrity sha512-e3uX5XkLD9oTV66/VsVpkYz3Ds/ps/Yk+V5d89xthAbtNIKKBEm4FdNb9yISFzGEGezUzVO68qmfmiSrtScvsg==
   dependencies:
-    "@tanstack/query-core" "5.51.9"
+    "@tanstack/query-core" "5.55.4"
 
 "@tsconfig/react-native@^3.0.5":
   version "3.0.5"

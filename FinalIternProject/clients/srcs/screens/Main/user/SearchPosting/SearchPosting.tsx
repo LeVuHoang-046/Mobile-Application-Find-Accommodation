@@ -1,8 +1,8 @@
 import { Animated, Button, Keyboard, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ShadowStyle1 } from "../../../constants/ShadowStyle";
+import { ShadowStyle1 } from "../../../../constants/ShadowStyle";
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import { screenWidth } from "../../../constants/WindowWidth";
+import { screenWidth } from "../../../../constants/WindowWidth";
 import { useNavigation } from "@react-navigation/native";
 import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import React, { useRef, useState } from "react";

@@ -1,6 +1,6 @@
 import {Icons} from '@assets';
 import {Absolute, Box, Row, TextApp, TouchableApp} from '@component';
-import {ColorsStatic, RouteMain, RouteTab} from '@constants';
+import {ColorsStatic, RouteMain, RouteTabUser} from '@constants';
 import {useNavigation} from '@react-navigation/native';
 import {FontSize, scaler, shadow} from '@themes';
 import {TAppNavigation} from '@types';
@@ -26,7 +26,7 @@ export const BoxHeaderBoard: React.NamedExoticComponent<BoxHeaderBoardProps> =
     const {styles} = useStyles(stylesheet);
 
     const modalDetailRef = useRef<ModalDetailHeaderBoard>(null);
-    const navigation = useNavigation<TAppNavigation<RouteTab.HomeTab>>();
+    const navigation = useNavigation<TAppNavigation<RouteTabUser.HomeTab>>();
 
     const OptionItems: OptionItem[] = [
       {icon: 'location-sharp', text: 'Nearby rooms', action: () => navigation.navigate(RouteMain.FindRoomAroundHere)},

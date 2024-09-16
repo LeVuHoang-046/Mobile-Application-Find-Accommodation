@@ -1,6 +1,6 @@
 
 import { Icons } from '@assets';
-import { LabelTab, RouteTabUser } from '@constants';
+import { LabelTabStaff, RouteTabStaff } from '@constants';
 import {BottomTabBarProps, createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Screens } from '@screens';
@@ -20,38 +20,38 @@ export interface ITabBar {
 const Tab = createBottomTabNavigator();
 const MainStack = createStackNavigator();
 
-const TabNavigator = () => {
+const TabNavigatorStaff = () => {
   const TAB_BAR: ITabBar = {
-    [RouteTabUser.HomeTab]: {
-      name: RouteTabUser.HomeTab,
-      route: Screens.User.HomeScreen,
+    [RouteTabStaff.HomeTab]: {
+      name: RouteTabStaff.HomeTab,
+      route: Screens.Staff.HomeTab,
       Icon: Icons.Home,
-      label: LabelTab.Home,
+      label: LabelTabStaff.Home,
     },
-    [RouteTabUser.ServiceTab]: {
-      name: RouteTabUser.ServiceTab,
-      route: Screens.User.ServiceScreen,
+    [RouteTabStaff.ServiceTab]: {
+      name: RouteTabStaff.ServiceTab,
+      route: Screens.Staff.ServiceTab,
       Icon: Icons.Service,
-      label: LabelTab.Service,
+      label: LabelTabStaff.Service,
     },
-    [RouteTabUser.MessageTab]: {
-      name: RouteTabUser.MessageTab,
-      route: Screens.User.MessageScreen,
+    [RouteTabStaff.MessageTab]: {
+      name: RouteTabStaff.MessageTab,
+      route: Screens.Staff.MessageTab,
       Icon: Icons.Message,
-      label: LabelTab.Message,
+      label: LabelTabStaff.Message,
     },
-    [RouteTabUser.AccountTab]: {
-      name: RouteTabUser.AccountTab,
-      route: Screens.User.AccountScreen,
+    [RouteTabStaff.AccountTab]: {
+      name: RouteTabStaff.AccountTab,
+      route: Screens.Staff.AccountTab,
       Icon: Icons.AccountCircle,
-      label: LabelTab.Account,
+      label: LabelTabStaff.Account,
     },
   };
 
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
-      initialRouteName={RouteTabUser.HomeTab}
+      initialRouteName={RouteTabStaff.HomeTab}
     tabBar={(props: BottomTabBarProps) => (
       <CustomTabBar {...props} tabBar={TAB_BAR} />
     )}
@@ -68,5 +68,5 @@ const TabNavigator = () => {
   );
 };
 
-export { TabNavigator };
+export { TabNavigatorStaff };
 

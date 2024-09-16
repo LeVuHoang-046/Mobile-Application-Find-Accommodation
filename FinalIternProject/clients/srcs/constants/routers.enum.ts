@@ -1,10 +1,19 @@
-export enum RouteTab {
+export enum RouteTabUser {
     Tab = 'tab',
     HomeTab = 'home_tab',
     ServiceTab = 'service_tab',
     MessageTab = 'message_tab',
     AccountTab = 'account_tab',
-}
+};
+
+export enum RouteTabStaff {
+    Tab = 'tab_staff',
+    HomeTab = 'home_tab_staff',
+    ServiceTab = 'service_tab_staff',
+    MessageTab = 'message_tab_staff',
+    AccountTab = 'account_tab_staff',
+};
+
 export enum RouteAuth {
     // INTRO = 'intro',
     LOGIN = 'login',
@@ -50,6 +59,12 @@ export enum RouteMain {
 }
 
 export enum LabelTab {
+    Home = 'Home',
+    Service = 'Service',
+    Message = 'Message',
+    Account = 'Account',
+}
+export enum LabelTabStaff {
     Home = 'Home',
     Service = 'Service',
     Message = 'Message',

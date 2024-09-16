@@ -1,6 +1,6 @@
 import {Icons} from '@assets';
 import {Absolute, AvatarUser, Box, TextApp, TouchableApp} from '@component';
-import {ColorsStatic, RouteMain, RouteTab, screenWidth} from '@constants';
+import {ColorsStatic, RouteMain, RouteTabUser, screenWidth} from '@constants';
 import {useNavigation} from '@react-navigation/native';
 import {FontSize, scaler} from '@themes';
 import {TAppNavigation} from '@types';
@@ -8,7 +8,7 @@ import {memo} from 'react';
 import {StyleSheet, TouchableHighlight} from 'react-native';
 
 export const BoxHeader: React.NamedExoticComponent = memo(() => {
-  const navigation = useNavigation<TAppNavigation<RouteTab.AccountTab>>();
+  const navigation = useNavigation<TAppNavigation<RouteTabUser.AccountTab>>();
   const handleNavigate = () => {
     navigation.navigate(RouteMain.UpdateInformation);
   };

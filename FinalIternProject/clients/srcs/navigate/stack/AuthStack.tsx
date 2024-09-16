@@ -22,19 +22,19 @@ const AuthStackComponent: MemoComponent<{}> = memo(() => {
         }}>
         <AuthStack.Screen
           name={RouteAuth.LOGIN}
-          component={Screens.Login}
+          component={Screens.Auth.Login}
           options={{
             gestureEnabled: false,
           }}
         />
         <AuthStack.Screen
           name={RouteAuth.SignUp}
-          component={Screens.SignUp}
+          component={Screens.Auth.SignUp}
           
         />
         <AuthStack.Screen
           name={RouteAuth.InputOTP}
-          component={Screens.InputOTP}
+          component={Screens.Auth.InputOTP}
          
         />
         {/* <AuthStack.Screen

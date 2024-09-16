@@ -18,6 +18,7 @@ const NavigationApp: ForwardRefComponent<any, {}> = React.forwardRef(
     // }, [token, refetch]);
 
     const renderStackApp = () => {
+      return <Stack.StaffStackComponent/>
       if (token) {
         return <Stack.MainStackComponent />;
       } else {

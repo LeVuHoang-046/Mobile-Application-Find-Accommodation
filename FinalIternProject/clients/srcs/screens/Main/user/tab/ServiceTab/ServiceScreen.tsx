@@ -6,7 +6,7 @@ import {
   ListButtonServiceTab,
   PageScreen,
 } from '@component';
-import { RouteMain, RouteTab } from '@constants';
+import { RouteMain, RouteTabUser } from '@constants';
 import { useNavigation } from '@react-navigation/native';
 import {scaler} from '@themes';
 import { TAppNavigation } from '@types';
@@ -16,7 +16,7 @@ import {createStyleSheet, useStyles} from 'react-native-unistyles';
 export const ServiceScreen = () => {
   const {styles} = useStyles(stylesheet);
 
-  const navigation = useNavigation<TAppNavigation<RouteTab.ServiceTab>>();
+  const navigation = useNavigation<TAppNavigation<RouteTabUser.ServiceTab>>();
 
 
   const list: ButtonChooseServiceProps[] = [
