@@ -1,5 +1,6 @@
 import { ESort } from "@constants";
 import { ItemPickerDateType, ItemPickerType } from "./common";
+import { Image, Video } from "react-native-image-crop-picker";
 
 export type FormsAppointmentSchedule = {
     search: string;
@@ -31,4 +32,46 @@ export type FormsUpdateInformation = {
     email: string;
     dOB: number | null;
     gender: ItemPickerType;
+}
+
+export type FormsListCustomers = {
+    search: string;
+}
+export type FormsListStaffs = {
+    search: string;
+}
+
+export type FormsAddBuildingDetail = {
+    title: string;
+    address: string;
+    roomType: ItemPickerType;
+    parkingSpaces: string;
+    describe: string;
+    amentitiesType: ItemPickerType[];
+    interior: ItemPickerType[];
+    listAddRoom: Array<FormsAddListRoom>;
+    listAddMoreService: Array<FormsAddMoreService>;
+}
+
+export type FormsAddListRoom = {
+    roomNumber: string;
+    roomPrice: number | null;
+    deposit: number | null;
+    imageRoom: Image[];
+    videoRoom: Video[];
+    area: number | null;
+    floor: number | null;
+    capacity: number | null;
+    gender: ItemPickerType;
+    facilities: ItemPickerType[];
+    interior: ItemPickerType[];
+};
+
+export type FormsAddMoreService = {
+    nameService: string;
+    serviceFee: number | null;
+    feeBase: ItemPickerType;
+    iconService: string;
+    unit: string;
+    note: string;
 }

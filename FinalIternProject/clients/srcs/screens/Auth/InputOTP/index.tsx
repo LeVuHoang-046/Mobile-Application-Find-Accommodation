@@ -7,10 +7,12 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { FontSize, scaler } from '@themes';
 import { AppStackParamList, TAppNavigation } from '@types';
 import firestore from '@react-native-firebase/firestore';
-import { useTokenUserStore } from '@stores';
+import { usePhoneUserStore, useTokenUserStore } from '@stores';
 import { pushToastCustom } from '@utils/toast';
 import { ToastPosition } from '@backpackapp-io/react-native-toast';
 import { GlobalService } from '@component/GlobalUI';
+import { getUserInformation } from '@services';
+import { useQueryUserInformation } from '@api';
 
 type LoginRouteProp = RouteProp<
   AppStackParamList,
@@ -34,7 +36,9 @@ export const InputOTP = () => {
   const { phoneNumber, confirm } = route.params;
 // console.log({confirm})
 
+const { setPhoneNumber } = usePhoneUserStore();
 const {setToken} = useTokenUserStore();
+
 
 
   const decrementClock = () => {
@@ -53,7 +57,8 @@ const {setToken} = useTokenUserStore();
     try {
       const userCredential = await confirm.confirm(code);
       setOtpSubmitted(true);
-  
+      // const userInfo = await getUserInformation(phoneNumber);
+      // console.log('User role:', userInfo.role);
       if (!userCredential || !userCredential.user) {
         throw new Error('UserCredential or user is null');
       }
@@ -62,11 +67,12 @@ const {setToken} = useTokenUserStore();
   
       // Check if the user is signed in
       const currentUser = auth().currentUser;
-      console.log("Current user:", currentUser);
+      // console.log("Current user:", currentUser);
   
       if (currentUser && currentUser.uid === user.uid) {
         // Get the ID token
         GlobalService.showLoading();
+        setPhoneNumber(phoneNumber)
         const Token = await currentUser.getIdToken();
         // console.log('User ID Token:', Token);
         setToken(Token)
@@ -79,7 +85,7 @@ const {setToken} = useTokenUserStore();
           GlobalService.hideLoading();
         }, 1500);
       } else { 
-        console.log('User session not active');
+        // console.log('User session not active');
         Alert.alert('Error', 'There was an issue with your login session.');
         navigation.navigate(RouteAuth.LOGIN)
       }
@@ -93,10 +99,10 @@ const {setToken} = useTokenUserStore();
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(user => {
       if (user && !!otpSubmitted) {
-        console.log('User is signed in:', user);
+        // console.log('User is signed in:', user);
         // Alert.alert('Success', 'You have successfully logged in.');
       } else {
-        console.log('User is not signed in');
+        // console.log('User is not signed in');
       }
     });
     return subscriber; // unsubscribe on unmount

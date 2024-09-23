@@ -7,14 +7,14 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {TAppNavigation} from '@types';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FontSize, scaler} from '@themes';
-import {authenticationAPI} from '@api';
+import {authenticationAPI, useQueryUserInformation} from '@api';
+import { getUserInformation } from '@services';
 
 export const Login = () => {
   const navigation = useNavigation<TAppNavigation<RouteAuth.LOGIN>>();
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [focusInput, setFocusInput] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
   const onChangePhone = (number: string) => {
     setPhoneNumber(number.replace(/[^0-9+]/g, ''));
   };
@@ -27,7 +27,7 @@ export const Login = () => {
           {phoneNumber: formattedPhoneNumber},
           'post',
         );
-        console.log(res);
+        console.log('message!!:',res);
         try {
           const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
           navigation.navigate(RouteAuth.InputOTP, { phoneNumber: formattedPhoneNumber, confirm: confirmation });

@@ -1,14 +1,16 @@
-import {CONFIG_SSO} from '@constants';
-import { api } from '@services';
+import {api} from '@services';
 
+interface ApiResponse {
+  message: string;
+}
 
 class AuthAPI {
   handleAuthentication = async (
     url: string,
     data?: any,
-    method?: 'get' | 'post' | 'put' | 'delete'
-  ) => {
-    return await api(`${CONFIG_SSO.BASE.URL}/auth${url}`, {
+    method?: 'get' | 'post' | 'put' | 'delete',
+  ): Promise<ApiResponse> => {
+    return await api(`/auth${url}`, {
       method: method ?? 'get',
       data,
     });

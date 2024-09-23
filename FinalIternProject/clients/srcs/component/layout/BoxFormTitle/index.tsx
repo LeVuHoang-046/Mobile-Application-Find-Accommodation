@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box} from '../Box';
 import {BoxProps} from '../layout.type';
-import {scaler} from '@themes';
+import {FontSize, scaler} from '@themes';
 import {TextApp} from '@component/typography';
 import {ColorsStatic} from '@constants';
 type BoxFormProps = {
@@ -20,10 +20,10 @@ export const BoxFormTitle: React.FC<BoxFormProps> = ({
   return (
     <Box rowGap={scaler(4)} {...props}>
       {title ? (
-        <TextApp weight={600} color={color}>
+        <TextApp weight={800} color={color}>
           {title}
           <>
-            {require ? <TextApp color={ColorsStatic.red2}> *</TextApp> : null}
+            {require ? <TextApp weight={700} size={FontSize.Font14} color={ColorsStatic.red2}> *</TextApp> : null}
           </>
         </TextApp>
       ) : null}

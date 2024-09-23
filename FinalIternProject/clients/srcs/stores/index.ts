@@ -1,7 +1,7 @@
 // useAuth.ts
 import { useQuery } from '@tanstack/react-query';
 import auth from '@react-native-firebase/auth';
-import { TokenUserTypeStore } from '@types';
+import { PhoneUserTypeStore, TokenUserTypeStore } from '@types';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import {create} from 'zustand';
 import { StorageKeys } from '@constants';
@@ -28,6 +28,20 @@ export const useTokenUserStore = create<TokenUserTypeStore>()(
     }),
     {
       name: StorageKeys.TokenUserStore,
+      storage: createJSONStorage(() => zustandStorage),
+    },
+  ),
+);
+
+export const usePhoneUserStore = create<PhoneUserTypeStore>()(
+  persist(
+    (set) => ({
+      phoneNumber: null,
+      setPhoneNumber: (phoneNumber: string) => set({ phoneNumber }),
+      clearPhoneNumber: () => set({ phoneNumber: null }),
+    }),
+    {
+      name: StorageKeys.PhoneUserStore, // A unique key for storing phone number
       storage: createJSONStorage(() => zustandStorage),
     },
   ),

@@ -21,7 +21,7 @@ app.use(errorMiddleHanle)
 app.listen(PORT, (err)=> {
     if (err) {
         console.log(err);
-        return
+        return 
     }
     console.log(`Server starting at http://localhost:${PORT}`)
 })

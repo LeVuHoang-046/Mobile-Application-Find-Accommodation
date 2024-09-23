@@ -1,7 +1,9 @@
+import { CONFIG_SSO } from '@constants';
 import axios from 'axios';
 import queryString from 'query-string';
 
 const api = axios.create({
+    baseURL: CONFIG_SSO.BASE.URL,
     paramsSerializer: params => queryString.stringify(params),
 });
 

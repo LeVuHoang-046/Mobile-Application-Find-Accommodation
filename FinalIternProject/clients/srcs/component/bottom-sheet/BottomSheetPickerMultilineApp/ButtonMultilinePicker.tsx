@@ -23,7 +23,7 @@ export const ButtonMultilinePicker: React.FC<ButtonPickerProps> = ({
       onPress={() => onPress?.(item)}
       style={[
         styles.buttonPicker,
-        { borderColor: selected ? theme.colors.tint : theme.colors.gray1 },
+        { borderColor: selected ? theme.colors.orange3 : theme.colors.gray1 },
       ]}
     >
       <Box>

@@ -14,7 +14,7 @@ import {persistQueryClient} from '@tanstack/react-query-persist-client';
 import { createMMKVPersister } from "@utils";
 import { useEffect } from "react";
 import { GlobalService, GlobalUI } from "@component/GlobalUI";
-import { useTokenUserStore } from "@stores";
+import { usePhoneUserStore, useTokenUserStore } from "@stores";
 
 persistQueryClient({
   queryClient,
@@ -24,10 +24,11 @@ persistQueryClient({
 
 const App = () => {
   const {clearToken} = useTokenUserStore();
-
+  const {clearPhoneNumber} = usePhoneUserStore();
   useEffect(() => {
     const onUnauthorized = async () => {
-      clearToken()
+      clearToken();
+      clearPhoneNumber();
       GlobalService.hideLoading();
       console.log('abc');
     };

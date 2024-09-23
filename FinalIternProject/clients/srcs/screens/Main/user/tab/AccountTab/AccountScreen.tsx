@@ -14,7 +14,7 @@ import {pushToastCustom} from '@utils/toast';
 import {ToastPosition} from '@backpackapp-io/react-native-toast';
 import auth from '@react-native-firebase/auth';
 import Modal from 'react-native-modal';
-import {useTokenUserStore} from '@stores';
+import {usePhoneUserStore, useTokenUserStore} from '@stores';
 import {GlobalService} from '@component/GlobalUI';
 
 export const AccountScreen = () => {
@@ -22,7 +22,7 @@ export const AccountScreen = () => {
   const queryClient = useQueryClient();
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
   const {clearToken} = useTokenUserStore();
-
+  const {clearPhoneNumber} = usePhoneUserStore()
   const handleLogout = async () => {
     try {
       GlobalService.showLoading();
@@ -32,6 +32,7 @@ export const AccountScreen = () => {
       queryClient.removeQueries({queryKey: ['authToken']});
       console.log('Token removed from cache');
       clearToken();
+      clearPhoneNumber();
 
       setTimeout(() => {
         pushToastCustom(

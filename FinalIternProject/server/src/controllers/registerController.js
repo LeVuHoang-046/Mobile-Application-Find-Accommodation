@@ -65,4 +65,50 @@ const login = asyncHandle(async (req, res) => {
     });
 });
 
-module.exports = { register, login };
+const getUserInformation = asyncHandle(async (req, res) => {
+    const { phoneNumber } = req.query;
+    console.log({ phoneNumber });
+
+    if (!phoneNumber) {
+        return res.status(400).json({ message: "Phone number is required" });
+    }
+
+    // Normalize phone number
+    const formattedPhoneNumber = phoneNumber.trim().startsWith('+') ? phoneNumber.trim() : `+${phoneNumber.trim()}`;
+    console.log(`Normalized phone number: '${formattedPhoneNumber}'`);
+
+    // Query to get user information from the database
+    const sqlQuery = "SELECT * FROM users WHERE phone = ?";
+    connection.query(sqlQuery, [formattedPhoneNumber], (err, results) => {
+        if (err) {
+            console.error("Error fetching user information:", err);
+            return res.status(500).json({ error: "Database error" });
+        }
+
+        console.log("Query results:", results);
+
+        if (results.length > 0) {
+            // Transform the database response to match the desired format
+            const user = results[0];
+            const formattedResponse = {
+                success: true,
+                data: {
+                    user_id: user.id,           // 'id' to 'user_id'
+                    fullName: user.full_name,  // 'full_name' to 'first_name'
+                    phone: user.phone,
+                    email: user.email,
+                    role: user.role
+                }
+            };
+            return res.status(200).json(formattedResponse);
+        } else {
+            return res.status(404).json({ message: "User not found" });
+        }
+    });
+});
+
+
+
+
+
+module.exports = { register, login, getUserInformation };

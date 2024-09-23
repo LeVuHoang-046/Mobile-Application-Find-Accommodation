@@ -1,5 +1,6 @@
 import { EDetailTab } from "@constants";
 import { MemoExoticComponent } from "react";
+import { ColorValue } from "react-native";
 import {DateData} from 'react-native-calendars';
 
 export type MemoComponent<T> = MemoExoticComponent<React.FC<T>>;
@@ -24,4 +25,10 @@ export type ItemPickerDateType = {
 export type TabPageType = {
   title: string;
   keyTab: EDetailTab;
+};
+
+export type ButtonModalWarningType = {
+  title: string;
+  onPress?: () => void;
+  color?: ColorValue;
 };

@@ -20,6 +20,9 @@ export enum EKeySheet {
   AmentitiesType = 'amentities_type',
   Interior = 'interior',
   Gender = 'gender',
+  Facilities = 'facilities',
+  FeeBase = 'fee_base',
+  IconService = 'icon_service',
 }
 
 export enum ESort {

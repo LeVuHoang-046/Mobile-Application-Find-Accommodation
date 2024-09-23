@@ -36,7 +36,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import {FlatListApp} from '@component/FlatListApp';
 import {TextApp} from '@component/typography';
 import {useStyles} from 'react-native-unistyles';
-import { LineApp } from '@component/LineApp';
+import {LineApp} from '@component/LineApp';
 
 export const BottomSheetPickerMultilineApp: ForwardRefComponent<
   BottomSheetPickerAppRef,
@@ -57,7 +57,6 @@ export const BottomSheetPickerMultilineApp: ForwardRefComponent<
       isFetching = false,
       fetchNextPage,
       refetch,
-  
     },
     ref,
   ) => {
@@ -80,11 +79,8 @@ export const BottomSheetPickerMultilineApp: ForwardRefComponent<
       onChange?.(listPick);
     }, [listPick]);
 
-
-
-    console.log({listPick})
-    console.log({listSelected})
-
+    // console.log({listPick});
+    // console.log({listSelected});
 
     useImperativeHandle(
       ref,
@@ -169,30 +165,31 @@ export const BottomSheetPickerMultilineApp: ForwardRefComponent<
     return (
       <>
         <Box flex={1}>
-          <Box p={scaler(5)} mb={scaler(10)}>
-            <TextApp
-              // numberOfLines={1}
-              size={FontSize.Font16}
-              weight={700}
-              color={theme.colors.text}>
-              {title}
-            </TextApp>
-          </Box>
-          <Row rowGap={scaler(20)} flexWrap='wrap' justify='space-between'>
-          {list.map((item, index) => (
-            <ButtonMultilinePicker
-              key={`${String(keySheet)}_${item?.value}item${index}`}
-              item={item}
-              onPress={handlePressItem}
-              listSelected={listPick}
-              
-              // placeholder={title}
-            />
-          ))}
+          {title && (
+            <Box p={scaler(5)} mb={scaler(10)}>
+              <TextApp
+                // numberOfLines={1}
+                size={FontSize.Font16}
+                weight={700}
+                color={theme.colors.text}>
+                {title}
+              </TextApp>
+            </Box>
+          )}
+          <Row rowGap={scaler(20)} columnGap={scaler(23)} flexWrap="wrap" pt={scaler(10)} >
+            {list.map((item, index) => (
+              <ButtonMultilinePicker
+                key={`${String(keySheet)}_${item?.value}item${index}`}
+                item={item}
+                onPress={handlePressItem}
+                listSelected={listPick}
 
+                // placeholder={title}
+              />
+            ))}
           </Row>
         </Box>
-        <LineApp/>
+        <LineApp />
 
         {/* <ButtonSelectBottomSheet
           placeholder={title}

@@ -4,7 +4,7 @@ import { scaler } from "@themes"
 export const HomeTab = () => {
     return (
         <Box flex={1}>
-            <Box width={scaler(400)} height={scaler(400)} justify="center" color={'pink'}>
+            <Box width={scaler(400)} height={scaler(400)} justify="center" color={'yellow'}>
             <TextApp>Tab</TextApp>
             </Box>
             

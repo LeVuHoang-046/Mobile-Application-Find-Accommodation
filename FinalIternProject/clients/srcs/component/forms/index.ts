@@ -7,3 +7,5 @@ export * from './TouchableApp';
 export * from './InputApp';
 export * from './TouchableIconApp';
 export * from './ButtonApp';
+export * from './TextAreaApp';
+export * from './TextFormApp';

@@ -7,6 +7,8 @@ export enum StorageKeys {
     ShowedToast = 'showed_toast',
     TokenUserStore = 'token_user_store',
     AvatarUser = 'avatar_user',
+    PhoneUserStore = 'phone_user_store',
+    HandeAddListRoom = 'hande_add_list_room',
   }
   
   export enum EEventEmitter {

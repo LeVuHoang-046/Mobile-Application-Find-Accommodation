@@ -17,7 +17,7 @@ export const SignUp = () => {
   const navigation = useNavigation<TAppNavigation<RouteAuth.LOGIN>>();
   const route = useRoute<SignUpRouteProp>();
   const uid = route.params?.uid;
-  
+
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [nameError, setNameError] = useState('');
@@ -29,7 +29,7 @@ export const SignUp = () => {
         name,
         phonenumber,
       });
-      console.log('User saved successfully');
+      // console.log('User saved successfully');
     } catch (error) {
       console.log('Error saving user:', error);
     }
@@ -43,69 +43,67 @@ export const SignUp = () => {
     setPhoneError('');
 
     if (!name) {
-        setNameError('Full name is required');
-        valid = false;
+      setNameError('Full name is required');
+      valid = false;
     }
 
     if (!phoneNumber) {
-        setPhoneError('Phone number is required');
-        valid = false;
+      setPhoneError('Phone number is required');
+      valid = false;
     }
 
     if (!valid) {
-        return;
+      return;
     }
 
     const api = '/register';
     const formattedPhoneNumber = `+84${phoneNumber.replace(/[^0-9]/g, '')}`;
 
     try {
-        // Try to verify the phone number using Firebase
-        const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
-        
-        // If phone verification is successful, proceed with the registration
-        if (confirmation.verificationId) {
-            try {
-                // Call your API to register the user
-                const res = await authenticationAPI.handleAuthentication(
-                    api,
-                    {
-                        name: name,
-                        phoneNumber: formattedPhoneNumber,
-                    },
-                    'post',
-                );
+      // Try to verify the phone number using Firebase
+      const confirmation = await auth().signInWithPhoneNumber(
+        formattedPhoneNumber,
+      );
+      // If phone verification is successful, proceed with the registration
+      if (confirmation.verificationId) {
+        try {
+          // Call your API to register the user
+          const res = await authenticationAPI.handleAuthentication(
+            api,
+            {
+              name: name,
+              phoneNumber: formattedPhoneNumber,
+            },
+            'post',
+          );
+          // console.log({res})
 
-                // Access the data property from the response
-                const { data } = res;
+          // Check if the backend indicates that the phone number already exists
+          if (res.message === 'User already registered') {
+            setPhoneError('Phone number already exists');
+            return; // Stop further processing
+          }
 
-                // Check if the backend indicates that the phone number already exists
-                if (data.message === 'User already registered') {
-                    setPhoneError('Phone number already exists');
-                    return; // Stop further processing
-                }
+          // Save the user to Firestore or SQL after backend registration is successful
+          await SaveUser(uid, name, formattedPhoneNumber);
 
-                // Save the user to Firestore or SQL after backend registration is successful
-                await SaveUser(uid, name, formattedPhoneNumber);
-
-                // Navigate to OTP screen for further verification
-                navigation.navigate(RouteAuth.InputOTP, {
-                    phoneNumber: formattedPhoneNumber,
-                    confirm: confirmation,
-                });
-            } catch (apiError) {
-                // Handle errors related to the API request
-                console.log('API Error during sign up:', apiError);
-                setPhoneError('Phone number already exists!');
-            }
+          // Navigate to OTP screen for further verification
+          navigation.navigate(RouteAuth.InputOTP, {
+            phoneNumber: formattedPhoneNumber,
+            confirm: confirmation,
+          });
+        } catch (apiError) {
+          // Handle errors related to the API request
+          console.log('API Error during sign up:', apiError);
+          setPhoneError('Phone number already exists!');
         }
+      }
     } catch (firebaseError) {
-        // Handle errors related to Firebase phone verification
-        console.log('Firebase Error:', firebaseError);
-        setPhoneError('Phone number is invalid!');
+      // Handle errors related to Firebase phone verification
+      console.log('Firebase Error:', firebaseError);
+      setPhoneError('Phone number is invalid!');
     }
-};
-
+  };
 
   return (
     <Box flex={1} color={ColorsStatic.blue7}>
@@ -130,7 +128,7 @@ export const SignUp = () => {
             Full Name
           </TextApp>
           <TextInput
-            style={[ nameError ? styles.textInputError : styles.textInput]}
+            style={[nameError ? styles.textInputError : styles.textInput]}
             value={name}
             onChangeText={text => setName(text)}
           />
@@ -143,7 +141,7 @@ export const SignUp = () => {
           </TextApp>
           <TextInput
             keyboardType="phone-pad"
-            style={[ phoneError ? styles.textInputError : styles.textInput]}
+            style={[phoneError ? styles.textInputError : styles.textInput]}
             value={phoneNumber}
             onChangeText={text => setPhoneNumber(text)}
           />
@@ -191,7 +189,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.Font16,
     backgroundColor: ColorsStatic.gray9,
     borderColor: ColorsStatic.red2,
-    borderWidth: scaler(1)
+    borderWidth: scaler(1),
   },
   errorText: {
     color: ColorsStatic.red2,

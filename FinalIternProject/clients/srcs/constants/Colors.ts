@@ -31,6 +31,7 @@ export const ColorsStatic = {
   blue6:'#ACE2E1',
   blue7: '#7AA2E3',
   blue8: '#2AA8D6',
+  blue9: '#0B2F9F',
   pink1: '#FF7777',
   purple1: '#AF47D2',
   orange1:'#FDF8F2',
