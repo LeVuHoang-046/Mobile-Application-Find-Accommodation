@@ -1,39 +1,61 @@
+import { useQueryRoomsByBoardingHouseId } from '@api';
 import { BoxInformationVertical, BoxInformationVerticalProps } from '@component';
 import { ColorsStatic, RouteMain, ShadowStyle } from '@constants';
 import { useNavigation } from '@react-navigation/native';
 import { scaler } from '@themes';
-import { TAppNavigation } from '@types';
+import { BoardingHouseInfoType, RoomInfoType, TAppNavigation } from '@types';
+import { formatNumberWithCommas } from '@utils';
 import { memo } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 
 type BoxSearchForNewsProps = {
-  item: any;
+  item: BoardingHouseInfoType;
+  itemInfor?: RoomInfoType;
 };
 
 export const BoxSearchForNews: React.NamedExoticComponent<BoxSearchForNewsProps> =
   memo(({item}) => {
     const navigation = useNavigation<TAppNavigation<RouteMain.SearchForNews>>();
+
+    const {data: rooms} = useQueryRoomsByBoardingHouseId(item.id);
+    const prices = rooms?.map(room => parseInt(room.price)) || [];
+    const minPrice = prices.length > 0 ? Math.min(...prices) : null;
+    const maxPrice = prices.length > 0 ? Math.max(...prices) : null;
+
+    let priceText = '';
+    
+    if (minPrice !== null && maxPrice !== null && minPrice !== maxPrice) {
+      priceText = `from ${formatNumberWithCommas(minPrice.toString())}VND`;
+    } else if (minPrice !== null) {
+      priceText = `${formatNumberWithCommas(minPrice.toString())}VND`;
+    } else if (maxPrice !== null) {
+      priceText = `${formatNumberWithCommas(maxPrice.toString())}VND`;
+    } else {
+      priceText = 'Price not available'; 
+    }
+    const firstRoom = rooms && rooms.length > 0 ? rooms[0] : null;
+    
     const list: BoxInformationVerticalProps[] = [
       {
         time: '1 hours ago',
-        tilte: 'Đường Láng phòng đẹp sáng giá tốt',
-        price: '4.500.000đ/tháng',
+        tilte: item.title,
+        price: priceText,
         location:
-          '29 Dịch Vọng, Phường Dịch Vọng, Quận Cầu Giấy, Thành phố Hà Nội',
-        district: 'Quận Cầu Giấy',
-        buildingName: 'Số/tên phòng: 404',
-        area: '30m2',
-        numberPeople: '4',
+          `${item?.ward_name}, ${item?.district_name}, ${item?.city_name}`,
+        district: item?.district_name,
+        buildingName: item.name_building,
+        area: firstRoom ? `${firstRoom.area} m²` : 'N/A', 
+        numberPeople: firstRoom ? `${firstRoom.capacity}` : 'N/A',
       },
     ];
 
     const handleNavigate = () => {
-      navigation.navigate(RouteMain.DetailRoom);
+      navigation.navigate(RouteMain.DetailRoom, {id: item.id});
     };
 
     return (
       <Pressable onPress={handleNavigate}>
-        {list.map((_, index) => (
+      {list.map((_, index) => (
           <BoxInformationVertical
             styleOther={styles.textOther}
             style={[styles.container,ShadowStyle]}

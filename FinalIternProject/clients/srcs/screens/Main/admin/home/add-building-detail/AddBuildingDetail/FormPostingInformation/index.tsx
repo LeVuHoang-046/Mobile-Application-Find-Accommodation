@@ -24,6 +24,7 @@ export const FormPostingInformation = memo(() => {
     .map((_, i) => ({label: `label: ${i}`, value: String(i)}));
   const {watch, getValues, setValue, formState, control} =
     useFormContext<FormsAddBuildingDetail>();
+    
   return (
     <Box color={ColorsStatic.white} p={scaler(10)}  rowGap={scaler(15)}>
       <Box rowGap={scaler(5)}>
@@ -44,6 +45,7 @@ export const FormPostingInformation = memo(() => {
         placeholder="Type the title"
         control={control}
         name="title"
+        
       />
 
       <TextFormApp

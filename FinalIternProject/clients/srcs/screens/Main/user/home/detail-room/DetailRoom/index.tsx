@@ -9,12 +9,27 @@ import {
 } from '@component';
 import {BoxRoomDetail} from './BoxRoomDetail';
 import { useState } from 'react';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { AppStackParamList } from '@types';
+import { RouteMain } from '@constants';
+import { useQueryBoardingHouseDetail } from '@api';
+
+type DetailRoomRouteProp = RouteProp<
+  AppStackParamList,
+  RouteMain.DetailRoom
+>;
+
 
 const DetailRoomScreen: React.FC<PerformanceNavigationHOC> = ({
   navigateFinish,
 }) => {
   const [isHeartPressed, setIsHeartPressed] = useState(false);
+
+  const route = useRoute<DetailRoomRouteProp>();
+  const {id} = route.params;
   
+  const {data} = useQueryBoardingHouseDetail(id);
+
   const handleHeartPress = () => {
     setIsHeartPressed(!isHeartPressed);
   };
@@ -28,7 +43,7 @@ const DetailRoomScreen: React.FC<PerformanceNavigationHOC> = ({
       />
       {navigateFinish ? (
         <>
-          <BoxRoomDetail item={null} />
+          <BoxRoomDetail item={data} />
           <BoxButtonsForm titleBetweenButton="Chat" />
         </>
       ) : (

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Button, KeyboardAvoidingView, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, Button, KeyboardAvoidingView, LogBox, StyleSheet, TextInput, View } from 'react-native';
 import { Absolute, Box, Row, TextApp, TouchableApp } from '@component';
 import { ColorsStatic, ETypeToastCustom, RouteAuth } from '@constants';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
@@ -14,6 +14,9 @@ import { GlobalService } from '@component/GlobalUI';
 import { getUserInformation } from '@services';
 import { useQueryUserInformation } from '@api';
 
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 type LoginRouteProp = RouteProp<
   AppStackParamList,
   RouteAuth.InputOTP

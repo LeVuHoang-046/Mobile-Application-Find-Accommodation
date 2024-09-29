@@ -1,7 +1,8 @@
-import { EStorage } from "@constants";
+import { ColorsStatic, EGender, EStorage, ETypeHouses, serviceIconsArray } from "@constants";
 import { ItemPickerType } from "@types";
 import {PersistedClient, Persister} from '@tanstack/react-query-persist-client';
 import { storage } from "@storages";
+import { scaler } from "@themes";
 
 type ClientState = PersistedClient;
 
@@ -137,4 +138,39 @@ export const sortBetweenTitlePicker = (
   }
 
   return result;
+};
+
+export const mapGender = (gender: number): EGender => {
+  switch (gender) {
+    case 0:
+      return EGender.MaleFemale;
+    case 1:
+      return EGender.Male;
+    case 2:
+      return EGender.Female;
+    default:
+      return EGender.MaleFemale; 
+  }
+};
+export const mapTypeHouse = (type?: number): ETypeHouses => {
+  switch (type) {
+    case 0:
+      return ETypeHouses.Motel;
+    case 1:
+      return ETypeHouses.Apartment;
+    case 2:
+      return ETypeHouses.MiniApartment;
+      case 3:
+        return ETypeHouses.Homestay;
+    default:
+      return ETypeHouses.Motel; 
+  }
+};
+export const formatNumberWithCommas = (number: string) => {
+  return parseInt(number).toLocaleString('vi-VN'); // Formatting for Vietnamese locale (adjust if needed)
+};
+
+export const getIconById = (id: string) => {
+  const serviceIcon = serviceIconsArray.find(iconObj => iconObj.id === id);
+  return serviceIcon ? serviceIcon.icon({size: scaler(20), color: ColorsStatic.orange3}) : null; 
 };

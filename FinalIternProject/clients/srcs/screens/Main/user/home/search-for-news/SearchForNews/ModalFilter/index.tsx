@@ -1,3 +1,5 @@
+
+import { useQuerInteriorsFilter, useQueryFacilitiesFilter } from '@api';
 import {Icons} from '@assets';
 import {
   BottomSheetFilter,
@@ -12,10 +14,11 @@ import {
 } from '@component';
 import {BottomSheetPickerMultilineApp} from '@component/bottom-sheet/BottomSheetPickerMultilineApp';
 import {CalenderRangePicker} from '@component/calender';
-import {ColorsStatic, defaultSearchForNewsValue, EKeySheet} from '@constants';
+import {ColorsStatic, defaultSearchForNewsValue, EKeySheet, serviceIconsArray} from '@constants';
 import {BottomSheetView} from '@gorhom/bottom-sheet';
 import {scaler} from '@themes';
 import {FormsSearchForNews, ForwardRefComponent} from '@types';
+import { getIconById } from '@utils';
 import React, {forwardRef, useEffect} from 'react';
 import {useFormContext} from 'react-hook-form';
 import {StyleSheet} from 'react-native';
@@ -23,7 +26,7 @@ import {useImmer} from 'use-immer';
 
 type ModalFilterProps = {
   close: () => void;
-  find?: () => void;
+  find?: (item: any) => void;
 };
 
 const init = Array(10)
@@ -38,6 +41,21 @@ export const ModalFilter: ForwardRefComponent<
 
   const [forms, setForms] = useImmer<FormsSearchForNews>(getValues());
 
+  const {data: facilities} = useQueryFacilitiesFilter();
+ 
+  const {data: interiors} = useQuerInteriorsFilter();
+
+  const facilitiesList = facilities?.map(facility => ({
+    icon: ({ size, color }: any) => getIconById(facility.icon) || <Icons.Person size={size} color={color} />, // Provide a default icon if null
+    label: facility.name,
+  })) || [];
+
+  const interiorsList = interiors?.map(interior => ({
+    icon: ({ size, color }: any) => getIconById(interior.icon) || <Icons.Person size={size} color={color} />, // Provide a default icon if null
+    label: interior.name,
+  })) || [];
+
+ 
   const handleChangeModal = (index: number) => {
     if (index === 0) {
       setForms(getValues());
@@ -54,6 +72,9 @@ export const ModalFilter: ForwardRefComponent<
   };
 
   const handleFind = () => {
+    if (find) {
+      find(forms); // Pass the selected filters back to the parent component
+    }
     reset(forms);
     close();
   };
@@ -96,7 +117,7 @@ export const ModalFilter: ForwardRefComponent<
             list={init}
             keySheet={EKeySheet.RoomType}
             listSelected={forms.roomType}
-            title="Room type1"
+            title="Room type"
             onChange={item => {
               setForms(daft => {
              
@@ -104,7 +125,7 @@ export const ModalFilter: ForwardRefComponent<
               });
             }}
           />
-          {/* <BottomSheetPickerMultilineApp
+          <BottomSheetPickerMultilineApp
             list={init}
             keySheet={EKeySheet.PostType}
             listSelected={forms.postType}
@@ -116,10 +137,10 @@ export const ModalFilter: ForwardRefComponent<
             }}
           />
           <BottomSheetPickerMultilineApp
-            list={init}
+            list={facilitiesList}
             keySheet={EKeySheet.AmentitiesType}
             listSelected={forms.amentitiesType}
-            title="Amentities type"
+            title="Facilities type"
             onChange={item => {
               setForms(daft => {
                 daft.amentitiesType = item;
@@ -127,7 +148,7 @@ export const ModalFilter: ForwardRefComponent<
             }}
           />
           <BottomSheetPickerMultilineApp
-            list={init}
+            list={interiorsList}
             keySheet={EKeySheet.Interior}
             listSelected={forms.interior}
             title="Interior"
@@ -136,7 +157,7 @@ export const ModalFilter: ForwardRefComponent<
                 daft.interior = item;
               });
             }}
-          /> */}
+          />
         </Box>
       </Box>
     </BottomSheetFilter>

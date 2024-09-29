@@ -9,6 +9,7 @@ export enum StorageKeys {
     AvatarUser = 'avatar_user',
     PhoneUserStore = 'phone_user_store',
     HandeAddListRoom = 'hande_add_list_room',
+    HandleAddMoreService = 'handle_add_more_service',
   }
   
   export enum EEventEmitter {

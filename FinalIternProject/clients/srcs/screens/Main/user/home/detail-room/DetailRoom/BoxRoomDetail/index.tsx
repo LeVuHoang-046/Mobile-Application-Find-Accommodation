@@ -18,72 +18,101 @@ import {createStyleSheet, useStyles} from 'react-native-unistyles';
 import {BoxLandlordInformation} from '../BoxLandlordInformation';
 import {BoxServiceCharge} from '../BoxServiceCharge';
 import {SliderRoomDetail} from '../SliderRoomDetail';
+import {BoardingHouseInfoType, RoomInfoType} from '@types';
+import {
+  useQueryFacilitiesByRoomId,
+  useQueryImagesByRoomId,
+  useQueryInteriorsByRoomId,
+  useQueryRoomsByBoardingHouseId,
+} from '@api';
+import {formatNumberWithCommas, mapGender, mapTypeHouse} from '@utils';
 
 type BoxRoomDetailProps = {
-  item: any;
+  item?: BoardingHouseInfoType;
 };
 
 export const BoxRoomDetail: React.NamedExoticComponent<BoxRoomDetailProps> =
   memo(({item}) => {
-    const [activeRoomNumber, setActiveRoomNumber] = useState<string | null>(
-      null,
+    const [activeRoomNumber, setActiveRoomNumber] =
+      useState<RoomInfoType | null>(null);
+    const {data: rooms} = useQueryRoomsByBoardingHouseId(item?.id);
+
+    const {data: facilities} = useQueryFacilitiesByRoomId(
+      activeRoomNumber?.id || (rooms?.[0]?.id ?? undefined),
+    );
+    const {data: interiors} = useQueryInteriorsByRoomId(
+      activeRoomNumber?.id || (rooms?.[0]?.id ?? undefined),
     );
 
+    const {data: images} = useQueryImagesByRoomId(activeRoomNumber?.id || (rooms?.[0]?.id ?? undefined))
+
+    // Get the minimum and maximum price from the rooms data
+    const prices = rooms?.map(room => parseInt(room.price)) || [];
+    const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
+    const maxPrice = prices.length > 0 ? Math.max(...prices) : 0;
+
     const {styles} = useStyles(stylesheet);
+
     const list: BoxRoomDetailInformationProps[] = [
       {
-        typeHome: 'HomeStay',
-        gender: EGender.MaleFemale,
-        title: 'ĐH Y Hà Nội - Còn 4 slot báo full - Giá rẻ',
-        price: '1.000.000 - 1.400.000đ/tháng',
-        location:
-          '69A Hoàng Văn Thái, Phườg Khương Mai, Quận Thanh Xuân, Thành phố Hà Nội',
-        phoneNumber: '087988123',
+        typeHome: mapTypeHouse(item?.type_house),
+        gender: activeRoomNumber
+          ? mapGender(activeRoomNumber.gender)
+          : EGender.MaleFemale,
+        title: item?.title,
+        // Show price range if no room is selected, otherwise show the active room's price
+        price: activeRoomNumber
+          ? `${formatNumberWithCommas(activeRoomNumber.price)}đ/month`
+          : `${formatNumberWithCommas(
+              minPrice.toString(),
+            )} - ${formatNumberWithCommas(maxPrice.toString())}đ/month`,
+        location: `${item?.detail_address}, ${item?.ward_name}, ${item?.district_name}, ${item?.city_name}`,
+        phoneNumber: item?.staff_phone,
       },
     ];
 
-    const listInforIcon: BoxInformationIconServiceProps[] = [
-      {
-        icon: <Icons.Stair size={18} color={ColorsStatic.gray1} />,
-        label: 'Floor',
-        value: '2',
-      },
-      {
-        icon: <Icons.Area size={18} color={ColorsStatic.gray1} />,
-        label: 'Area',
-        value: '31m2',
-      },
-      {
-        icon: <Icons.People size={18} color={ColorsStatic.gray1} />,
-        label: 'People',
-        value: '2',
-      },
-      {
-        icon: <Icons.MoneyRange size={18} color={ColorsStatic.gray1} />,
-        label: 'Deposit',
-        value: '1.000.000đ',
-      },
-    ];
+    const listInforIcon: BoxInformationIconServiceProps[] = activeRoomNumber
+      ? [
+          {
+            icon: <Icons.Stair size={18} color={ColorsStatic.gray1} />,
+            label: 'Floor',
+            value: activeRoomNumber.floor.toString(),
+          },
+          {
+            icon: <Icons.Area size={18} color={ColorsStatic.gray1} />,
+            label: 'Area',
+            value: `${activeRoomNumber.area}m²`,
+          },
+          {
+            icon: <Icons.People size={18} color={ColorsStatic.gray1} />,
+            label: 'People',
+            value: activeRoomNumber.capacity.toString(),
+          },
+          {
+            icon: <Icons.MoneyRange size={18} color={ColorsStatic.gray1} />,
+            label: 'Deposit',
+            value: `${formatNumberWithCommas(activeRoomNumber.deposit)}đ`,
+          },
+        ]
+      : [];
 
-    const listRooms: BoxInformationRoomNumberProps[] = [
-      {
-        roomnNumber: '202',
-      },
-      {
-        roomnNumber: '203',
-      },
-    ];
+    const listRooms: BoxInformationRoomNumberProps[] =
+      rooms?.map(room => ({
+        roomnNumber: room.name, // Display room name as the room number
+      })) || [];
 
-    const handlePressRoomnumber = (roomNumber: string) => {
-      setActiveRoomNumber(prevRoomNumber =>
-        prevRoomNumber === roomNumber ? null : roomNumber,
+    const handlePressRoomNumber = (roomNumber: string) => {
+      setActiveRoomNumber(prevRoom =>
+        prevRoom?.name === roomNumber
+          ? null
+          : rooms?.find(room => room.name === roomNumber) || null,
       );
     };
 
     return (
       <PageScreen contentContainerStyle={styles.pageScreen}>
         <BoxDetail rowGap={scaler(8)} p={scaler(15)}>
-          <SliderRoomDetail />
+          <SliderRoomDetail item={images} />
           <Box>
             {list.map((_, index) => (
               <BoxRoomDetailInformation key={index} {..._} />
@@ -98,12 +127,15 @@ export const BoxRoomDetail: React.NamedExoticComponent<BoxRoomDetailProps> =
             </>
           )}
           <ListBoxRoomNumber
-            onPressRoom={handlePressRoomnumber}
+            onPressRoom={handlePressRoomNumber}
             list={listRooms}
             activeRoomNumber={activeRoomNumber}
           />
         </BoxDetail>
-        <BoxServiceCharge />
+        <BoxServiceCharge
+          itemFacilityies={facilities}
+          itemInteriors={interiors}
+        />
         <BoxLandlordInformation />
       </PageScreen>
     );

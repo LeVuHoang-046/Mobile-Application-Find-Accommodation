@@ -1,3 +1,4 @@
+import { iconProps } from "@assets";
 import { EDetailTab } from "@constants";
 import { MemoExoticComponent } from "react";
 import { ColorValue } from "react-native";
@@ -10,8 +11,10 @@ export type ForwardRefComponent<T, P> = React.ForwardRefExoticComponent<
   P & React.RefAttributes<T>
 >;
 export type ItemPickerType = {
+  id?: number;
+  icon?: ({ size, color }: iconProps) => React.JSX.Element;
   label: string;
-  value: string;
+  value?: string;
   isAll?: boolean;
   isTitle?: boolean;
   code?: string;
@@ -29,6 +32,6 @@ export type TabPageType = {
 
 export type ButtonModalWarningType = {
   title: string;
-  onPress?: () => void;
+  onPress?: (item: any) => void;
   color?: ColorValue;
 };

@@ -16,6 +16,7 @@ export const SliderPressDetails = ({images, initialIndex = 0, onClose}: SliderPr
   const sliderRef = useRef<FlatList<any> | null>(null);
   const [currentIndex, setCurrentIndex] = useState(initialIndex); // 1-based index for display
 
+  
   const handleMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offset = event.nativeEvent.contentOffset.x;
     const index = Math.round(offset / screenWidth);

@@ -36,6 +36,7 @@ export const FormRoomInformation: React.FC = memo(() => {
     formState: {errors},
     clearErrors,
   } = useFormContext<FormsAddListRoom>();
+  console.log('Form values:', getValues());
 
   const [imageRoom, setImageRoom] = useState<Image[]>(watch('imageRoom') || []);
   const [videoRoom, setVideoRoom] = useState<Video[]>(watch('videoRoom') || []);
@@ -95,6 +96,7 @@ export const FormRoomInformation: React.FC = memo(() => {
           Room information
         </TextApp>
       </Box>
+
       <TextFormApp
         title="Room number/name"
         require
@@ -181,7 +183,7 @@ export const FormRoomInformation: React.FC = memo(() => {
         keyboardType="numeric"
       />
       <TextFormApp
-        title="Area (m2)"
+        title="Area (m²)"
         require
         iconLeft={<Icons.Area size={18} color={ColorsStatic.orange3} />}
         placeholder="Type area"

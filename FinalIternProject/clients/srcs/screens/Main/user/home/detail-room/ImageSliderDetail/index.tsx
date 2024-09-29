@@ -1,12 +1,25 @@
 import {SliderPressDetails} from '@component';
 import {RouteMain} from '@constants';
-import {useNavigation} from '@react-navigation/native';
-import {TAppNavigation} from '@types';
-import React from 'react';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {AppStackParamList, TAppNavigation} from '@types';
+import React, { useEffect } from 'react';
 
-export const ImageRoomDetail = ({route}: any) => {
+type ImageRoomRouteProp = RouteProp<
+  AppStackParamList,
+  RouteMain.ImageRoomDetail
+>;
+
+export const ImageRoomDetail = () => {
+  const route = useRoute<ImageRoomRouteProp>();
+
   const {images, activeIndex} = route.params;
+ 
   const navigation = useNavigation<TAppNavigation<RouteMain.DetailRoom>>();
+
+  useEffect(()=> {
+    console.log(images)
+  },[images,activeIndex])
+ 
 
   const handleGoBack = () => {
     navigation.goBack();

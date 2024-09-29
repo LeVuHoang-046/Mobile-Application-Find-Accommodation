@@ -8,27 +8,29 @@ import { BoxLookingForRoomates } from './BoxLookingForRoommates';
 import { useNavigation } from '@react-navigation/native';
 import { TAppNavigation } from '@types';
 import { RouteMain, RouteTabUser } from '@constants';
+import { useQueryBoardingHouseInfo } from '@api';
 
 export const BodyHomeTab = () => {
-  const data = Array(6).fill(0);
+  const fakeData = Array(6).fill(0);
+  const { data } = useQueryBoardingHouseInfo();
 
   const navigation = useNavigation<TAppNavigation<RouteTabUser.HomeTab>>();
-  const handleNavigate = () => {
-    navigation.navigate(RouteMain.DetailRoom)
+  const handleNavigate = (id: number) => {
+    navigation.navigate(RouteMain.DetailRoom,{id})
   }
-
+ 
   return (
     <>
       <BoxDistrictFindOut />
       <Box ph={scaler(10)}>
         <BoxShowMore label="Dependable lanlord" />
-        {data.map((item, index) => (
-          <BoxDependableLandlord onPress={handleNavigate} item={item} key={index} />
+        {data?.map((item, index) => (
+          <BoxDependableLandlord onPress={()=>handleNavigate(item.id)} item={item} key={item.id} />
         ))}
         <BoxShowMore label="Low-cost room" />
         <Row justify='space-between' flexWrap="wrap" rowGap={scaler(30)} pb={scaler(5)} >
-          {data.map((item, index) => (
-            <BoxLowCostRoom onPress={handleNavigate} item={item} key={index} />
+          {fakeData.map((item, index) => (
+            <BoxLowCostRoom onPress={()=>handleNavigate} item={item} key={index} />
           ))}
         </Row>
         <BoxShowMore label="Looking for roommates" />
@@ -37,8 +39,8 @@ export const BodyHomeTab = () => {
         contentContainerStyle={styles.scrollView}
         horizontal>
           <Row columnGap={scaler(15)}>
-          {data.map((item, index) => (
-            <BoxLookingForRoomates onPress={handleNavigate} item={item} key={index} />
+          {fakeData.map((item, index) => (
+            <BoxLookingForRoomates onPress={()=>handleNavigate} item={item} key={index} />
           ))}
 
           </Row>

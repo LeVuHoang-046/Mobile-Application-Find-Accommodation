@@ -41,6 +41,7 @@ export type TextFormAppProps = {
   height?: number;
   title?: string;
   require?: boolean;
+  isNumber?: boolean;
 } & Omit<
   TextInputProps,
   'value' | 'onChangeText' | 'onFocus' | 'onBlur' | 'maxLength'

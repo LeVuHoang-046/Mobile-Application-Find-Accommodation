@@ -20,7 +20,7 @@ export const BoxInformationIconService: React.FC<
   BoxInformationIconServiceProps
 > = ({icon, label, value, styleLabel,styleValue, isBold, weightLabel}) => {
   return (
-    <Box width={scaler(80)} justify="center" align="center" >
+    <Box width={scaler(80)} minH={scaler(85)} justify="flex-start" align="center" >
       {icon}
       <TextApp pt={scaler(10)} textAlign='center' style={styleLabel} weight={weightLabel} size={FontSize.Font11}>{label}</TextApp>
       <TextApp pt={scaler(3)} textAlign='center' weight={isBold? 800 : 700} size={FontSize.Font13} style={styleValue}>

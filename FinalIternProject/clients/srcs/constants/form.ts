@@ -27,6 +27,7 @@ export const defaultContractValue: FormsContract = {
 };
 
 export const defaultSearchForNewsValue: FormsSearchForNews = {
+  search:'',
   price: initItemPicker,
   sortBy: initItemPicker,
   area: initItemPicker,
@@ -58,13 +59,12 @@ export const defaultAddBuildingDetail: FormsAddBuildingDetail = {
   roomType: initItemPicker,
   parkingSpaces: '',
   describe: '',
-  amentitiesType: [],
-  interior: [],
   listAddRoom: [],
   listAddMoreService: [],
 }
 
 export const defaultAddListRoomValue: FormsAddListRoom = {
+  id:'',
   roomNumber: '',
   roomPrice: null,
   deposit: null,
@@ -79,6 +79,7 @@ export const defaultAddListRoomValue: FormsAddListRoom = {
 };
 
 export const defaultAddMoreServiceValue: FormsAddMoreService = {
+  id:'',
   nameService: '',
   serviceFee:  null,
   feeBase: initItemPicker,

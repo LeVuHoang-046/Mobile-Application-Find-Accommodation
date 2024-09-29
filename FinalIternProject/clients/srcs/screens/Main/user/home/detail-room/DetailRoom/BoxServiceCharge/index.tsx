@@ -9,9 +9,20 @@ import {
 } from '@component';
 import {ColorsStatic} from '@constants';
 import {FontSize, scaler} from '@themes';
+import { FacilityType, InteriorType, RoomInfoType } from '@types';
+import { getIconById } from '@utils';
+import { memo } from 'react';
 import {StyleSheet} from 'react-native';
 
-export const BoxServiceCharge = () => {
+type BoxServiceChargeProps = {
+  itemFacilityies?: FacilityType[];
+  itemInteriors?: InteriorType[];
+}
+
+export const BoxServiceCharge: React.NamedExoticComponent<BoxServiceChargeProps> = memo(({itemFacilityies,itemInteriors}) => {
+
+
+
   const listService: BoxInformationIconServiceProps[] = [
     {
       icon: <Icons.Electric size={16} />,
@@ -65,21 +76,17 @@ export const BoxServiceCharge = () => {
       label: 'Fan',
     },
   ];
+  const InteriorsList = itemInteriors?.map(interior => ({
+    icon: getIconById(interior.icon), 
+    label: interior.name,
 
-  const listConvenient: BoxInformationIconServiceProps[] = [
-    {
-      icon: <Icons.Toilet/>,
-      label: 'Enclosed sanitation',
-    },
-    {
-      icon: <Icons.FingerPrint/>,
-      label: 'Fingerprint security',
-    },
-    {
-      icon: <Icons.Person/>,
-      label: 'Not the same landlord',
-    },
-  ]
+  })) || [];
+
+    const facilitiesList = itemFacilityies?.map(facility => ({
+    icon: getIconById(facility.icon), 
+    label: facility.name,
+
+  })) || [];
 
   return (
     <>
@@ -113,7 +120,7 @@ export const BoxServiceCharge = () => {
         <ListBoxInformationIcon
           weightLabel={600}
           styleLabel={styles.textValueService}
-          list={listInterior}
+          list={InteriorsList}
         />
       </BoxDetail>
       <BoxDetail p={scaler(10)}>
@@ -123,18 +130,18 @@ export const BoxServiceCharge = () => {
             borderColor={ColorsStatic.gray1}
             borderRadius={scaler(15)}
             p={scaler(7)}>
-            <TextApp weight={700}>Convenient</TextApp>
+            <TextApp weight={700}>Facilities</TextApp>
           </Box>
         </Row>
         <ListBoxInformationIcon
           weightLabel={600}
           styleLabel={styles.textValueService}
-          list={listConvenient}
+          list={facilitiesList}
         />
       </BoxDetail>
     </>
   );
-};
+});
 
 const styles = StyleSheet.create({
   textValueService: {

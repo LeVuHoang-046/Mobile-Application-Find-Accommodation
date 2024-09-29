@@ -16,6 +16,7 @@ export type ModalWarningProps = {
   listButtonAfter?: ButtonModalWarningType[];
   title: string;
   onPressAgree?: () => void;
+  onPressDelete?: (roomId: string) => void;
 } & Partial<Omit<ModalProps, 'isVisible' | 'backdropOpacity' | 'children'>>;
 
 export const ModalWarning: ForwardRefComponent<
@@ -26,6 +27,7 @@ export const ModalWarning: ForwardRefComponent<
     {
       onModalWillHide,
       onPressAgree,
+      onPressDelete,
       listButtonBefore = [],
       listButtonBetween = [],
       listButtonAfter = [],
@@ -53,13 +55,13 @@ export const ModalWarning: ForwardRefComponent<
 
     const ListButton: ButtonModalWarningType[] = useMemo(() => {
       const ButtonCancel = {
-        title: 'Huỷ',
+        title: 'Cancel',
         color: ColorsStatic.gray3,
         onPress: hide,
       };
       const ButtonAgree = {
-        title: 'Đồng ý',
-        onPress: onPressAgree,
+        title: 'Confirm',
+        onPress: onPressAgree ? onPressAgree : onPressDelete,
       };
       return [
         ...listButtonBefore,
@@ -71,6 +73,7 @@ export const ModalWarning: ForwardRefComponent<
     }, [
       hide,
       onPressAgree,
+      onPressDelete,
       listButtonBefore,
       listButtonBetween,
       listButtonAfter,

@@ -1,3 +1,4 @@
+import {useQueryBoardingHouseInfo, useQueryRoomsByBoardingHouseId} from '@api';
 import {
   BoxDetail,
   BoxInformation,
@@ -5,24 +6,43 @@ import {
   TouchableApp,
 } from '@component';
 import {scaler} from '@themes';
+import {BoardingHouseInfoType} from '@types';
+import {formatNumberWithCommas} from '@utils';
 import {memo} from 'react';
 
 type BoxDependableLandlordProps = {
-  item: any;
+  item: BoardingHouseInfoType;
   onPress?: () => void;
 };
 
 export const BoxDependableLandlord: React.NamedExoticComponent<BoxDependableLandlordProps> =
   memo(({item, onPress}) => {
+    const {data: rooms} = useQueryRoomsByBoardingHouseId(item?.id);
+
+
+    const prices = rooms?.map(room => parseInt(room.price)) || [];
+    const minPrice = prices.length > 0 ? Math.min(...prices) : null;
+    const maxPrice = prices.length > 0 ? Math.max(...prices) : null;
+
+    let priceText = '';
+    
+    if (minPrice !== null && maxPrice !== null && minPrice !== maxPrice) {
+      priceText = `from ${formatNumberWithCommas(minPrice.toString())}VND`;
+    } else if (minPrice !== null) {
+      priceText = `${formatNumberWithCommas(minPrice.toString())}VND`;
+    } else if (maxPrice !== null) {
+      priceText = `${formatNumberWithCommas(maxPrice.toString())}VND`;
+    } else {
+      priceText = 'Price not available'; // or any default message
+    }
+
     const list: BoxInformationProps[] = [
       {
-        tilte: 'Siêu CCMN giá cực tốt cho SV Hà Đông',
-        price: '3.500.000',
-        location: 'Phường Văn Quán, Quận Hà Đông',
-        district: 'Quận Hà Đông',
-        buildingName: 'phòng trọ mpl',
-        area: '25',
-        numberPeople: '3',
+        title: item.title,
+        buildingName: item.name_building,
+        location: `${item.ward_name}, ${item.district_name},  ${item.city_name} `,
+        district: item.district_name,
+        price: priceText,
       },
     ];
 

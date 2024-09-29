@@ -12,6 +12,7 @@ import {
   ColorsStatic,
   defaultAddMoreServiceValue,
   ETypeToastCustom,
+  RouteMain,
   serviceIconsArray,
 } from '@constants';
 import {
@@ -21,7 +22,7 @@ import {
 } from '@gorhom/bottom-sheet';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {FontSize, scaler} from '@themes';
-import {FormsAddMoreService} from '@types';
+import {AppStackParamList, FormsAddMoreService, TAppNavigation} from '@types';
 import {pushToastCustom, pushToastLoading} from '@utils/toast';
 import {AddServiceFeeFormSchema} from '@validates';
 import {useCallback, useMemo, useRef, useState} from 'react';
@@ -30,10 +31,17 @@ import {useStyles} from 'react-native-unistyles';
 import {stylesheet} from '../style';
 import {FormAddMoreService} from './FormAddMoreService';
 import {FormButtonFooter} from './FormButtonFooter';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { Icons } from '@assets';
+
+type AddServiceFeeRouteProp = RouteProp<AppStackParamList, RouteMain.AddServiceFee>;
+
 
 export const AddServiceFee: React.FC = () => {
+  const route = useRoute<AddServiceFeeRouteProp>();
+  const {onCallBackServiceSave, serviceData, onDelete} = route.params;
   const forms = useForm<FormsAddMoreService>({
-    defaultValues: defaultAddMoreServiceValue,
+    defaultValues: serviceData ? serviceData : defaultAddMoreServiceValue,
     resolver: zodResolver(AddServiceFeeFormSchema),
     mode: 'onChange',
   });
@@ -43,12 +51,33 @@ export const AddServiceFee: React.FC = () => {
   const [selectedIcon, setSelectedIcon] = useState<React.ReactNode>(null);
   const [pressBackdropClose, setPressBackdropClose] = useState<boolean>(true);
   const modalWarningRef = useRef<ModalAppDetailRef>(null);
+  const modalWarningDeleteRef = useRef<ModalAppDetailRef>(null);
   const snapPoints = useMemo(() => ['40%'], []); // Snap points for BottomSheet
+
+  const navigation = useNavigation<TAppNavigation<RouteMain.AddServiceFee>>()
 
   const handleCallbackSend = () => {
     // navigation.goBack();
     modalWarningRef.current?.show();
   };
+
+  const handlePressConfirmDelete = () => {
+    modalWarningDeleteRef.current?.hide();
+    
+    if (onDelete && serviceData?.id) {
+      onDelete(serviceData.id);
+      console.log('delete:', serviceData.id);
+      const loading = pushToastLoading('Deleting...');
+  
+      setTimeout(() => {
+        pushToastCustom('Service deleted successfully', ETypeToastCustom.Success);
+        toast.dismiss(loading);
+        // Ensure the room is deleted before navigating back
+        navigation.goBack();
+      }, 2000);
+    }
+  };
+
 
   const handleCallbackSave = () => {
     const currentValues = forms.getValues();
@@ -114,18 +143,28 @@ export const AddServiceFee: React.FC = () => {
 
   return (
     <Box flex={1}>
-      <HeaderApp title="Add service" goBack />
+      <HeaderApp title={serviceData? 'Edit service':"Add service"} goBack
+      onPressRight={()=> modalWarningDeleteRef.current?.show()}
+      IconRight={serviceData ? <Icons.TrashCan size={20} color={ColorsStatic.red1}/>: null}
+      />
       <FormProvider {...forms}>
         <Box p={scaler(10)} rowGap={scaler(8)}>
           <FormAddMoreService openBottomSheet={openBottomSheet} />
           <FormButtonFooter
+          existingService={serviceData}
             onCallbackSend={handleCallbackSend}
-            onCallbackSave={handleCallbackSave}
+            onCallbackSave={(item: FormsAddMoreService) => onCallBackServiceSave(item)}
+
           />
           <ModalWarning
             ref={modalWarningRef}
             onPressAgree={handlePressConfirm}
             title="Content will not be saved when exiting the screen?"
+          />
+           <ModalWarning
+            ref={modalWarningDeleteRef}
+            onPressAgree={handlePressConfirmDelete}
+            title="Service will be delete when press confirm?"
           />
         </Box>
         <BottomSheetModal

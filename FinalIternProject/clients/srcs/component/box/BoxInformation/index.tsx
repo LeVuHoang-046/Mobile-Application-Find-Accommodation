@@ -9,7 +9,7 @@ import {createStyleSheet, useStyles} from 'react-native-unistyles';
 
 export type BoxInformationProps = {
   source?: StyleProp<ImageProps>;
-  tilte?: string;
+  title?: string;
   price?: string;
   location?: string;
   district?: string;
@@ -25,7 +25,7 @@ export type BoxInformationProps = {
 
 export const BoxInformation: React.FC<BoxInformationProps> = ({
   source = Images.nhaTro,
-  tilte,
+  title,
   price,
   location,
   district,
@@ -39,6 +39,7 @@ export const BoxInformation: React.FC<BoxInformationProps> = ({
   isLiked = false,
 }) => {
   const {styles, theme} = useStyles(stylesheet);
+  
 
   return (
     <Row columnGap={scaler(15)} style={style}>
@@ -50,7 +51,7 @@ export const BoxInformation: React.FC<BoxInformationProps> = ({
           style={[styles.titleText, styleTitle]}
           size={FontSize.Font14}
           weight={700}>
-          {tilte}
+          {title}
         </TextApp>
         <TextApp
           size={FontSize.Font14}
@@ -59,6 +60,7 @@ export const BoxInformation: React.FC<BoxInformationProps> = ({
           weight={700}>
           {price}
         </TextApp>
+        {location && (
         <Row>
           <Icons.LocationHome size={12} color={ColorsStatic.red1} />
           <TextApp
@@ -68,10 +70,14 @@ export const BoxInformation: React.FC<BoxInformationProps> = ({
             {location}
           </TextApp>
         </Row>
+        )}
+        {district && (
         <Row>
           <Icons.District size={12} />
           <TextApp style={[styles.textOther, styleOther]}>{district}</TextApp>
         </Row>
+
+        )}
         {buildingName && (
           <Row>
             <Icons.Tower size={14} />

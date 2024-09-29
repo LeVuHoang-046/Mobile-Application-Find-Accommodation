@@ -23,16 +23,17 @@ export const SliderSwipe: React.FC<SliderSwipeProps> = ({
   const subSliderRef = useRef<FlatList<any> | null>(null);
 
   const loopedData = [data[data.length - 1], ...data, data[0]];
-
   useEffect(() => {
-    if (mainSliderRef.current) {
-      mainSliderRef.current.scrollToIndex({
-        index: 1,
-        animated: false,
-      });
+    if (data.length > 0) {
+      setActiveIndex(0);
+      if (mainSliderRef.current) {
+        mainSliderRef.current.scrollToIndex({
+          index: 1,
+          animated: false,
+        });
+      }
     }
-    scrollToSubItem(activeIndex);
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     scrollToSubItem(activeIndex);
@@ -40,6 +41,7 @@ export const SliderSwipe: React.FC<SliderSwipeProps> = ({
 
   const handleImagePress = useCallback(
     (index: number) => {
+
       onImagePress?.(index);
     },
     [onImagePress],
@@ -89,13 +91,17 @@ export const SliderSwipe: React.FC<SliderSwipeProps> = ({
   };
 
   const renderItem = useCallback(
-    ({item, index}: {item: string; index: number}) => (
+    ({item, index}: {item: string; index: number}) => {
+  
+      return(
       <TouchableApp activeOpacity={1} onPress={() => handleImagePress(index)}>
         <Box width={widthSlider} height={scaler(250)}>
           <ImageApp source={{uri: item}} style={styles.mainImage} />
         </Box>
       </TouchableApp>
-    ),
+
+      )
+    },
     [activeIndex],
   );
 

@@ -38,6 +38,9 @@ export const FormAddMoreService: React.FC<FormsAddMoreServiceProps> = memo(({ope
     formState: {errors},
     clearErrors,
   } = useFormContext<FormsAddMoreService>();
+
+ 
+
   const selectedIconId = watch('iconService'); 
   const selectedIcon = serviceIconsArray.find(item => item.id === selectedIconId)?.icon;
 // console.log({selectedIcon})
@@ -80,6 +83,7 @@ export const FormAddMoreService: React.FC<FormsAddMoreServiceProps> = memo(({ope
         control={control}
         name="serviceFee"
         keyboardType='numeric'
+        isNumber
         max={10}
       />
       <BoxFormTitle title="Fee base" require>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 const api = axios.create({
-    baseURL: CONFIG_SSO.BASE.URL,
+    baseURL: CONFIG_SSO.BASE.HOME,
     paramsSerializer: params => queryString.stringify(params),
 });
 

@@ -16,6 +16,7 @@ export type FormsContract = {
 }
 
 export type FormsSearchForNews = {
+    search: string;
     price: ItemPickerType;
     sortBy: ItemPickerType;
     area: ItemPickerType;
@@ -47,13 +48,12 @@ export type FormsAddBuildingDetail = {
     roomType: ItemPickerType;
     parkingSpaces: string;
     describe: string;
-    amentitiesType: ItemPickerType[];
-    interior: ItemPickerType[];
     listAddRoom: Array<FormsAddListRoom>;
     listAddMoreService: Array<FormsAddMoreService>;
 }
 
 export type FormsAddListRoom = {
+    id?: string;
     roomNumber: string;
     roomPrice: number | null;
     deposit: number | null;
@@ -68,6 +68,7 @@ export type FormsAddListRoom = {
 };
 
 export type FormsAddMoreService = {
+    id?: string;
     nameService: string;
     serviceFee: number | null;
     feeBase: ItemPickerType;

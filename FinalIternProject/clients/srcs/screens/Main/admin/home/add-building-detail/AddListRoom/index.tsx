@@ -1,8 +1,13 @@
 import {useStyles} from 'react-native-unistyles';
 import {stylesheet} from '../style';
 import {FormProvider, useForm} from 'react-hook-form';
-import {FormsAddListRoom} from '@types';
-import {defaultAddListRoomValue, ETypeToastCustom} from '@constants';
+import {AppStackParamList, FormsAddListRoom, TAppNavigation} from '@types';
+import {
+  ColorsStatic,
+  defaultAddListRoomValue,
+  ETypeToastCustom,
+  RouteMain,
+} from '@constants';
 import {
   BottomSheetModalAppRef,
   Box,
@@ -19,26 +24,37 @@ import {FormRoomInformation} from './FormRoomInformation';
 import {FormButtonFooter} from './FormButtonFooter';
 import {AddListRoomFormSchema} from '@validates';
 import {zodResolver} from '@hookform/resolvers/zod';
-import { RouteProp } from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {Icons} from '@assets';
 
-type FormsAddListRoomRefs = {
-  close: () => void;
-  route: RouteProp<{ params: { onCallbackSave: (item: FormsAddListRoom) => void } }>;
-  // onCallbackSave: (item: FormsAddListRoom) => void;
-  // onCallbackSend: (item: FormsAddListRoom) => void;
-};
+// type FormsAddListRoomRefs = {
+//   close: () => void;
+//   route: RouteProp<{
+//     params: {onCallbackSave: (item: FormsAddListRoom) => void};
+//   }>;
+// onCallbackSave: (item: FormsAddListRoom) => void;
+// onCallbackSend: (item: FormsAddListRoom) => void;
+// };
+type AddListRoomRouteProp = RouteProp<AppStackParamList, RouteMain.AddListRoom>;
 
-export const AddListRoom: React.FC<FormsAddListRoomRefs> = ({route}) => {
+export const AddListRoom: React.FC = () => {
   const {styles} = useStyles(stylesheet);
+
+  const route = useRoute<AddListRoomRouteProp>();
+  const {onCallbackSave, roomData, onDelete} = route.params;
+
   const forms = useForm<FormsAddListRoom>({
-    defaultValues: defaultAddListRoomValue,
+    defaultValues: roomData ? roomData : defaultAddListRoomValue,
     resolver: zodResolver(AddListRoomFormSchema),
     mode: 'onChange',
   });
-  const modalDetailRef = useRef<BottomSheetModalAppRef>(null);
+  // console.log('Received room data:', roomData);
 
+  const modalDetailRef = useRef<BottomSheetModalAppRef>(null);
   const modalWarningRef = useRef<ModalAppDetailRef>(null);
-  const { onCallbackSave } = route.params; 
+  const modalWarningDeleteRef = useRef<ModalAppDetailRef>(null);
+
+  const navigation = useNavigation<TAppNavigation<RouteMain.AddListRoom>>();
 
   const onSubmit = () => {
     console.log('from submit', forms.formState.errors);
@@ -53,7 +69,7 @@ export const AddListRoom: React.FC<FormsAddListRoomRefs> = ({route}) => {
 
   const handleCallbackSend = () => {
     // navigation.goBack();
-    modalWarningRef.current?.show();
+    modalWarningDeleteRef.current?.show();
   };
 
   const handleCallbackSave = () => {
@@ -62,6 +78,22 @@ export const AddListRoom: React.FC<FormsAddListRoomRefs> = ({route}) => {
       keepDirty: false,
       keepValues: true,
     });
+  };
+  const handlePressConfirmDelete = () => {
+    modalWarningDeleteRef.current?.hide();
+
+    if (onDelete && roomData?.id) {
+      onDelete(roomData.id);
+      console.log('delete:', roomData.id);
+      const loading = pushToastLoading('Deleting...');
+
+      setTimeout(() => {
+        pushToastCustom('Room deleted successfully', ETypeToastCustom.Success);
+        toast.dismiss(loading);
+        // Ensure the room is deleted before navigating back
+        navigation.goBack();
+      }, 2000);
+    }
   };
 
   const handlePressConfirm = () => {
@@ -76,7 +108,16 @@ export const AddListRoom: React.FC<FormsAddListRoomRefs> = ({route}) => {
   };
   return (
     <Box flex={1}>
-      <HeaderApp title="Add room" goBack />
+      <HeaderApp
+        title={roomData ? 'Room editing' : 'Add room'}
+        goBack
+        IconRight={
+          roomData ? (
+            <Icons.TrashCan size={22} color={ColorsStatic.red1} />
+          ) : null
+        }
+        onPressRight={handleCallbackSend}
+      />
       <FormProvider {...forms}>
         <ScrollView
           contentContainerStyle={styles.scrollView}
@@ -87,11 +128,18 @@ export const AddListRoom: React.FC<FormsAddListRoomRefs> = ({route}) => {
         </ScrollView>
         <FormButtonFooter
           onCallbackSave={(item: FormsAddListRoom) => onCallbackSave(item)}
+          existingRoom={roomData}
           // onCallbackSend={(item: FormsAddListRoom) => onCallbackSend(item)}
         />
         <ModalWarning
           ref={modalWarningRef}
           onPressAgree={handlePressConfirm}
+          title="Content will not be saved when exiting the screen?"
+        />
+        <ModalWarning
+          ref={modalWarningDeleteRef}
+          // onPressAgree={handlePressConfirm}
+          onPressDelete={handlePressConfirmDelete}
           title="Content will not be saved when exiting the screen?"
         />
       </FormProvider>
