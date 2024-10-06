@@ -4,11 +4,12 @@ import {
 } from '@component/box';
 import {Row} from '@component/layout';
 import {scaler} from '@themes';
+import { RoomInfoType } from '@types';
 
 type ListBoxRoomNumberProps = {
   list: BoxInformationRoomNumberProps[];
   onPressRoom: (roomNumber: string) => void;
-  activeRoomNumber?: string | null;
+  activeRoomNumber?: RoomInfoType | null;
 };
 
 export const ListBoxRoomNumber: React.FC<ListBoxRoomNumberProps> = ({

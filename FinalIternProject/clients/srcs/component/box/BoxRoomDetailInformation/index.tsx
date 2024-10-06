@@ -2,13 +2,13 @@ import {Icons} from '@assets';
 import {Box, Row} from '@component/layout';
 import {PageScreen} from '@component/PageScreen';
 import {TextApp} from '@component/typography';
-import {ColorsStatic, EGender} from '@constants';
+import {ColorsStatic, EGender, ETypeHouses} from '@constants';
 import {FontSize, scaler} from '@themes';
 import {StyleProp, TextStyle} from 'react-native';
 import {createStyleSheet} from 'react-native-unistyles';
 
 export type BoxRoomDetailInformationProps = {
-  typeHome?: string;
+  typeHome?: ETypeHouses;
   gender?: EGender;
   title?: string;
   price?: string;

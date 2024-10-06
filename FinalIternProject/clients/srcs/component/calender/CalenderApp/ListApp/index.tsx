@@ -1,7 +1,7 @@
 import {TouchableApp} from '@component/forms';
 import {Box} from '@component/layout';
 import {TextApp} from '@component/typography';
-import {HEIGHT_ITEM_PICKER} from '@constants';
+import {ColorsStatic, HEIGHT_ITEM_PICKER} from '@constants';
 import {scaler} from '@themes';
 import {ItemPickerType} from '@types';
 import React, {useCallback, useEffect, useRef} from 'react';
@@ -107,7 +107,12 @@ const ItemPicker: React.FC<ItemPickerProps> = ({
   const selected = indexSelect === index;
   return (
     <TouchableApp onPress={() => onPress?.(index)} style={styles.buttonPicker}>
-      <TextApp weight={selected ? 700 : 400}>{item?.label}</TextApp>
+      {item.label && (
+        <TextApp weight={selected ? 700 : 400}>{item?.label}</TextApp>
+      )}
+      {item.icon && (
+         item?.icon({ size: 16, color: selected ? ColorsStatic.orange3 : ColorsStatic.gray1})
+      )}
     </TouchableApp>
   );
 };

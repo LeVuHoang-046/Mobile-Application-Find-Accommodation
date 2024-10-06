@@ -14,7 +14,7 @@ import CommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
-type iconProps = {
+export type iconProps = {
   color?: string;
   size?: number;
 };
@@ -196,7 +196,7 @@ const MoneyRange = ({size = 14, color = '#000'}: iconProps) => {
 const ChatBox = ({size = 14, color = '#000'}: iconProps) => {
   return <IoniconsIcon name="chatbox-ellipses" size={size} color={color} />;
 };
-const Stair = ({size = 14, color = '#000'}: iconProps) => {
+const Stair = ({size = 14, color = '#EB5B00'}: iconProps) => {
   return <FontAwesome6Icon name="stairs" size={size} color={color} />;
 };
 const Phone = ({size = 14, color = '#000'}: iconProps) => {
@@ -288,6 +288,9 @@ const Clock = ({size = 20, color = '#EB5B00'}: iconProps) => {
 const FingerPrint = ({size = 20, color = '#EB5B00'}: iconProps) => {
   return <CommunityIcon name="fingerprint" size={size} color={color} />;
 };
+const Pillow = ({size = 20, color = '#EB5B00'}: iconProps) => {
+  return <FontAwesome6Icon name="mattress-pillow" size={size} color={color} />;
+};
 const Balcony = ({size = 20, color = '#EB5B00'}: iconProps) => {
   return <CommunityIcon name="balcony" size={size} color={color} />;
 };
@@ -335,6 +338,39 @@ const Bell = ({size = 18, color = '#000'}: iconProps) => {
 const Camera = ({size = 18, color = '#000'}: iconProps) => {
   return <IconEntypo name="camera" size={size} color={color} />;
 };
+const UsersOutLine = ({size = 20, color = '#3D71AD'}: iconProps) => {
+  return <FeatherIcon name="users" size={size} color={color} />;
+};
+const Staff = ({size = 20, color = '#3D71AD'}: iconProps) => {
+  return <CommunityIcon name="account-tie" size={size} color={color} />;
+};
+const AddBuild = ({size = 20, color = '#3D71AD'}: iconProps) => {
+  return <MaterialIcon name="add-home-work" size={size} color={color} />;
+};
+const AddHouse = ({size = 20, color = '#3D71AD'}: iconProps) => {
+  return <MaterialIcon name="add-home" size={size} color={color} />;
+};
+const Warning = ({size = 24, color = '#000'}: iconProps) => {
+  return <IoniconsIcon name="warning-outline" size={size} color={color} />;
+};
+const HomeEdit = ({size = 20, color = '#3D71AD'}: iconProps) => {
+  return <CommunityIcon name="home-edit" size={size} color={color} />;
+};
+const Parking = ({size = 20, color = '#3D71AD'}: iconProps) => {
+  return <FontAwesome6Icon name="square-parking" size={size} color={color} />;
+};
+const Plug = ({size = 20, color = '#EB5B00'}: iconProps) => {
+  return <FontAwesome6Icon name="plug-circle-bolt" size={size} color={color} />;
+};
+const Money = ({size = 18, color = '#EB5B00'}: iconProps) => {
+  return <MaterialIcon name="monetization-on" size={size} color={color} />;
+};
+const Video = ({size = 24, color = '#000'}: iconProps) => {
+  return <IoniconsIcon name="videocam" size={size} color={color} />;
+};
+
+
+
 
 export const Icons = {
   Home,
@@ -431,5 +467,16 @@ export const Icons = {
   ThreeDots,
   TrashCan,
   Bell,
-  Camera
+  Camera,
+  UsersOutLine,
+  Staff,
+  AddBuild,
+  AddHouse,
+  Warning,
+  HomeEdit,
+  Parking,
+  Plug,
+  Money,
+  Video,
+  Pillow,
 };

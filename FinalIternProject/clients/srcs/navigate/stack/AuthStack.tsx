@@ -1,6 +1,7 @@
 import { RouteAuth } from '@constants';
 import {createStackNavigator} from '@react-navigation/stack';
 import { Screens } from '@screens';
+
 import { AppStackParamList, MemoComponent } from '@types';
 import React, {memo} from 'react';
 import {StatusBar} from 'react-native';
@@ -21,19 +22,19 @@ const AuthStackComponent: MemoComponent<{}> = memo(() => {
         }}>
         <AuthStack.Screen
           name={RouteAuth.LOGIN}
-          component={Screens.Login}
+          component={Screens.Auth.Login}
           options={{
             gestureEnabled: false,
           }}
         />
         <AuthStack.Screen
           name={RouteAuth.SignUp}
-          component={Screens.SignUp}
+          component={Screens.Auth.SignUp}
           
         />
         <AuthStack.Screen
           name={RouteAuth.InputOTP}
-          component={Screens.InputOTP}
+          component={Screens.Auth.InputOTP}
          
         />
         {/* <AuthStack.Screen

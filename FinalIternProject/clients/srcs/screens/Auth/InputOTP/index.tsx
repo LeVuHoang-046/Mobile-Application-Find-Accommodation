@@ -1,13 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Button, KeyboardAvoidingView, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, Button, KeyboardAvoidingView, LogBox, StyleSheet, TextInput, View } from 'react-native';
 import { Absolute, Box, Row, TextApp, TouchableApp } from '@component';
-import { ColorsStatic, RouteAuth } from '@constants';
+import { ColorsStatic, ETypeToastCustom, RouteAuth } from '@constants';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { FontSize, scaler } from '@themes';
 import { AppStackParamList, TAppNavigation } from '@types';
 import firestore from '@react-native-firebase/firestore';
+import { usePhoneUserStore, useTokenUserStore } from '@stores';
+import { pushToastCustom } from '@utils/toast';
+import { ToastPosition } from '@backpackapp-io/react-native-toast';
+import { GlobalService } from '@component/GlobalUI';
+import { getUserInformation } from '@services';
+import { useQueryUserInformation } from '@api';
 
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 type LoginRouteProp = RouteProp<
   AppStackParamList,
   RouteAuth.InputOTP
@@ -30,6 +39,11 @@ export const InputOTP = () => {
   const { phoneNumber, confirm } = route.params;
 // console.log({confirm})
 
+const { setPhoneNumber } = usePhoneUserStore();
+const {setToken} = useTokenUserStore();
+
+
+
   const decrementClock = () => {
     setCountdown(prevCountdown => {
       if (prevCountdown <= 1) {
@@ -46,7 +60,8 @@ export const InputOTP = () => {
     try {
       const userCredential = await confirm.confirm(code);
       setOtpSubmitted(true);
-  
+      // const userInfo = await getUserInformation(phoneNumber);
+      // console.log('User role:', userInfo.role);
       if (!userCredential || !userCredential.user) {
         throw new Error('UserCredential or user is null');
       }
@@ -55,21 +70,27 @@ export const InputOTP = () => {
   
       // Check if the user is signed in
       const currentUser = auth().currentUser;
-      console.log("Current user:", currentUser);
+      // console.log("Current user:", currentUser);
   
       if (currentUser && currentUser.uid === user.uid) {
-        const userDocument = await firestore().collection("users").doc(user.uid).get();
-        console.log('User document exists:', userDocument.exists);
-  
-        if (userDocument.exists) {
-          Alert.alert('Login Successful', 'Welcome back!');
-        } else {
-          Alert.alert('User not found', 'The phone number you entered is not registered.');
-          navigation.navigate(RouteAuth.SignUp, { uid: user.uid });
-        }
-      } else {
-        console.log('User session not active');
+        // Get the ID token
+        GlobalService.showLoading();
+        setPhoneNumber(phoneNumber)
+        const Token = await currentUser.getIdToken();
+        // console.log('User ID Token:', Token);
+        setToken(Token)
+        setTimeout(() => {
+          pushToastCustom(
+            'Login successful',
+            ETypeToastCustom.Success,
+            ToastPosition.BOTTOM,
+          );
+          GlobalService.hideLoading();
+        }, 1500);
+      } else { 
+        // console.log('User session not active');
         Alert.alert('Error', 'There was an issue with your login session.');
+        navigation.navigate(RouteAuth.LOGIN)
       }
     } catch (error) {
       console.error('OTP confirmation failed:', error);
@@ -82,9 +103,9 @@ export const InputOTP = () => {
     const subscriber = auth().onAuthStateChanged(user => {
       if (user && !!otpSubmitted) {
         // console.log('User is signed in:', user);
-        Alert.alert('Success', 'You have successfully logged in.');
+        // Alert.alert('Success', 'You have successfully logged in.');
       } else {
-        console.log('User is not signed in');
+        // console.log('User is not signed in');
       }
     });
     return subscriber; // unsubscribe on unmount

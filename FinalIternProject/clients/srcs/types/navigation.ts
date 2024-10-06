@@ -1,12 +1,13 @@
 
 import { ButtonBuyServiceProps } from "@component";
-import { RouteAuth, RouteMain, RouteTab } from "@constants";
+import { RouteAuth, RouteMain, RouteTabAdmin, RouteTabStaff, RouteTabUser } from "@constants";
 import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { FormsAddListRoom, FormsAddMoreService } from "./form";
 
 type HaveImgParams = {
- images?: string[];
+ images: string[];
  activeIndex: number;
 }
 type HaveIdParams = {
@@ -14,21 +15,33 @@ type HaveIdParams = {
 }
 
 type RouterScreen = 
-// RouteAuth | 
-RouteTab | RouteMain | RouteAuth;
+RouteTabAdmin | RouteTabUser | RouteTabStaff | RouteMain | RouteAuth;
 
 export type AppStackParamList = {
   //auth
   [RouteAuth.LOGIN]: HaveIdParams | undefined;
   [RouteAuth.SignUp]: {uid: string | undefined} | undefined;
   [RouteAuth.InputOTP]: {phoneNumber: string, confirm: FirebaseAuthTypes.ConfirmationResult  }; 
-    //main
-    [RouteTab.Tab]: undefined;
-    
-    [RouteTab.HomeTab]: undefined;
-    [RouteTab.ServiceTab]: undefined;
-    [RouteTab.MessageTab]: undefined;
-    [RouteTab.AccountTab]: undefined;
+    //user Tab
+    [RouteTabUser.Tab]: undefined;
+    [RouteTabUser.HomeTab]: undefined;
+    [RouteTabUser.ServiceTab]: undefined;
+    [RouteTabUser.MessageTab]: undefined;
+    [RouteTabUser.AccountTab]: undefined;
+
+    //Tab Staff
+    [RouteTabStaff.Tab]: undefined;
+    [RouteTabStaff.HomeTab]: undefined;
+    [RouteTabStaff.ServiceTab]: undefined;
+    [RouteTabStaff.MessageTab]: undefined;
+    [RouteTabStaff.AccountTab]: undefined;
+
+     //Tab Admin
+     [RouteTabAdmin.Tab]: undefined;
+     [RouteTabAdmin.HomeTab]: undefined;
+     [RouteTabAdmin.ServiceTab]: undefined;
+     [RouteTabAdmin.MessageTab]: undefined;
+     [RouteTabAdmin.AccountTab]: undefined;
 
     [RouteMain.RouteMain]: undefined;
 
@@ -50,7 +63,7 @@ export type AppStackParamList = {
     [RouteMain.TransportService]: undefined;
     [RouteMain.WaterService]: undefined;
     [RouteMain.SearchForNews]: undefined;
-    [RouteMain.DetailRoom]: undefined;
+    [RouteMain.DetailRoom]: {id: number};
     [RouteMain.ImageRoomDetail]: HaveImgParams;
     [RouteMain.LandlordInformationDetail]: undefined;
     [RouteMain.ProductDetails]:  {item: ButtonBuyServiceProps; quantity: number; cartCount: number };
@@ -62,7 +75,25 @@ export type AppStackParamList = {
     [RouteMain.ShoppingCartDetail]: undefined;
     [RouteMain.UpdateInformation]: undefined;
     [RouteMain.FindRoomAroundHere]: undefined;
-};
+
+    //Screen Admin
+    [RouteMain.ListCustomers]: undefined;
+    [RouteMain.CustomersInformationDetail]: undefined;
+    [RouteMain.CustomersInformationDetail]: undefined;
+    [RouteMain.ListStaffs]: undefined;
+    [RouteMain.ManageBuilding]: undefined;
+    [RouteMain.AddBuildingDetail]: undefined;
+    [RouteMain.AddListRoom]:  {
+      onCallbackSave: (item: FormsAddListRoom) => void;
+      onDelete: (roomId: string)=> void;
+      roomData: FormsAddListRoom | null; // roomData can be a room or null if not provided
+    };
+    [RouteMain.AddServiceFee]: { 
+      onCallBackServiceSave: (item: FormsAddMoreService) => void;
+      onDelete: (serviceId: string)=> void;
+      serviceData: FormsAddMoreService | null;
+    };
+  };
 export type TAppNavigation<T extends RouterScreen> = NativeStackNavigationProp<
   AppStackParamList,
   T

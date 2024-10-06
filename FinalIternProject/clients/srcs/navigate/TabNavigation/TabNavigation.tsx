@@ -1,6 +1,6 @@
 
 import { Icons } from '@assets';
-import { LabelTab, RouteTab } from '@constants';
+import { LabelTab, RouteTabUser } from '@constants';
 import {BottomTabBarProps, createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Screens } from '@screens';
@@ -22,27 +22,27 @@ const MainStack = createStackNavigator();
 
 const TabNavigator = () => {
   const TAB_BAR: ITabBar = {
-    [RouteTab.HomeTab]: {
-      name: RouteTab.HomeTab,
-      route: Screens.HomeScreen,
+    [RouteTabUser.HomeTab]: {
+      name: RouteTabUser.HomeTab,
+      route: Screens.User.HomeScreen,
       Icon: Icons.Home,
       label: LabelTab.Home,
     },
-    [RouteTab.ServiceTab]: {
-      name: RouteTab.ServiceTab,
-      route: Screens.ServiceScreen,
+    [RouteTabUser.ServiceTab]: {
+      name: RouteTabUser.ServiceTab,
+      route: Screens.User.ServiceScreen,
       Icon: Icons.Service,
       label: LabelTab.Service,
     },
-    [RouteTab.MessageTab]: {
-      name: RouteTab.MessageTab,
-      route: Screens.MessageScreen,
+    [RouteTabUser.MessageTab]: {
+      name: RouteTabUser.MessageTab,
+      route: Screens.User.MessageScreen,
       Icon: Icons.Message,
       label: LabelTab.Message,
     },
-    [RouteTab.AccountTab]: {
-      name: RouteTab.AccountTab,
-      route: Screens.AccountScreen,
+    [RouteTabUser.AccountTab]: {
+      name: RouteTabUser.AccountTab,
+      route: Screens.User.AccountScreen,
       Icon: Icons.AccountCircle,
       label: LabelTab.Account,
     },
@@ -51,7 +51,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
-      initialRouteName={RouteTab.HomeTab}
+      initialRouteName={RouteTabUser.HomeTab}
     tabBar={(props: BottomTabBarProps) => (
       <CustomTabBar {...props} tabBar={TAB_BAR} />
     )}

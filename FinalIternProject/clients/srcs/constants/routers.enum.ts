@@ -1,10 +1,27 @@
-export enum RouteTab {
+export enum RouteTabUser {
     Tab = 'tab',
     HomeTab = 'home_tab',
     ServiceTab = 'service_tab',
     MessageTab = 'message_tab',
     AccountTab = 'account_tab',
-}
+};
+
+export enum RouteTabStaff {
+    Tab = 'tab_staff',
+    HomeTab = 'home_tab_staff',
+    ServiceTab = 'service_tab_staff',
+    MessageTab = 'message_tab_staff',
+    AccountTab = 'account_tab_staff',
+};
+
+export enum RouteTabAdmin {
+    Tab = 'tab_admin',
+    HomeTab = 'home_tab_admin',
+    ServiceTab = 'service_tab_admin',
+    MessageTab = 'message_tab_admin',
+    AccountTab = 'account_tab_admin',
+};
+
 export enum RouteAuth {
     // INTRO = 'intro',
     LOGIN = 'login',
@@ -47,9 +64,30 @@ export enum RouteMain {
     ShoppingCartDetail = 'shopping_cart_detail',
     UpdateInformation = 'update_information',
     FindRoomAroundHere = 'find_room_around_here',
+
+    //Screen Admin
+    ListCustomers = 'list_customers',
+    CustomersInformationDetail = 'customers_information_detail',
+    ListStaffs = 'list_staffs',
+    ManageBuilding = 'manage_building',
+    AddBuildingDetail = 'add_building_detail',
+    AddListRoom = 'add_list_room',
+    AddServiceFee = 'add_service_fee',
 }
 
 export enum LabelTab {
+    Home = 'Home',
+    Service = 'Service',
+    Message = 'Message',
+    Account = 'Account',
+}
+export enum LabelTabStaff {
+    Home = 'Home',
+    Service = 'Service',
+    Message = 'Message',
+    Account = 'Account',
+}
+export enum LabelTabAdmin {
     Home = 'Home',
     Service = 'Service',
     Message = 'Message',

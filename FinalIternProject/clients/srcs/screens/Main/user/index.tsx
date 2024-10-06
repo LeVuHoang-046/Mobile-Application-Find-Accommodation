@@ -1,0 +1,73 @@
+import {
+  Notification,
+  DetailRoom,
+  FindRoomAroundHere,
+  ImageRoomDetail,
+  LandlordInformationDetail,
+  SearchForNews,
+} from './home';
+import {
+  DesignRoomService,
+  GasService,
+  LaundryService,
+  RepairService,
+  TransportService,
+  WaterService,
+  ProductDetails,
+  ImageProductDetails,
+  ShoppingCartDetail,
+  OrderConfirmationDetail,
+} from './service';
+import {MessageDetail} from './message';
+import {
+  AppointmentSchedule,
+  Bills,
+  Contracts,
+  LikedPost,
+  ManaPost,
+  ManaServiceOrder,
+  ReportProblem,
+  TermPolicies,
+  UpdateInformation,
+  RoomSearchPost,
+  RoommateSearchPost,
+} from './account';
+import {HomeScreen, MessageScreen, ServiceScreen, AccountScreen} from './tab';
+import {SearchPosting} from './SearchPosting';
+
+const ScreensUser = {
+  HomeScreen,
+  MessageScreen,
+  ServiceScreen,
+  AccountScreen,
+  AppointmentSchedule,
+  Bills,
+  Contracts,
+  LikedPost,
+  ManaPost,
+  ManaServiceOrder,
+  ReportProblem,
+  TermPolicies,
+  DesignRoomService,
+  GasService,
+  LaundryService,
+  Notification,
+  RepairService,
+  TransportService,
+  WaterService,
+  SearchPosting,
+  SearchForNews,
+  DetailRoom,
+  ImageRoomDetail,
+  LandlordInformationDetail,
+  ProductDetails,
+  ImageProductDetails,
+  MessageDetail,
+  RoomSearchPost,
+  RoommateSearchPost,
+  OrderConfirmationDetail,
+  ShoppingCartDetail,
+  UpdateInformation,
+  FindRoomAroundHere,
+};
+export {ScreensUser};

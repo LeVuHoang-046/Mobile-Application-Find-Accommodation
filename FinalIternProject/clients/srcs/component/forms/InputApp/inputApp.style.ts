@@ -24,7 +24,18 @@ export const stylesheetInputApp = createStyleSheet(theme => ({
     fontSize: FontSize.Font12,
     fontWeight: '600',
     paddingHorizontal: scaler(8),
-    flex: DEVICE.isAndroid ? 0 : 1,
+    flex: DEVICE.isAndroid ? 1 : 0,
+    paddingVertical: 0,
+
+  },
+  textForm: {
+    color: theme.colors.gray2,
+    fontFamily: 'Mulish-SemiBold',
+    borderRadius: scaler(5),
+    fontSize: FontSize.Font12,
+    fontWeight: '600',
+    paddingHorizontal: scaler(8),
+    flex: DEVICE.isAndroid ? 1 : 0,
     paddingVertical: 0,
   },
 }));

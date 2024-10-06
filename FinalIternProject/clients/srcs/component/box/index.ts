@@ -8,3 +8,7 @@ export * from './BoxButtonsForm';
 export * from './BoxRoomDetailInformation';
 export * from './BoxInformationRoomNumber';
 export *from './BoxInformationIconService';
+export * from './BoxFeature';
+export * from './BoxListUsers';
+export * from './BoxServiceFee';
+export * from './BoxButtonConfirm';
