@@ -132,6 +132,10 @@ const MainStackComponent = memo(() => {
           name={RouteMain.FindRoomAroundHere}
           component={Screens.User.FindRoomAroundHere}
         />
+        <MainStack.Screen
+          name={RouteMain.ScheduleSuccessfully}
+          component={Screens.User.ScheduleSuccessfully}
+        />
       </MainStack.Navigator>
       <StatusBar barStyle="dark-content" />
     </>

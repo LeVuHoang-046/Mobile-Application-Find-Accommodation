@@ -9,9 +9,8 @@ export const AddBuildingDetailSchema = z.object({
     title: z.string().min(1,'Title is require'),
     address: z.string().min(1, 'Address is require'),
     roomType: z.object({
-        label: z.string().min(1, 'Room type is require'),
-        value: z.string().min(1, 'Room type is require'),
-      }),
+      label: z.string().min(1, 'Room type is required'),
+    }),
     parkingSpaces: z.string().nullable(),
     describe: z.string().nullable(),
     listAddRoom: z.array(z.any()).min(1, 'At least one room is required'),

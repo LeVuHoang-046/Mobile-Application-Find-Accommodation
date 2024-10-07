@@ -45,6 +45,7 @@ export const BoxDependableLandlord: React.NamedExoticComponent<BoxDependableLand
         price: priceText,
       },
     ];
+    
 
     return (
       <>

@@ -20,13 +20,15 @@ import {stylesheet} from '../../style';
 import ImagePicker, {Image, Video} from 'react-native-image-crop-picker';
 import {Image as RNImage} from 'react-native';
 import VideoPlayer from 'react-native-video';
+import { useQuerInteriorsFilter, useQueryFacilitiesFilter } from '@api';
+import { getIconById, mapGender } from '@utils';
 
 export const FormRoomInformation: React.FC = memo(() => {
   const {styles} = useStyles(stylesheet);
 
-  const init = Array(5)
+  const init = Array(3)
     .fill(0)
-    .map((_, i) => ({label: `label: ${i}`, value: String(i)}));
+    .map((_, i) => ({label: mapGender(i), id: (i)}));
   const {
     watch,
     getValues,
@@ -40,6 +42,24 @@ export const FormRoomInformation: React.FC = memo(() => {
 
   const [imageRoom, setImageRoom] = useState<Image[]>(watch('imageRoom') || []);
   const [videoRoom, setVideoRoom] = useState<Video[]>(watch('videoRoom') || []);
+
+  const {data: facilities} = useQueryFacilitiesFilter();
+ 
+  const {data: interiors} = useQuerInteriorsFilter();
+
+  const facilitiesList = facilities?.map(facility => ({
+    id: facility.id, 
+    icon: ({ size, color }: any) => getIconById(facility.icon) || <Icons.Person size={size} color={color} />, // Provide a default icon if null
+    label: facility.name,
+    
+  })) || [];
+
+  const interiorsList = interiors?.map(interior => ({
+    id: interior.id,
+    icon: ({ size, color }: any) => getIconById(interior.icon) || <Icons.Person size={size} color={color} />, // Provide a default icon if null
+    label: interior.name,
+  })) || [];
+
   // Function to handle image picking
   const handleSelectImage = () => {
     ImagePicker.openPicker({
@@ -65,6 +85,28 @@ export const FormRoomInformation: React.FC = memo(() => {
         console.log('Error picking images: ', error);
       });
   };
+  const formData = new FormData()
+ // Function to log FormData contents
+const logFormDataParts = (formData:any) => {
+  const parts = formData['_parts'];
+  console.log('FormData parts:', parts);
+};
+
+// After appending images to formData
+imageRoom.forEach(image => {
+  formData.append('imageRoom[]', {
+    uri: image.path,
+    type: image.mime,
+    name: image.path.split('/').pop(),
+  });
+});
+
+// Log FormData parts
+logFormDataParts(formData);
+
+
+
+
   const handleDeleteImage = (index: number) => {
     const updatedImages = imageRoom.filter((_, i) => i !== index);
     setImageRoom(updatedImages);
@@ -224,10 +266,16 @@ export const FormRoomInformation: React.FC = memo(() => {
         <BottomSheetPickerMultilineApp
           style={styles.picker(!!errors.facilities)}
           listSelected={watch('facilities')}
-          list={init}
+          list={facilitiesList}
           keySheet={EKeySheet.Facilities}
           onChange={list => {
-            setValue('facilities', list, {shouldDirty: true});
+            const updatedFacilities = list.map(facility => ({
+              id: facility.id, // Ensure `id` is passed along
+              label: facility.label,
+              icon: facility.icon,
+            }));
+        
+            setValue('facilities', updatedFacilities, { shouldDirty: true });
             if (!!errors.facilities) {
               clearErrors('facilities');
             }
@@ -238,10 +286,16 @@ export const FormRoomInformation: React.FC = memo(() => {
         <BottomSheetPickerMultilineApp
           style={styles.picker(!!errors.interior)}
           listSelected={watch('interior')}
-          list={init}
+          list={interiorsList}
           keySheet={EKeySheet.Interior}
           onChange={list => {
-            setValue('interior', list, {shouldDirty: true});
+            const updatedInteriors = list.map(interior => ({
+              id: interior.id, // Ensure `id` is passed along
+              label: interior.label,
+              icon: interior.icon,
+            }));
+        
+            setValue('interior', updatedInteriors, { shouldDirty: true });
             if (!!errors.interior) {
               clearErrors('interior');
             }

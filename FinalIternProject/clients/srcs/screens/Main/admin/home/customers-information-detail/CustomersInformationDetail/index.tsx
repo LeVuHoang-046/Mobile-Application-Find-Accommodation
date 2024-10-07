@@ -1,3 +1,4 @@
+import { useQueryUsersByRole } from '@api';
 import {Icons} from '@assets';
 import {
   Absolute,
@@ -11,16 +12,27 @@ import {
   Row,
   TextApp,
 } from '@component';
+import { ETypeRoles, RouteMain } from '@constants';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import {FontSize, scaler} from '@themes';
+import { AppStackParamList } from '@types';
 import {createStyleSheet, useStyles} from 'react-native-unistyles';
+
+type CustomersInformationDetailScreenRouteProp = RouteProp<
+  AppStackParamList,
+  RouteMain.CustomersInformationDetail
+>;
 
 const CustomersInformationDetailScreen: React.FC<PerformanceNavigationHOC> = ({
   navigateFinish,
 }) => {
   const {styles, theme} = useStyles(stylesheet);
+
+  const route = useRoute<CustomersInformationDetailScreenRouteProp>();
+  const {item} = route.params
   return (
     <Box flex={1}>
-      <HeaderApp title="Landlord information" goBack />
+      <HeaderApp title="User information" goBack />
       {navigateFinish ? (
         <PageScreen contentContainerStyle={styles.pageScreen}>
           <Box height={scaler(120)} color={'pink'}>
@@ -31,7 +43,7 @@ const CustomersInformationDetailScreen: React.FC<PerformanceNavigationHOC> = ({
               <Box rowGap={scaler(15)} align="center">
                 <AvatarUser size={100} />
                 <TextApp textAlign="center" weight={700} size={FontSize.Font16}>
-                  Le Vu Hoang
+                  {item.fullName}
                 </TextApp>
               </Box>
             </Row>
@@ -48,7 +60,7 @@ const CustomersInformationDetailScreen: React.FC<PerformanceNavigationHOC> = ({
                 <Icons.Phone color={theme.colors.blue1} size={18} />
                 <TextApp weight={600}>Phone number</TextApp>
               </Row>
-              <TextApp size={FontSize.Font14}>0123456789</TextApp>
+              <TextApp size={FontSize.Font14}>{item.phone}</TextApp>
             </Box>
             <Box
               flex={1}
@@ -61,7 +73,7 @@ const CustomersInformationDetailScreen: React.FC<PerformanceNavigationHOC> = ({
                 <Icons.Email />
                 <TextApp weight={600}>Email</TextApp>
               </Row>
-              <TextApp size={FontSize.Font14}>admin12345@gmail.com</TextApp>
+              <TextApp size={FontSize.Font14}>{item.email}</TextApp>
             </Box>
           </Row>
         </PageScreen>

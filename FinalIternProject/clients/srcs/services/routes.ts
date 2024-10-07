@@ -1,6 +1,7 @@
 export const routes = {
     user: {
-        me: '/auth/user/me'
+        me: '/auth/user/me',
+        role: '/auth/users/role',
     },
     api: {
         boardinghouse: '/api/boarding-house',
@@ -14,7 +15,11 @@ export const routes = {
         filter:{
             facilities: '/api/filter/facilities',
             interiors: '/api/filter/interiors',
-        }
+            cities: '/api/filter/cities',
+            districts: (cities?: number) => `/api/filter/districts/${cities}`,
+            wards: (districts?: number) => `/api/filter/wards/${districts}`,
+        },
+        bookings: '/api/bookings',
       
     }
 }

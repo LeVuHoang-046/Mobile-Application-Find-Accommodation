@@ -1,6 +1,8 @@
 import {Icons} from '@assets';
 import {TouchableApp} from '@component/forms';
+import { Row } from '@component/layout';
 import {TextApp} from '@component/typography';
+import { ColorsStatic } from '@constants';
 import {scaler} from '@themes';
 import React, {useCallback} from 'react';
 import {Keyboard, StyleProp, ViewStyle} from 'react-native';
@@ -27,7 +29,7 @@ export const ButtonSelectCalenderPicker: React.FC<
   onPress,
   style,
   hideIcon = false,
-  Icon = <Icons.ChevronDown />,
+  Icon = <Icons.ChevronDown/>,
   disabled,
   empty,
   onRemoveValue,
@@ -48,6 +50,8 @@ export const ButtonSelectCalenderPicker: React.FC<
         disabled={disabled}
         onPress={handlePress}
         style={[styles.button, style]}>
+          <Row >
+          {Icon}
         <TextApp
           pl={scaler(12)}
           color={label ? theme.colors.text : theme.colors.gray3}
@@ -55,6 +59,8 @@ export const ButtonSelectCalenderPicker: React.FC<
           numberOfLines={1}>
           {label || placeholder}
         </TextApp>
+            
+          </Row>
       </TouchableApp>
     </>
   );
@@ -63,8 +69,9 @@ export const ButtonSelectCalenderPicker: React.FC<
 const stylesheet = createStyleSheet(theme => ({
   button: {
     backgroundColor: theme.colors.white,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     height: scaler(35),
+    marginHorizontal: scaler(25),
     justifyContent: 'center',
     borderRadius: scaler(5),
   },

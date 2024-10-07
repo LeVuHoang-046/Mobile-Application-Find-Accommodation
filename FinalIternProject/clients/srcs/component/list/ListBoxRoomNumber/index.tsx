@@ -26,9 +26,10 @@ export const ListBoxRoomNumber: React.FC<ListBoxRoomNumberProps> = ({
       {list.map((_, index) => (
         <BoxInformationRoomNumber
           key={index}
+          status={_.status}
           roomnNumber={_.roomnNumber}
           onpress={() => onPressRoom(_.roomnNumber!)}
-          isActive={activeRoomNumber === _.roomnNumber}
+          isActive={activeRoomNumber?.name === _.roomnNumber}
         />
       ))}
     </Row>

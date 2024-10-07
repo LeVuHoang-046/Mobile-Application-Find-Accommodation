@@ -247,7 +247,7 @@ export const BottomSheetPickerType: ForwardRefComponent<
                 ref={listRef}
                 key={String(title)}
                 stickyHeaderIndices={stickyHeaderIndices}
-                data={DATA}
+                data={list}
                 keyboardShouldPersistTaps="always"
                 keyExtractor={(_, i) => `${String(keySheet)}_${_?.value}_${i}`}
                 bounces={false}

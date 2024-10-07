@@ -22,7 +22,9 @@ export const SliderSwipe: React.FC<SliderSwipeProps> = ({
   const mainSliderRef = useRef<FlatList<any> | null>(null);
   const subSliderRef = useRef<FlatList<any> | null>(null);
 
-  const loopedData = [data[data.length - 1], ...data, data[0]];
+  // Ensure loopedData is created only if data is not empty
+  const loopedData = data.length > 0 ? [data[data.length - 1], ...data, data[0]] : [];
+
   useEffect(() => {
     if (data.length > 0) {
       setActiveIndex(0);
@@ -36,12 +38,13 @@ export const SliderSwipe: React.FC<SliderSwipeProps> = ({
   }, [data]);
 
   useEffect(() => {
-    scrollToSubItem(activeIndex);
-  }, [activeIndex]);
+    if (loopedData.length > 0) {
+      scrollToSubItem(activeIndex);
+    }
+  }, [activeIndex, loopedData]);
 
   const handleImagePress = useCallback(
     (index: number) => {
-
       onImagePress?.(index);
     },
     [onImagePress],
@@ -51,31 +54,35 @@ export const SliderSwipe: React.FC<SliderSwipeProps> = ({
     setActiveIndex(index);
     if (mainSliderRef.current) {
       const adjustedIndex = index + 1;
-      mainSliderRef.current.scrollToIndex({
-        index: adjustedIndex,
-        animated: true,
-      });
+      if (loopedData.length > 0) {
+        mainSliderRef.current.scrollToIndex({
+          index: adjustedIndex,
+          animated: true,
+        });
+      }
     }
-  }, []);
+  }, [loopedData]);
 
   const handleScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
     const index = Math.round(contentOffsetX / widthSlider);
 
-    if (index === 0) {
-      setActiveIndex(data.length - 1);
-      mainSliderRef.current?.scrollToIndex({
-        index: data.length,
-        animated: false,
-      });
-    } else if (index === loopedData.length - 1) {
-      setActiveIndex(0);
-      mainSliderRef.current?.scrollToIndex({
-        index: 1,
-        animated: false,
-      });
-    } else {
-      setActiveIndex(index - 1);
+    if (loopedData.length > 0) {
+      if (index === 0) {
+        setActiveIndex(data.length - 1);
+        mainSliderRef.current?.scrollToIndex({
+          index: data.length,
+          animated: false,
+        });
+      } else if (index === loopedData.length - 1) {
+        setActiveIndex(0);
+        mainSliderRef.current?.scrollToIndex({
+          index: 1,
+          animated: false,
+        });
+      } else {
+        setActiveIndex(index - 1);
+      }
     }
   };
 
@@ -92,17 +99,15 @@ export const SliderSwipe: React.FC<SliderSwipeProps> = ({
 
   const renderItem = useCallback(
     ({item, index}: {item: string; index: number}) => {
-  
-      return(
-      <TouchableApp activeOpacity={1} onPress={() => handleImagePress(index)}>
-        <Box width={widthSlider} height={scaler(250)}>
-          <ImageApp source={{uri: item}} style={styles.mainImage} />
-        </Box>
-      </TouchableApp>
-
-      )
+      return (
+        <TouchableApp activeOpacity={1} onPress={() => handleImagePress(index)}>
+          <Box width={widthSlider} height={scaler(250)}>
+            <ImageApp source={{uri: item}} style={styles.mainImage} />
+          </Box>
+        </TouchableApp>
+      );
     },
-    [activeIndex],
+    [handleImagePress, widthSlider],
   );
 
   const renderSubItem = useCallback(
@@ -125,6 +130,11 @@ export const SliderSwipe: React.FC<SliderSwipeProps> = ({
     ),
     [activeIndex],
   );
+
+  // Conditional rendering to prevent error when data is empty
+  if (loopedData.length === 0) {
+    return null; // or return a placeholder component
+  }
 
   return (
     <Box pb={scaler(20)} rowGap={scaler(15)}>

@@ -5,6 +5,7 @@ import {
   ImageRoomDetail,
   LandlordInformationDetail,
   SearchForNews,
+  ScheduleSuccessfully,
 } from './home';
 import {
   DesignRoomService,
@@ -69,5 +70,6 @@ const ScreensUser = {
   ShoppingCartDetail,
   UpdateInformation,
   FindRoomAroundHere,
+  ScheduleSuccessfully,
 };
 export {ScreensUser};

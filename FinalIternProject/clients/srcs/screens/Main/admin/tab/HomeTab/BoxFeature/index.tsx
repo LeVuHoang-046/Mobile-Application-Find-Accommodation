@@ -30,8 +30,9 @@ export const BoxFeature = () => {
       onPress: () => navigation.navigate(RouteMain.ManageBuilding)
     },
     {
-      icon: <Icons.WashingMachine />,
-      label: 'Washing machine',
+      icon: <Icons.Calendar size={20} color={ColorsStatic.blue9} />,
+      label: 'Manage Schedule',
+      onPress: () => navigation.navigate(RouteMain.ManageSchedule)
     },
     {
       icon: <Icons.Wardrobe />,

@@ -10,8 +10,8 @@ const heightRatio = height / 500;
 
 export const CONFIG_SSO = {
   BASE: {
-    URL: 'http://10.15.189.128:3000',
-    HOME:'http://192.168.1.3:3000'
+    URL: 'http://192.168.31.22:3000',
+    HOME:'http://192.168.1.8:3000'
   }
 }
 

@@ -18,10 +18,12 @@ export type FormsContract = {
 export type FormsSearchForNews = {
     search: string;
     price: ItemPickerType;
+    minPrice: string;
+    maxPrice: string;
     sortBy: ItemPickerType;
     area: ItemPickerType;
     roomType: ItemPickerType[];
-    postType: ItemPickerType[];
+    // postType: ItemPickerType[];
     amentitiesType: ItemPickerType[];
     interior: ItemPickerType[];
     sort: ESort;
@@ -45,7 +47,12 @@ export type FormsListStaffs = {
 export type FormsAddBuildingDetail = {
     title: string;
     address: string;
+    detail_address: string;
+    nameBuilding: string;
     roomType: ItemPickerType;
+    city_id: number | null;
+    district_id: number | null;
+    ward_id: number | null;
     parkingSpaces: string;
     describe: string;
     listAddRoom: Array<FormsAddListRoom>;
@@ -53,6 +60,36 @@ export type FormsAddBuildingDetail = {
 }
 
 export type FormsAddListRoom = {
+    id?: string;
+    roomNumber: string;
+    roomPrice: number | null;
+    deposit: number | null;
+    imageRoom: Image[];
+    videoRoom: Video[];
+    area: number | null;
+    floor: number | null;
+    capacity: number | null;
+    gender: ItemPickerType;
+    facilities: ItemPickerType[];
+    interior: ItemPickerType[];
+};
+
+export type FormsCreateRoom = {
+    id?: string;
+    roomNumber: string;
+    roomPrice: number | null;
+    deposit: number | null;
+    imageRoom: Image[];
+    videoRoom: Video[];
+    area: number | null;
+    floor: number | null;
+    capacity: number | null;
+    gender: ItemPickerType;
+    facilities: ItemPickerType[];
+    interior: ItemPickerType[];
+};
+
+export type FormsUpdateRoom = {
     id?: string;
     roomNumber: string;
     roomPrice: number | null;
@@ -75,4 +112,22 @@ export type FormsAddMoreService = {
     iconService: string;
     unit: string;
     note: string;
+}
+
+export type FormsMakeAnAppointment = {
+    time: number | null;
+};
+
+export type FormsManageBuilding = {
+    search: string;
+    price: ItemPickerType;
+    minPrice: string;
+    maxPrice: string;
+    sortBy: ItemPickerType;
+    area: ItemPickerType;
+    roomType: ItemPickerType[];
+    // postType: ItemPickerType[];
+    amentitiesType: ItemPickerType[];
+    interior: ItemPickerType[];
+    sort: ESort;
 }

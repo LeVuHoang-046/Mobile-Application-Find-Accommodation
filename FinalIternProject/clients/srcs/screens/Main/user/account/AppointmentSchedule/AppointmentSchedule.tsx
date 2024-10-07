@@ -1,6 +1,6 @@
-import React, { useCallback, useRef } from 'react';
-import { StyleSheet } from 'react-native';
-import { FormProvider, useForm } from 'react-hook-form';
+import React, {useCallback, useRef} from 'react';
+import {StyleSheet} from 'react-native';
+import {FormProvider, useForm} from 'react-hook-form';
 import {
   BottomSheetModalAppRef,
   Box,
@@ -11,13 +11,20 @@ import {
   performanceNavigation,
   PerformanceNavigationHOC,
 } from '@component';
-import { CalenderRangePickerHeader } from '@component/calender';
-import { ColorsStatic, defaultAppointmentScheduleValue, EDetailTab, EKeySheet } from '@constants';
-import { scaler } from '@themes';
-import { FormsAppointmentSchedule, TabPageType } from '@types';
-import { Confirmed, Diposited, Overdue, WaitConfirm } from './pages';
-import { TabPages } from '@component/tabs/TabPages';
-import { Icons } from '@assets';
+import {CalenderRangePickerHeader} from '@component/calender';
+import {
+  ColorsStatic,
+  defaultAppointmentScheduleValue,
+  EDetailTab,
+  EKeySheet,
+} from '@constants';
+import {scaler} from '@themes';
+import {FormsAppointmentSchedule, TabPageType} from '@types';
+import {Confirmed, Diposited, Overdue, WaitConfirm} from './pages';
+import {TabPages} from '@component/tabs/TabPages';
+import {Icons} from '@assets';
+import { usePhoneUserStore } from '@stores';
+import { useQueryUserInformation } from '@api';
 
 const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
   navigateFinish,
@@ -29,38 +36,40 @@ const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
   });
 
   const listTab: TabPageType[] = [
-    { title: 'Wait confirm', keyTab: EDetailTab.First },
-    { title: 'Confirmed', keyTab: EDetailTab.Second },
-    { title: 'Diposited', keyTab: EDetailTab.Third },
-    { title: 'Overdue', keyTab: EDetailTab.Fourth },
+    {title: 'Wait confirm', keyTab: EDetailTab.First},
+    {title: 'Confirmed', keyTab: EDetailTab.Second},
+    {title: 'Diposited', keyTab: EDetailTab.Third},
+    {title: 'Overdue', keyTab: EDetailTab.Fourth},
   ];
+  const {phoneNumber} = usePhoneUserStore();
+  const { data: users } = useQueryUserInformation(phoneNumber ?? '');
 
-  const renderItem = useCallback(({ item }: { item: TabPageType }) => {
+  const renderItem = useCallback(({item}: {item: TabPageType}) => {
     switch (item.keyTab) {
       case EDetailTab.First:
         return (
-          <PageScreen>
-            <WaitConfirm />
+          <PageScreen contentContainerStyle={{paddingHorizontal: 0}}>
+            <WaitConfirm dataUser={users}/>
           </PageScreen>
         );
       case EDetailTab.Second:
         return (
           <PageScreen>
-            <Confirmed />
+            <Confirmed dataUser={users}/>
           </PageScreen>
         );
-      case EDetailTab.Third:
-        return (
-          <PageScreen>
-            <Diposited />
-          </PageScreen>
-        );
-      case EDetailTab.Fourth:
-        return (
-          <PageScreen>
-            <Overdue />
-          </PageScreen>
-        );
+      // case EDetailTab.Third:
+      //   return (
+      //     <PageScreen>
+      //       <Diposited />
+      //     </PageScreen>
+      //   );
+      // case EDetailTab.Fourth:
+      //   return (
+      //     <PageScreen>
+      //       <Overdue />
+      //     </PageScreen>
+      //   );
       default:
         return <></>;
     }
@@ -75,23 +84,24 @@ const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
           IconRight={<Icons.Calendar />}
           onPressRight={() => calendarRef.current?.open()}
         />
-        
+
         {navigateFinish ? (
-          <Box
-            flex={1}
-            color={ColorsStatic.white}
-            ph={scaler(10)}
-            pt={scaler(16)}
-            pb={scaler(6)}
-            rowGap={scaler(12)}>
-           
-            <InputApp
-              name="Search"
-              control={forms.control}
-              placeholder="Search here..."
-              IconLeft={Icons.Search}
-              iconSize={20}
-            />
+          <Box flex={1}>
+            <Box
+              // flex={1}
+              color={ColorsStatic.white}
+              ph={scaler(10)}
+              pt={scaler(16)}
+              pb={scaler(6)}
+              rowGap={scaler(12)}>
+              <InputApp
+                name="Search"
+                control={forms.control}
+                placeholder="Search here..."
+                IconLeft={Icons.Search}
+                iconSize={20}
+              />
+            </Box>
             <TabPages
               list={listTab}
               renderItem={renderItem}
@@ -115,7 +125,9 @@ const AppointmentScheduleScreen: React.FC<PerformanceNavigationHOC> = ({
   );
 };
 
-export const AppointmentSchedule = performanceNavigation(AppointmentScheduleScreen);
+export const AppointmentSchedule = performanceNavigation(
+  AppointmentScheduleScreen,
+);
 
 const styles = StyleSheet.create({
   button: {

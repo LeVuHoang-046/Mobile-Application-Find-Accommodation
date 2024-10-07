@@ -2,7 +2,7 @@ import React, {useCallback, useRef, useState} from 'react';
 import {FlatList, StyleSheet, NativeSyntheticEvent, NativeScrollEvent} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Box, ImageApp, Row, TextApp, TouchableApp, Absolute} from '@component';
-import {ColorsStatic, screenWidth} from '@constants';
+import {ColorsStatic, CONFIG_SSO, screenWidth} from '@constants';
 import {FontSize, scaler} from '@themes';
 import { Icons } from '@assets';
 
@@ -27,7 +27,7 @@ export const SliderPressDetails = ({images, initialIndex = 0, onClose}: SliderPr
     ({item}: {item: string}) => (
       <Box width={screenWidth} height="100%">
         <ImageApp
-          source={{uri: item}}
+          source={{uri: `${CONFIG_SSO.BASE.HOME}/${item.replace(/\\/g, '/')}` }}
           style={styles.image}
           resizeMode="contain"
         />

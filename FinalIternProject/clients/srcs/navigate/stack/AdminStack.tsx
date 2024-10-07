@@ -45,6 +45,30 @@ const AdminStackComponent = memo(() => {
           name={RouteMain.AddServiceFee}
           component={Screens.Admin.AddServiceFee}
         />
+        <AdminStack.Screen
+          name={RouteMain.ManageSchedule}
+          component={Screens.Admin.ManageSchedule}
+        />
+        <AdminStack.Screen
+          name={RouteMain.ManaDetailRoom}
+          component={Screens.Admin.ManaDetailRoom}
+        />
+        <AdminStack.Screen
+          name={RouteMain.MessageChat}
+          component={Screens.Admin.MessageChat}
+        />
+        <AdminStack.Screen
+          name={RouteMain.ManaImageRoomDetail}
+          component={Screens.Admin.ManaImageRoomDetail}
+        />
+        <AdminStack.Screen
+          name={RouteMain.FormUpdateRoom}
+          component={Screens.Admin.FormUpdateRoom}
+        />
+          <AdminStack.Screen
+          name={RouteMain.FormCreateRoom}
+          component={Screens.Admin.FormCreateRoom}
+        />
 
       </AdminStack.Navigator>
     </>

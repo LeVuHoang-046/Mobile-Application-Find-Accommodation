@@ -14,14 +14,21 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import {useStyles} from 'react-native-unistyles';
 import {stylesheet} from '../../index.style';
+import { useQueryCities, useQueryDistricts } from '@api';
+import { useNavigation } from '@react-navigation/native';
+import { TAppNavigation } from '@types';
+import { RouteMain, RouteTabUser } from '@constants';
 
 type DistrictItem = {
   image: any;
   text: string;
   // action: () => void;
-};
+}; 
+interface BoxDistrictFindOutProps {
+  onDistrictPress?: (district: string) => void; // Add a prop for district press
+}
 
-export const BoxDistrictFindOut = () => {
+export const BoxDistrictFindOut: React.FC<BoxDistrictFindOutProps> = ({onDistrictPress}) => {
   const {styles, theme} = useStyles(stylesheet);
   const DistrictItems: DistrictItem[] = [
     {image: Images.imageBaDinh, text: 'Ba Đình'},
@@ -43,9 +50,14 @@ export const BoxDistrictFindOut = () => {
     text,
     // action,
   }) => {
+    const navigation = useNavigation<TAppNavigation<RouteTabUser.HomeTab>>();
+    const handleNavigate = () => {
+      // onDistrictPress(text);
+      navigation.navigate(RouteMain.SearchForNews, {district: text})
+    }
     return (
       <TouchableApp
-        //   onPress={action}
+          onPress={handleNavigate}
         style={styles.DistrictContainer}>
         <ImageApp source={image} style={styles.imageDistrict} />
         <LinearGradientShadow />
@@ -61,10 +73,17 @@ export const BoxDistrictFindOut = () => {
       </TouchableApp>
     );
   };
+
+  const navigation = useNavigation<TAppNavigation<RouteTabUser.HomeTab>>();
+  const handleNavigate = () => {
+    // onDistrictPress(text);
+    navigation.navigate(RouteMain.SearchForNews)
+  }
+
   return (
     <>
       <Box ph={scaler(10)} mt={scaler(130)}>
-        <BoxShowMore
+        <BoxShowMore onPress={handleNavigate}
         label='Find out'
         />
         <ScrollView horizontal>

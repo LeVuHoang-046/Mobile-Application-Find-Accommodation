@@ -1,7 +1,7 @@
 import z from 'zod';
 
 const optionSchema = z.object({
-  value: z.string().min(1, 'Value is required'),
+  icon: z.function().args().returns(z.unknown()).optional(), // Adjust according to how you handle the icon
   label: z.string().min(1, 'Label is required'),
 });
 
@@ -34,13 +34,15 @@ export const AddListRoomFormSchema = z.object({
     .refine(value => value >= 1, {
       message: 'Area must be a number greater than or equal to 1',
     }),
-  floor: z.number().nullable(),
-  capacity: z.number().nullable(),
   gender: z.object({
     label: z.string().nullable(),
-    value: z.string().nullable(),
   }),
   facilities: z.array(optionSchema).min(1, 'At least one facility is required'),
   interior: z.array(optionSchema).min(1, 'At least one interior type is required'),
+  imageRoom: z.array(
+    z.object({
+      path: z.string().min(1, 'Image path is required'),
+      mimeType: z.string().min(1, 'MIME type is required'),
+    })
+  ).min(1, 'At least one image is required'), // Require at least one image
 });
-

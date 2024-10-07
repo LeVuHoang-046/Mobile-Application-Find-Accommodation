@@ -5,6 +5,7 @@ import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { FormsAddListRoom, FormsAddMoreService } from "./form";
+import { BoardingHouseInfoType, RoomInfoType, UserMeType } from "./response.api";
 
 type HaveImgParams = {
  images: string[];
@@ -13,6 +14,18 @@ type HaveImgParams = {
 type HaveIdParams = {
   phoneNumber? : any;
 }
+export type BookingData = {
+  booking_id?: number;
+  customer_name?: string;
+  phone_number?: string;
+  booking_date: string | null;
+  boarding_house_title?: string;
+  boarding_house_id?: number;
+  status: number;
+  user_id?: number;
+
+}
+
 
 type RouterScreen = 
 RouteTabAdmin | RouteTabUser | RouteTabStaff | RouteMain | RouteAuth;
@@ -62,7 +75,7 @@ export type AppStackParamList = {
     [RouteMain.TermPolicies]: undefined;
     [RouteMain.TransportService]: undefined;
     [RouteMain.WaterService]: undefined;
-    [RouteMain.SearchForNews]: undefined;
+    [RouteMain.SearchForNews]: {district: string} | undefined;
     [RouteMain.DetailRoom]: {id: number};
     [RouteMain.ImageRoomDetail]: HaveImgParams;
     [RouteMain.LandlordInformationDetail]: undefined;
@@ -75,11 +88,12 @@ export type AppStackParamList = {
     [RouteMain.ShoppingCartDetail]: undefined;
     [RouteMain.UpdateInformation]: undefined;
     [RouteMain.FindRoomAroundHere]: undefined;
+    [RouteMain.ScheduleSuccessfully]: {bookingData: BookingData};
 
     //Screen Admin
     [RouteMain.ListCustomers]: undefined;
-    [RouteMain.CustomersInformationDetail]: undefined;
-    [RouteMain.CustomersInformationDetail]: undefined;
+    [RouteMain.CustomersInformationDetail]: {item: UserMeType};
+    // [RouteMain.StaffInformationDetail]: undefined;
     [RouteMain.ListStaffs]: undefined;
     [RouteMain.ManageBuilding]: undefined;
     [RouteMain.AddBuildingDetail]: undefined;
@@ -93,6 +107,12 @@ export type AppStackParamList = {
       onDelete: (serviceId: string)=> void;
       serviceData: FormsAddMoreService | null;
     };
+    [RouteMain.ManageSchedule]: undefined;
+    [RouteMain.ManaDetailRoom]: {id: number};
+    [RouteMain.MessageChat]: undefined;
+    [RouteMain.ManaImageRoomDetail]: HaveImgParams;
+    [RouteMain.FormUpdateRoom]: {roomData: RoomInfoType | null; onRoomUpdateRefetch: ()=> void};
+    [RouteMain.FormCreateRoom]: {item: BoardingHouseInfoType | undefined; onRoomCreated: ()=> void };
   };
 export type TAppNavigation<T extends RouterScreen> = NativeStackNavigationProp<
   AppStackParamList,

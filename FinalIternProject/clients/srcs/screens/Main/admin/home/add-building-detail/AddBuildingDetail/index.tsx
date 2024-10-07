@@ -8,6 +8,7 @@ import {
 } from '@component';
 import {
   ColorsStatic,
+  CONFIG_SSO,
   defaultAddBuildingDetail,
   ETypeToastCustom,
   RouteMain,
@@ -29,18 +30,22 @@ import {FormServiceFee} from './FormServiceFee';
 import {useStyles} from 'react-native-unistyles';
 import {FormAddListRoom} from './FormAddListRoom';
 import {stylesheet} from '../style';
-import { FormButtonFooter } from './FormButtonFooter/inedx';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { AddBuildingDetailSchema } from '@validates';
+import {FormButtonFooter} from './FormButtonFooter/inedx';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {AddBuildingDetailSchema} from '@validates';
+import {routes} from '@services';
+import {usePhoneUserStore} from '@stores';
+import {useQueryUserInformation} from '@api';
+import { revertTypeHouse } from '@utils';
 
 export const AddBuildingDetail: React.FC = () => {
   const {styles} = useStyles(stylesheet);
   const forms = useForm<FormsAddBuildingDetail>({
     defaultValues: defaultAddBuildingDetail,
-      resolver: zodResolver(AddBuildingDetailSchema),
+    resolver: zodResolver(AddBuildingDetailSchema),
     mode: 'onChange',
   });
-
+  // console.log('value:', forms.getValues('listAddRoom'));
   const navigation =
     useNavigation<TAppNavigation<RouteMain.AddBuildingDetail>>();
 
@@ -49,7 +54,10 @@ export const AddBuildingDetail: React.FC = () => {
   const modalWarningRef = useRef<ModalAppDetailRef>(null);
 
   const currentValues = forms.getValues();
-
+  
+ 
+  const {phoneNumber} = usePhoneUserStore();
+  const {data: users} = useQueryUserInformation(phoneNumber ?? '');
   // console.log('watch ', forms.watch('listAddMoreService'));
 
   const onSubmit = () => {
@@ -124,15 +132,56 @@ export const AddBuildingDetail: React.FC = () => {
     forms.trigger('listAddMoreService');
   };
 
-  const handlePressConfirm = () => {
+  const handlePressConfirm = async () => {
     modalWarningRef.current?.hide();
     const loading = pushToastLoading('Saving...');
-    // navigation.goBack();
-    setTimeout(() => {
-      pushToastCustom('Post succesfully', ETypeToastCustom.Success);
+
+    try {
+      const formData = forms.getValues();
+      const rooms = formData.listAddRoom;
+      const postData = {
+        city_id: formData.city_id,
+        district_id: formData.district_id,
+        ward_id: formData.ward_id,
+        detail_address: formData.detail_address,
+        staff_name: users?.fullName,
+        staff_phone: users?.phone,
+        title: formData.title,
+        email: users?.email,
+        name_building: formData.nameBuilding,
+        type_house: revertTypeHouse(formData.roomType.label),
+        parking_space: formData.parkingSpaces,
+        description: formData.describe,
+        rooms: rooms,
+      };
+
+      const response = await fetch(
+        `${CONFIG_SSO.BASE.HOME}${routes.api.boardinghouse}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(postData),
+        },
+      );
+      console.log('Response status:', response.status);
+  
+      
+      const result = await response.json();
+      console.log('Response data:', result);
+      if (response.ok) {
+        pushToastCustom('Post successfully', ETypeToastCustom.Success);
+        toast.dismiss(loading);
+        forms.reset(defaultAddBuildingDetail);
+      } else {
+        throw new Error(result.message || 'Failed to create boarding house.');
+      }
+    } catch (error) {
+      pushToastCustom('Post failed: ', ETypeToastCustom.Error);
+      console.error('Error:', error);
       toast.dismiss(loading);
-      // navigation.navigate(RouteApp.RegisterMakeUpLectures);
-    }, 2000);
+    }
   };
 
   return (
@@ -149,16 +198,14 @@ export const AddBuildingDetail: React.FC = () => {
               onCallBack={handleAddAndSave}
               onDelete={handleDeleteRoom}
             />
-            <FormServiceFee
+            {/* <FormServiceFee
               services={currentValues.listAddMoreService}
               onDelete={handleDeleteService}
               onCallBack={handleAddAndSaveService}
-            />
+            /> */}
           </Box>
         </ScrollView>
-        <FormButtonFooter
-        
-        />
+        <FormButtonFooter onCallbackSend={handlePressConfirm} />
         <ModalWarning
           ref={modalWarningRef}
           onPressAgree={handlePressConfirm}

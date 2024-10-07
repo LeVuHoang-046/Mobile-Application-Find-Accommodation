@@ -1,11 +1,16 @@
-import { ColorsStatic, EGender, EStorage, ETypeHouses, serviceIconsArray } from "@constants";
-import { ItemPickerType } from "@types";
+import {
+  ColorsStatic,
+  EGender,
+  EStorage,
+  ETypeHouses,
+  serviceIconsArray,
+} from '@constants';
+import {ItemPickerType} from '@types';
 import {PersistedClient, Persister} from '@tanstack/react-query-persist-client';
-import { storage } from "@storages";
-import { scaler } from "@themes";
+import {storage} from '@storages';
+import {scaler} from '@themes';
 
 type ClientState = PersistedClient;
-
 
 export const capitalizeFirstLetter = (string: string) => {
   if (!string) {
@@ -149,7 +154,19 @@ export const mapGender = (gender: number): EGender => {
     case 2:
       return EGender.Female;
     default:
-      return EGender.MaleFemale; 
+      return EGender.MaleFemale;
+  }
+};
+export const revertMapGender = (gender: string): number => {
+  switch (gender) {
+    case EGender.MaleFemale:
+      return 0;
+    case EGender.Male:
+      return 1;
+    case EGender.Female:
+      return 2;
+    default:
+      return 0;
   }
 };
 export const mapTypeHouse = (type?: number): ETypeHouses => {
@@ -160,10 +177,25 @@ export const mapTypeHouse = (type?: number): ETypeHouses => {
       return ETypeHouses.Apartment;
     case 2:
       return ETypeHouses.MiniApartment;
-      case 3:
-        return ETypeHouses.Homestay;
+    case 3:
+      return ETypeHouses.Homestay;
     default:
-      return ETypeHouses.Motel; 
+      return ETypeHouses.Motel;
+  }
+};
+export const revertTypeHouse = (houseType: string): number => {
+  switch (houseType) {
+    case ETypeHouses.Motel:
+      return 0;
+    case ETypeHouses.Apartment:
+      return 1;
+    case ETypeHouses.MiniApartment:
+      return 2;
+    case ETypeHouses.Homestay:
+      return 3;
+    // Add more cases as necessary
+    default:
+      return 0; // Default case if type is not recognized
   }
 };
 export const formatNumberWithCommas = (number: string) => {
@@ -172,5 +204,29 @@ export const formatNumberWithCommas = (number: string) => {
 
 export const getIconById = (id: string) => {
   const serviceIcon = serviceIconsArray.find(iconObj => iconObj.id === id);
-  return serviceIcon ? serviceIcon.icon({size: scaler(20), color: ColorsStatic.orange3}) : null; 
+  return serviceIcon
+    ? serviceIcon.icon({size: scaler(20), color: ColorsStatic.orange3})
+    : null;
+};
+
+export const formatDate = (timestamp: number | null): string => {
+  if (!timestamp) {
+    return ''; // Return an empty string or a placeholder if the timestamp is null
+  }
+  const date = new Date(timestamp);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+};
+
+export const formatDateTime = (timestamp: string | null): string => {
+  if (!timestamp) {
+    return ''; // Return an empty string or a placeholder if the timestamp is null
+  }
+  const date = new Date(timestamp);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
 };

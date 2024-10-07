@@ -18,22 +18,27 @@ export const BodyHomeTab = () => {
   const handleNavigate = (id: number) => {
     navigation.navigate(RouteMain.DetailRoom,{id})
   }
+
+
+  const handleNavigateNews = () => {
+    navigation.navigate(RouteMain.SearchForNews)
+  }
  
   return (
     <>
       <BoxDistrictFindOut />
       <Box ph={scaler(10)}>
-        <BoxShowMore label="Dependable lanlord" />
+        <BoxShowMore onPress={handleNavigateNews}  label="Dependable lanlord" />
         {data?.map((item, index) => (
           <BoxDependableLandlord onPress={()=>handleNavigate(item.id)} item={item} key={item.id} />
         ))}
-        <BoxShowMore label="Low-cost room" />
+        <BoxShowMore label="Low-cost room"/>
         <Row justify='space-between' flexWrap="wrap" rowGap={scaler(30)} pb={scaler(5)} >
           {fakeData.map((item, index) => (
             <BoxLowCostRoom onPress={()=>handleNavigate} item={item} key={index} />
           ))}
         </Row>
-        <BoxShowMore label="Looking for roommates" />
+        {/* <BoxShowMore label="Looking for roommates" />
         <ScrollView
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}
@@ -44,7 +49,7 @@ export const BodyHomeTab = () => {
           ))}
 
           </Row>
-        </ScrollView>
+        </ScrollView> */}
       </Box>
     </>
   );

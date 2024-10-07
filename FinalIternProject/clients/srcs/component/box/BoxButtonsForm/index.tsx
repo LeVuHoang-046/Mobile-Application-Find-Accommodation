@@ -16,7 +16,7 @@ export type BoxButtonsFormProps = {
   titleRightButton?: string;
   styleBtn?: StyleProp<ViewStyle>;
   onPressLeftButton?: () => void;
-  onPressRightButton?: () => void;
+  onPressRightButton?: (item: any) => void;
   insetBtn?: boolean;
   boxShadow?: boolean;
   iconLeft?: React.ReactNode;
@@ -26,7 +26,7 @@ export type BoxButtonsFormProps = {
 };
 
 export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
-  titleLeftButton = 'Report',
+  titleLeftButton,
   titleBetweenButton,
   titleRightButton = 'Scheduling a room viewing',
   onPressLeftButton,
@@ -59,6 +59,7 @@ export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
       right={0}
       style={[shadowContent,style]}>
       <Row>
+        {titleLeftButton && (
         <TouchableApp
           onPress={onPressLeftButton}
           style={[
@@ -80,6 +81,8 @@ export const BoxButtonsForm: React.FC<BoxButtonsFormProps> = ({
             </TextApp>
           </Row>
         </TouchableApp>
+
+        )}
         {titleBetweenButton && (
           <TouchableApp
             onPress={onPressRightButton}

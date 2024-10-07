@@ -64,6 +64,7 @@ export enum RouteMain {
     ShoppingCartDetail = 'shopping_cart_detail',
     UpdateInformation = 'update_information',
     FindRoomAroundHere = 'find_room_around_here',
+    ScheduleSuccessfully = 'schedule_successfully',
 
     //Screen Admin
     ListCustomers = 'list_customers',
@@ -73,6 +74,12 @@ export enum RouteMain {
     AddBuildingDetail = 'add_building_detail',
     AddListRoom = 'add_list_room',
     AddServiceFee = 'add_service_fee',
+    ManageSchedule ='manage_schedule',
+    ManaDetailRoom = 'mana_detail_room',
+    MessageChat = 'message_chat',
+    ManaImageRoomDetail = 'mana_image_room_detail',
+    FormUpdateRoom = 'form_update_room',
+    FormCreateRoom = 'form_create_room',
 }
 
 export enum LabelTab {

@@ -7,31 +7,53 @@ import {
   performanceNavigation,
   PerformanceNavigationHOC,
 } from '@component';
-import {FlatListApp} from '@component/FlatListApp';
-import {ColorsStatic, defaultListStaffsValue} from '@constants';
+import {ColorsStatic, defaultListCustomersValue, ETypeRoles} from '@constants';
 import {scaler} from '@themes';
-import {FormsListStaffs} from '@types';
-import {useCallback} from 'react';
+import {FormsListCustomers, UserMeType} from '@types';
 import {FormProvider, useForm} from 'react-hook-form';
-import {StyleSheet} from 'react-native';
-import {BoxListStaffs} from './BoxListStaffs';
+import { useCallback, useMemo } from 'react';
+import { FlatListApp } from '@component/FlatListApp';
+import { StyleSheet } from 'react-native';
+import { useQueryUsersByRole } from '@api';
+import { BoxListStaffs } from './BoxListStaffs';
 
 const ListStaffsScreen: React.FC<PerformanceNavigationHOC> = ({
   navigateFinish,
 }) => {
-  const forms = useForm<FormsListStaffs>({
-    defaultValues: defaultListStaffsValue,
+  const forms = useForm<FormsListCustomers>({
+    defaultValues: defaultListCustomersValue,
     mode: 'onChange',
   });
 
-  const renderItem = useCallback(({item}: {item: any}) => {
+  // Fetch users by role
+  const { data: users, error, isLoading } = useQueryUsersByRole(ETypeRoles.Staff);
+
+  // Watch for the search input value
+  const searchValue = forms.watch('search', ''); // Watching 'search', not 'Search'
+
+  // Filter the users based on the search value
+  const filteredUsers = useMemo(() => {
+    if (!users || !searchValue) return users || []; // Return full list if no search term
+
+    return users.filter((user: UserMeType) => 
+      user.fullName.toLowerCase().includes(searchValue.toLowerCase()) || 
+      user.phone.includes(searchValue)
+    );
+  }, [users, searchValue]);
+
+  // Render each customer
+  const renderItem = useCallback(({ item }: { item: UserMeType }) => {
     return <BoxListStaffs item={item} />;
   }, []);
+
+  if (isLoading) {
+    return <LoadingComponent />;
+  }
 
   return (
     <Box flex={1}>
       <FormProvider {...forms}>
-        <HeaderApp title="List staffs" goBack IconRight={<Icons.PlusVer2 />} />
+        <HeaderApp title="List customers" goBack />
         {navigateFinish ? (
           <Box flex={1}>
             <Box
@@ -40,9 +62,10 @@ const ListStaffsScreen: React.FC<PerformanceNavigationHOC> = ({
               pt={scaler(16)}
               pb={scaler(6)}
               rowGap={scaler(12)}
-              mb={scaler(10)}>
+              mb={scaler(10)}
+            >
               <InputApp
-                name="Search"
+                name="search" // Match the 'name' prop with what you're watching
                 control={forms.control}
                 placeholder="Search here..."
                 IconLeft={Icons.Search}
@@ -50,11 +73,12 @@ const ListStaffsScreen: React.FC<PerformanceNavigationHOC> = ({
               />
             </Box>
             <FlatListApp
-              data={Array(10).fill(0)}
+              data={filteredUsers} // Use filtered users
               renderItem={renderItem}
               refreshing={false}
               contentContainerStyle={styles.flatList}
               style={styles.flatListApp}
+              keyExtractor={(item) => (item.user_id ? item.user_id.toString() : Math.random().toString())}
             />
           </Box>
         ) : (
@@ -64,6 +88,7 @@ const ListStaffsScreen: React.FC<PerformanceNavigationHOC> = ({
     </Box>
   );
 };
+
 const styles = StyleSheet.create({
   flatList: {
     paddingHorizontal: 0,

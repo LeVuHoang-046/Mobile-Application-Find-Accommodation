@@ -41,35 +41,7 @@ export const Login = () => {
       setErrorMessage('Account does not exist in the system.');
     }
   };
-  // if (phoneNumber) {
-  //     const formattedPhoneNumber = `+84${phoneNumber.replace(/[^0-9]/g, '')}`;
-
-  //     try {
-  //         // Step 2: Check if the phone number is registered
-  //         const response = await fetch('http://10.15.189.161/auth/register', {
-  //             method: 'POST',
-  //             headers: {
-  //                 'Content-Type': 'application/json',
-  //             },
-  //             body: JSON.stringify({ phone: formattedPhoneNumber }),
-  //         });
-  //         const data = await response.json();
-
-  //         if (data.registered) {
-  //             // Step 3: Proceed with Firebase OTP if registered
-  //             const confirmation = await auth().signInWithPhoneNumber(formattedPhoneNumber);
-  //             setConfirm(confirmation);
-  //             navigation.navigate(RouteAuth.InputOTP, { phoneNumber: formattedPhoneNumber, confirm: confirmation });
-  //         } else {
-  //             // Step 4: Show an error message if not registered
-  //             Alert.alert('Error', 'This phone number is not registered.');
-  //         }
-  //     } catch (error) {
-  //         Alert.alert('Error', 'Failed to check registration or send OTP. Please try again.');
-  //     }
-  // } else {
-  //     Alert.alert('Error', 'Please enter a phone number.');
-  // }
+  
 
   return (
     <Box flex={1}>

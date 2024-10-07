@@ -98,7 +98,8 @@ export const BoxRoomDetail: React.NamedExoticComponent<BoxRoomDetailProps> =
 
     const listRooms: BoxInformationRoomNumberProps[] =
       rooms?.map(room => ({
-        roomnNumber: room.name, // Display room name as the room number
+        roomnNumber: room.name,
+        status: room.status, // Display room name as the room number
       })) || [];
 
     const handlePressRoomNumber = (roomNumber: string) => {

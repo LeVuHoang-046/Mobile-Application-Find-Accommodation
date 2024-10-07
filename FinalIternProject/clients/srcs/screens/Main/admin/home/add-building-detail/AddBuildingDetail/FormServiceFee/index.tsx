@@ -97,7 +97,9 @@ export const FormServiceFee: React.FC<FormAddMoreServiceProps> = memo(
             <Icons.PlusVer2 color={ColorsStatic.orange3} />
           </TouchableApp>
         </Row>
-        <ListBoxServiceFee services={services} list={list} />
+        {/* <ListBoxServiceFee 
+        services={services}
+         list={list} /> */}
         <ListBoxServiceFee
           onPress={handleServiceSelect}
           list={listService}

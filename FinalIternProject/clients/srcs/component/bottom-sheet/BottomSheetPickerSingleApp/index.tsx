@@ -107,15 +107,15 @@ export const BottomSheetPickerSingleApp: ForwardRefComponent<
       modalSheetBottomApp.current?.open();
     };
 
-    const handleChangeModal = (index: number) => {
-      if (!!itemSelected.value && index === 0 && list.length > 5) {
-        const findIndex = DATA?.findIndex(
-          _item => _item.value === itemSelected?.value,
-        );
+    // const handleChangeModal = (index: number) => {
+    //   if (!!itemSelected.value && index === 0 && list.length > 5) {
+    //     const findIndex = DATA?.findIndex(
+    //       _item => _item.value === itemSelected?.value,
+    //     );
 
-        listRef.current?.scrollToIndex({index: findIndex});
-      }
-    };
+    //     listRef.current?.scrollToIndex({index: findIndex});
+    //   }
+    // };
 
     const handleFocusDataPicker = () => {
       if (
@@ -130,7 +130,7 @@ export const BottomSheetPickerSingleApp: ForwardRefComponent<
     };
 
     const handlePress = (item: ItemPickerType) => {
-      const isSame = item?.value === itemSelected?.value;
+      const isSame = item?.label === itemSelected?.label;
       if (isSame) {
         if (!require) {
           onChange?.(isSame ? initItemPicker : item);
@@ -141,50 +141,50 @@ export const BottomSheetPickerSingleApp: ForwardRefComponent<
       modalSheetBottomApp.current?.close();
     };
 
-    const handleRemoveValue = useCallback(() => {
-      onChange?.(initItemPicker);
-    }, [onChange]);
+    // const handleRemoveValue = useCallback(() => {
+    //   onChange?.(initItemPicker);
+    // }, [onChange]);
 
-    const handlePressHeader = useCallback(() => {
-      modalSheetBottomApp.current?.close();
-    }, []);
+    // const handlePressHeader = useCallback(() => {
+    //   modalSheetBottomApp.current?.close();
+    // }, []);
 
-    const handleSearchHeader = useCallback((text: string) => {
-      setSearch(text);
-    }, []);
+    // const handleSearchHeader = useCallback((text: string) => {
+    //   setSearch(text);
+    // }, []);
 
-    const onEndReached = useCallback(() => {
-      if (hasNextPage && !isFetching) {
-        fetchNextPage?.();
-      }
-    }, [hasNextPage, fetchNextPage, isFetching]);
+    // const onEndReached = useCallback(() => {
+    //   if (hasNextPage && !isFetching) {
+    //     fetchNextPage?.();
+    //   }
+    // }, [hasNextPage, fetchNextPage, isFetching]);
 
-    const handleRefresh = useCallback(() => {
-      refetch?.();
-    }, [refetch]);
+    // const handleRefresh = useCallback(() => {
+    //   refetch?.();
+    // }, [refetch]);
 
-    const renderItem = useCallback(
-      ({item}: {item: ItemPickerType}) => {
-        return (
-          <ButtonPickerSingle
-            item={item}
-            onPress={handlePress}
-            value={itemSelected}
-            isHaveTitle={isHaveTitle}
-          />
-        );
-      },
-      [itemSelected, isHaveTitle],
-    );
+    // const renderItem = useCallback(
+    //   ({item}: {item: ItemPickerType}) => {
+    //     return (
+    //       <ButtonPickerSingle
+    //         item={item}
+    //         onPress={handlePress}
+    //         value={itemSelected}
+    //         isHaveTitle={isHaveTitle}
+    //       />
+    //     );
+    //   },
+    //   [itemSelected, isHaveTitle],
+    // );
 
-    const stickyHeaderIndices = useMemo(() => {
-      return DATA.reduce((acc: number[], item, index) => {
-        if (item.isTitle) {
-          acc.push(index);
-        }
-        return acc;
-      }, []);
-    }, [DATA]);
+    // const stickyHeaderIndices = useMemo(() => {
+    //   return DATA.reduce((acc: number[], item, index) => {
+    //     if (item.isTitle) {
+    //       acc.push(index);
+    //     }
+    //     return acc;
+    //   }, []);
+    // }, [DATA]);
 
     return (
       <>

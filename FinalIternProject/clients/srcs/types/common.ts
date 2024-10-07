@@ -1,5 +1,5 @@
 import { iconProps } from "@assets";
-import { EDetailTab } from "@constants";
+import { EDetailTab, ETypeHouses } from "@constants";
 import { MemoExoticComponent } from "react";
 import { ColorValue } from "react-native";
 import {DateData} from 'react-native-calendars';
@@ -18,6 +18,7 @@ export type ItemPickerType = {
   isAll?: boolean;
   isTitle?: boolean;
   code?: string;
+  type?: ETypeHouses;
 };
 
 export type ItemPickerDateType = {

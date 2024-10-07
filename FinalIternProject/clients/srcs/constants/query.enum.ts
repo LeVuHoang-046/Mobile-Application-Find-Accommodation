@@ -8,4 +8,9 @@ export enum EQueryKey {
     ImagesRoomType = 'images_room_type',
     FilterFacilities = 'filter_facilities',
     FilterInteriors = 'filter_interiors',
+    FilterCities = 'filter_cities',
+    FilterDistricts = 'filter_districts',
+    FilterWards = 'filter_wards',
+    UsersByRole = 'users_by_role',
+    BookingByStatus = 'booking_by_status',
 }

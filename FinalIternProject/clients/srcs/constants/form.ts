@@ -5,10 +5,14 @@ import {
   FormsAppointmentSchedule,
   FormsBills,
   FormsContract,
+  FormsCreateRoom,
   FormsListCustomers,
   FormsListStaffs,
+  FormsMakeAnAppointment,
+  FormsManageBuilding,
   FormsSearchForNews,
   FormsUpdateInformation,
+  FormsUpdateRoom,
 } from '@types';
 import {ESort} from './app.enum';
 import {initDatePicker, initItemPicker} from './common';
@@ -28,11 +32,13 @@ export const defaultContractValue: FormsContract = {
 
 export const defaultSearchForNewsValue: FormsSearchForNews = {
   search:'',
+  minPrice:'',
+  maxPrice:'',
   price: initItemPicker,
   sortBy: initItemPicker,
   area: initItemPicker,
   roomType: [],
-  postType: [],
+  // postType: [],
   amentitiesType: [],
   interior: [],
   sort: ESort.DESC,
@@ -56,14 +62,50 @@ export const defaultListStaffsValue: FormsListStaffs = {
 export const defaultAddBuildingDetail: FormsAddBuildingDetail = {
   title: '',
   address: '',
+  nameBuilding: '',
+  detail_address:'',
   roomType: initItemPicker,
+  city_id: null,
+  district_id: null,
+  ward_id: null,
   parkingSpaces: '',
   describe: '',
   listAddRoom: [],
   listAddMoreService: [],
 }
 
+
+
 export const defaultAddListRoomValue: FormsAddListRoom = {
+  id:'',
+  roomNumber: '',
+  roomPrice: null,
+  deposit: null,
+  imageRoom: [],
+  videoRoom:[],
+  area: null,
+  floor: null,
+  capacity: null,
+  gender: initItemPicker,
+  facilities: [],
+  interior: [],
+};
+export const defaultCreateRoomValue: FormsCreateRoom = {
+  id:'',
+  roomNumber: '',
+  roomPrice: null,
+  deposit: null,
+  imageRoom: [],
+  videoRoom:[],
+  area: null,
+  floor: null,
+  capacity: null,
+  gender: initItemPicker,
+  facilities: [],
+  interior: [],
+};
+
+export const defaultUpdateRoomValue: FormsUpdateRoom = {
   id:'',
   roomNumber: '',
   roomPrice: null,
@@ -86,4 +128,22 @@ export const defaultAddMoreServiceValue: FormsAddMoreService = {
   iconService: '',
   unit: '',
   note: '',
-}
+};
+
+export const defaultMakeAnAppointmentValue: FormsMakeAnAppointment = {
+  time: null,
+};
+
+export const defaultManageBuildingValue: FormsManageBuilding = {
+  search:'',
+  minPrice:'',
+  maxPrice:'',
+  price: initItemPicker,
+  sortBy: initItemPicker,
+  area: initItemPicker,
+  roomType: [],
+  // postType: [],
+  amentitiesType: [],
+  interior: [],
+  sort: ESort.DESC,
+};

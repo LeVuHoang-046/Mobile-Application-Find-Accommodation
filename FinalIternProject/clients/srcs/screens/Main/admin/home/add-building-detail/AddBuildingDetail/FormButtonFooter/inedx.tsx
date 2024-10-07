@@ -24,7 +24,8 @@ export const FormButtonFooter = memo(
       setValue,
     } = useFormContext<FormsAddBuildingDetail>();
 
-    const onError = async () => {
+    const onError = async (e: any) => {
+      console.log({e})
         await trigger();
         const errorMessages = Object.values(errors).map(error => error.message).join('\n');
         if (errorMessages) {
@@ -59,12 +60,15 @@ export const FormButtonFooter = memo(
       onCallbackSave?.(values);
       handleOnSuccess(loading);
     };
-
+   
     const handleCallbackAddAndBack = async () => {
       await handleValidationTrigger();
       const loading = pushToastLoading('Saving...');
-      const values = getValues();
-      onCallbackSend?.(values);
+      const values = getValues(); 
+      // console.log('hihih:', values)
+      if (onCallbackSend) {
+        onCallbackSend(values);
+      }
       handleOnSuccess(loading);
 
       //   storage.set(StorageKeys.CreateApplication, JSON.stringify(values));

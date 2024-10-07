@@ -16,7 +16,7 @@ export const ButtonPickerSingle: React.FC<ButtonPickerSingleProps> = ({
   isHaveTitle = false,
 }) => {
   const {styles, theme} = useStyles(stylesheet);
-  const selected = !!value && value?.value === item?.value;
+  const selected = !!value && value?.label === item?.label;
   return (
     <TouchableApp
     onPress={() => onPress?.(item)}

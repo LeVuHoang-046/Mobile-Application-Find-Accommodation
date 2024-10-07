@@ -3,3 +3,4 @@ export * from './ListBoxRoomNumber';
 export * from './ListButtonServiceTab';
 export * from './ListFeature';
 export * from './ListBoxServiceFee';
+export * from './ListManaBoxRoomNumber';

@@ -1,6 +1,7 @@
 import api from "@services/axiosClient";
 import { routes } from "@services/routes";
 import { BoardingHouseInfoType, FacilityType, ImagesRoomType, InteriorType, RoomInfoType } from "@types";
+import axios from "axios";
 
 // Function to get boarding house information
 export const getBoardingHouseInfo = async (): Promise<BoardingHouseInfoType[]> => {
@@ -53,6 +54,26 @@ export const getBoardingHouseDetailById = async (id: number): Promise<BoardingHo
     }
   };
 
+  export const updateRoomStatusById = async (roomId: number, status: number): Promise<void> => {
+    try {
+      await api.put(`/api/rooms/${roomId}/status`, { status });
+    } catch (error) {
+      console.error(`Error updating room status for room ID ${roomId}:`, error);
+      throw error;
+    }
+  };
+
+  export const deleteRoomById = async (roomId: number): Promise<void> => {
+    try {
+      await api.delete(`/api/boarding-house/rooms/${roomId}`);
+      console.log(`Room with ID ${roomId} has been deleted`);
+    } catch (error) {
+      console.error(`Error deleting room with ID ${roomId}:`, error);
+      throw error;
+    }
+  };
+  
+
   export const getFacilitiesByRoomId = async (room?: number): Promise<FacilityType[]> => {
     try {
       const res = await api.get<FacilityType[]>(`${routes.api.boardingHouse.facilities(room)}`);
@@ -80,5 +101,19 @@ export const getBoardingHouseDetailById = async (id: number): Promise<BoardingHo
     } catch (error) {
       console.error(`Error fetching images for room ID ${room}:`, error);
       throw error; 
+    }
+  };
+
+  export const createRoom = async (formData: FormData) => {
+    try {
+      const response = await axios.post('/api/rooms', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error in creating room:', error);
+      throw error;
     }
   };

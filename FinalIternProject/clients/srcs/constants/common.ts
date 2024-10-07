@@ -69,6 +69,25 @@ export enum ETypeHouses {
   Homestay = 'Homestay',
 }
 
+export enum EStatusBooking {
+  Pending = 0,
+  Comfirmed = 1,
+  Diposited = 2,
+  Overdue = 3, 
+  Approved = 4,
+  Cancelled = 5,
+}
+
+export enum EStatusRoom {
+  Available = 0,
+  Unavailable = 1
+}
+
+export const DefaultErrorForm = {
+  type: 'required',
+  message: 'required',
+};
+
 export const serviceIconsArray = [
   {id: 'toilet', icon: Icons.Toilet},
   {id: 'stair', icon: Icons.Stair},

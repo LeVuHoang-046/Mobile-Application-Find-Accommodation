@@ -12,3 +12,5 @@ export * from './BoxFeature';
 export * from './BoxListUsers';
 export * from './BoxServiceFee';
 export * from './BoxButtonConfirm';
+export * from './BoxButtonAvailable';
+export * from './BoxManaInformationRoomNumber';

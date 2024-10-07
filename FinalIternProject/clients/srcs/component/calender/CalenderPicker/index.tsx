@@ -26,7 +26,7 @@ export const CalenderPicker: ForwardRefComponent<
   CalenderPickerProps
 > = forwardRef(
   (
-    {title, keySheet, onChange, style, timestamp, placeholder = '__/__/__'},
+    {title, keySheet, onChange, style, timestamp, placeholder = 'choose date'},
     ref,
   ) => {
     const modalSheetBottomApp = useRef<BottomSheetModalAppRef>(null);
@@ -78,11 +78,11 @@ export const CalenderPicker: ForwardRefComponent<
           onPress={() => {
             modalSheetBottomApp.current?.open();
           }}
-          Icon={<Icons.Calendar/>}
+          Icon={<Icons.Calendar color={ColorsStatic.orange3}/>}
           style={style}
         />
         <BottomSheetModalApp
-          snapPoints={['50%']}
+          snapPoints={['55%']}
           ref={modalSheetBottomApp}
           keySheet={keySheet}>
           <Box flex={1}>

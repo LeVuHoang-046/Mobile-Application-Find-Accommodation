@@ -26,6 +26,7 @@ import {AddListRoomFormSchema} from '@validates';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {Icons} from '@assets';
+import { createRoom } from '@api/rooms';
 
 // type FormsAddListRoomRefs = {
 //   close: () => void;
@@ -46,9 +47,9 @@ export const AddListRoom: React.FC = () => {
   const forms = useForm<FormsAddListRoom>({
     defaultValues: roomData ? roomData : defaultAddListRoomValue,
     resolver: zodResolver(AddListRoomFormSchema),
-    mode: 'onChange',
+    mode: 'onSubmit',
   });
-  // console.log('Received room data:', roomData);
+
 
   const modalDetailRef = useRef<BottomSheetModalAppRef>(null);
   const modalWarningRef = useRef<ModalAppDetailRef>(null);
@@ -56,16 +57,61 @@ export const AddListRoom: React.FC = () => {
 
   const navigation = useNavigation<TAppNavigation<RouteMain.AddListRoom>>();
 
-  const onSubmit = () => {
-    console.log('from submit', forms.formState.errors);
-  };
+  const onSubmit = async (data: FormsAddListRoom) => {
+    try {
+        const loading = pushToastLoading('Saving...');
+        const facilitiesIds = forms.watch('facilities').map(facility => facility.id);
+        const InteriorsIds = forms.watch('interior').map(interior => interior.id);
+        const formData = new FormData();
+        
+        // Append images
+        data.imageRoom.forEach(image => {
+            formData.append('images[]', {
+                uri: image.path,
+                type: image.mime,
+                name: image.path.split('/').pop(),
+            });
+        });
+
+        // Append other room data
+        formData.append('name', data.roomNumber);
+        formData.append('price', data.roomPrice);
+        formData.append('area', data.area);
+        formData.append('deposit', data.deposit);
+        formData.append('floor', data.floor);
+        formData.append('capacity', data.capacity);
+        formData.append('gender', data.gender.id);
+        formData.append('boarding_house_id', 3);
+        facilitiesIds.forEach(facilityId => formData.append('facilities[]', facilityId));
+        InteriorsIds.forEach(interiorId => formData.append('interior[]', interiorId));
+
+        // Call the API to create the room with the form data
+        const response = await createRoom(formData);
+
+        if (response.success) {
+            pushToastCustom('Room added successfully!', ETypeToastCustom.Success);
+            navigation.goBack();
+        } else {
+            pushToastCustom('Failed to add room!', ETypeToastCustom.Error);
+        }
+        toast.dismiss(loading);
+    } catch (error) {
+        console.error('Error creating room:', error);
+        pushToastCustom('An error occurred while adding the room.', ETypeToastCustom.Error);
+    }
+};
+
+  
+
+
   const onError = () => {
     console.log('from submit error', forms.formState.errors);
   };
 
-  const handlePressAdd = useCallback(() => {
-    modalDetailRef.current?.open();
-  }, []);
+  const handlePressAdd = (item:any) => {
+    onSubmit(item);
+    onCallbackSave(item);
+  };
 
   const handleCallbackSend = () => {
     // navigation.goBack();
@@ -127,7 +173,7 @@ export const AddListRoom: React.FC = () => {
           </Box>
         </ScrollView>
         <FormButtonFooter
-          onCallbackSave={(item: FormsAddListRoom) => onCallbackSave(item)}
+          onCallbackSave={(item: FormsAddListRoom) => handlePressAdd(item)}
           existingRoom={roomData}
           // onCallbackSend={(item: FormsAddListRoom) => onCallbackSend(item)}
         />

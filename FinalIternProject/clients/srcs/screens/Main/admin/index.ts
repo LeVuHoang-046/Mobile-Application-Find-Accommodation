@@ -8,7 +8,15 @@ import {
   AddBuildingDetail,
   AddListRoom,
   AddServiceFee,
+  ManageSchedule,
+  ManaDetailRoom,
+  ManaImageRoomDetail,
+  FormUpdateRoom,
+  FormCreateRoom,
+ 
 } from './home';
+
+import {MessageChat} from './message';
 
 const ScreensAdmin = {
   HomeTab,
@@ -22,6 +30,13 @@ const ScreensAdmin = {
   AddBuildingDetail,
   AddListRoom,
   AddServiceFee,
+  ManageSchedule,
+  ManaDetailRoom,
+  MessageChat,
+  ManaImageRoomDetail,
+  FormUpdateRoom,
+  FormCreateRoom,
+
 };
 
 export {ScreensAdmin};

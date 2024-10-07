@@ -13,7 +13,7 @@ export const ButtonPicker: React.FC<ButtonPickerProps> = ({
   style,
   isHaveTitle = false,
 }) => {
-  const selected = !!value && value?.value === item?.value;
+  const selected = !!value && value?.label === item?.label;
 
   return (
     <Box pl={isHaveTitle && !item.isTitle ? scaler(20) : 0}>
